@@ -26,3 +26,6 @@ yarn-error.log*
 
 #next js
 .next
+
+#intellij
+.idea/**
