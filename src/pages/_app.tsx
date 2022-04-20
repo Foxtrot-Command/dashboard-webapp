@@ -10,6 +10,18 @@ function App({ Component, pageProps }: AppProps) {
       <Head>
         <title>FXD - Card Maker</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <link
+            rel="preload"
+            href="/fonts/impact.ttf"
+            as="font"
+            crossOrigin=""
+          />
+          <link
+            rel="preload"
+            href="/fonts/Inversionz Unboxed.ttf"
+            as="font"
+            crossOrigin=""
+          />
       </Head>
       <Component {...pageProps} />
     </>
