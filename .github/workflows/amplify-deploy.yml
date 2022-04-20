@@ -1,3 +1,5 @@
+name: Manual amplify deployment
+on: [push]
 deploy:
   runs-on: ubuntu-latest
   env:
