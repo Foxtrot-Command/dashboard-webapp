@@ -1,0 +1,11 @@
+deploy:
+  runs-on: ubuntu-latest
+  env:
+    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    AWS_DEFAULT_REGION: eu-west-3
+    AWS_DEFAULT_OUTPUT: json
+  steps:
+    - uses: actions/checkout@v2
+    - name: Deploy
+      run: ./scripts/amplify-deploy.sh dv3y8kw3qscv8 development
