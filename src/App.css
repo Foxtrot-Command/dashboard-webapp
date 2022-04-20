@@ -2,12 +2,12 @@
 
 @font-face {
   font-family: Impact;
-  src: url('./fonts/impact.ttf');
+  src: url('/fonts/impact.ttf');
 }
 
 @font-face {
   font-family: Inversionz;
-  src: url('./fonts/Inversionz Unboxed.ttf');
+  src: url('/fonts/Inversionz Unboxed.ttf');
 }
 
 html, body {
