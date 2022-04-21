@@ -1,5 +1,9 @@
 name: Manual amplify deployment
-on: [push]
+on:  
+  pull_request:
+    branches:
+      - master
+      - development
 jobs:
   deploy:
     runs-on: ubuntu-latest
