@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Copying pre-push hook into .git/hooks"
-cp pre-push ../.git/hooks/
-echo "Providing pre-push hook execution permission"
-chmod +x ../.git/hooks/pre-push
+echo "Getting githook path"
+hookpath=$(pwd)/.githooks
+echo "Telling git what are our path for hooks"
+git config --global core.hooksPath $hookpath
