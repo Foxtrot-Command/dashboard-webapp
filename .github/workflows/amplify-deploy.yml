@@ -1,4 +1,4 @@
-name: Manual amplify deployment
+name: CI Pr trigger
 on:  
   pull_request:
     branches:
