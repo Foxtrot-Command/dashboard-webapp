@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useReducer, useState } from 'react'
 
 import {
     CardWrapper,
@@ -9,7 +9,7 @@ import {
     Description,
     Attack,
     Health,
-    Race
+    Type
 } from "Components/CardGame";
 import {
     Box,
@@ -29,81 +29,110 @@ import {
     Radio,
     RadioGroup,
     Stack,
-    Tooltip
+    Tooltip,
+    InputRightElement,
+    InputGroup,
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalOverlay,
+    useDisclosure,
+    Select,
+    Text,
+    Badge
 } from '@chakra-ui/react';
-import { onCapture, svg_to_png } from 'utils';
+import { onCapture } from 'utils';
 
 import draftToHtml from 'draftjs-to-html';
 import dynamic from "next/dynamic"
-import { EditorState, convertToRaw } from "draft-js";
-const Editor: any = dynamic(
+import { EditorState, convertToRaw, ContentState } from "draft-js";
+
+const Editor = dynamic<EditorProps>(
     () => import('react-draft-wysiwyg').then((mod: any) => mod.Editor),
     { ssr: false }
 )
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
+
+let htmlToDraft: any = null;
+if (typeof window === 'object') {
+    htmlToDraft = require('html-to-draftjs').default;
+}
+
+import { PlusSquareIcon } from '@chakra-ui/icons';
+import { EditorProps } from 'react-draft-wysiwyg';
+import { cardData, factionArr, rarityArr } from 'Components/CardGenerator/Utils/RawData';
+
 const CardView = () => {
 
-    const [name, setCardName] = useState('');
     const [editorState, setEditorState] = useState<EditorState | any>(EditorState.createEmpty());
 
-    const [selectedFrame, setSelectedFrame] = useState('/images/parts/frames/rare/bushido.png');
     const [isSpell, setIsSpell] = useState<boolean>(false);
-    const [active, setActive] = useState<string>('')
-
-    const [rarity, setRarity] = useState<any>('Uncommon')
-    const [faction, setFaction] = useState<any>('Bushido')
-
-    const [stats, setStats] = useState<{ Mana: number, Health: number, Attack: number }>({
-        Mana: 1,
-        Health: 1,
-        Attack: 1
-    })
-
-    const handleSelection = (e: any) => {
-        setSelectedFrame(e);
-    }
 
     const onEditorStateChange = (editorState: any) => {
         setEditorState(editorState)
     }
 
-    const HandleSave = () => {
-        svg_to_png('image_final');
+    const [selectedImage, setSelectedImage] = useState<string | any>(null);
+
+    const initialState: any = {
+        cardName: '',
+        faction: 'Bushido',
+        rarity: 'Common',
+        searchValue: '',
+        mana: 1,
+        attack: 1,
+        health: 1,
+        cardType: 'Unit'
     }
 
-    const faction_arr = [
-        { name: 'Bushido', isDisabled: false },
-        { name: 'Gannicus', isDisabled: true },
-        { name: 'Forgotten', isDisabled: false },
-        { name: 'Fe Verde', isDisabled: true },
-        { name: 'Resistencia', isDisabled: true },
-    ];
-    const rarity_arr = [
-        { name: 'Common', color: '#FFFFFF', isDisabled: false },
-        { name: 'Uncommon', color: '#75D24B', isDisabled: false },
-        { name: 'Rare', color: '#0755FF', isDisabled: false },
-        { name: 'Epic', color: '#F840FF', isDisabled: false },
-        { name: 'Legendary', color: '#FFB908', isDisabled: true },
-    ];
+    function reducer(state, action) {
+        switch (action.type) {
+            case 'rarity':
+                return { ...state, rarity: action.rarity };
+            case 'faction':
+                return { ...state, faction: action.faction };
+            case 'cardName':
+                return { ...state, cardName: action.cardName };
+            case 'searchValue':
+                return { ...state, searchValue: action.searchValue };
+            case 'mana':
+                return { ...state, mana: action.mana };
+            case 'attack':
+                return { ...state, attack: action.attack };
+            case 'health':
+                return { ...state, health: action.health };
+            case 'cardType':
+                return { ...state, cardType: action.cardType };
+            case 'multiStatement':
+                return { ...state, ...action.payload };
+            default:
+                throw new Error();
+        }
+    }
+
+    const [state, dispatch] = useReducer(reducer, initialState);
 
     const FrameSelector = () => (
         <>
-            <Flex direction="column" gap={4}>
+            <Flex direction="column" gap={4} w="100%" position="relative">
 
-                <RadioGroup onChange={setFaction} value={faction}>
-                    <Stack direction='row'>
-                        {faction_arr.map(({ name, isDisabled }, index: number) => (
+                <RadioGroup onChange={(value) => dispatch({ type: 'faction', faction: value })} value={state.faction}>
+                    <HStack flexWrap="wrap">
+                        {factionArr.map(({ name, isDisabled }, index: number) => (
                             <Radio value={name} key={index} isDisabled={isDisabled}>{name}</Radio>
                         ))}
-                    </Stack>
+                    </HStack>
                 </RadioGroup>
 
-                <RadioGroup onChange={setRarity} value={rarity}>
+                <RadioGroup onChange={(value) => dispatch({ type: 'rarity', rarity: value })} value={state.rarity}>
                     <Stack direction='row'>
-                        {rarity_arr.map(({ name, color, isDisabled }, index: number) => (
+                        {rarityArr.map(({ name, color, isDisabled }, index: number) => (
                             <Radio value={name} key={index} isDisabled={isDisabled}>
-                                <Tooltip placement="auto" label={rarity}>
+                                <Tooltip placement="auto" label={name}>
                                     <Box w="32px" h="32px" bg={color} borderRadius={4}>
                                     </Box>
 
@@ -116,133 +145,256 @@ const CardView = () => {
         </>
     )
 
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
+    const handleImportSelection = (index: number) => {
+        const { name, description, stats, faction, rarity, image } = cardData[index]
+        dispatch({
+            type: 'multiStatement',
+            payload: {
+                cardName: name.toUpperCase(),
+                mana: stats.mana,
+                attack: stats.attack,
+                health: stats.health,
+                faction: faction,
+                rarity: rarity,
+                searchValue: ''
+            }
+        })
+
+        setSelectedImage(image)
+
+        const contentBlock = htmlToDraft(description);
+        if (contentBlock) {
+            const contentState = ContentState.createFromBlockArray(contentBlock);
+            const editorState = EditorState.createWithContent(contentState);
+            setEditorState(editorState)
+        }
+
+        onClose()
+    }
+
+    const filteredCardData = cardData.filter((content: any) => {
+        return content.name.toLowerCase().includes(state.searchValue.toLowerCase());
+    });
+
+
+    const imageHandler = (event: Event) => {
+        let reader = new FileReader();
+        reader.onload = function (e: any) {
+            setSelectedImage(e.target.result);
+        };
+        if (event.target instanceof HTMLInputElement && event.target.files) {
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    }
+
     return (
-        <Flex gap="4" mt="10px" width="100%" maxWidth="1280px" minH="777px" mx="auto" justifyContent="center" >
-
-            <Box w="50%" mt="0" height="100%" bg="whiteAlpha.100" p="20px" borderRadius={8}>
-                <HStack>
-                    <FormControl as={GridItem} colSpan={[6, 3]}>
-                        <FormLabel
-                            htmlFor="card_name"
-                            fontSize="sm"
-                            fontWeight="md"
-                            color="gray.700"
-                            _dark={{
-                                color: "gray.50",
-                            }}
-                        >
-                            Nombre de carta
-                        </FormLabel>
+        <>
+            <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay id="import-modal" />
+                <ModalContent>
+                    <ModalHeader>Lista de Cartas</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
                         <Input
-                            type="text"
-                            name="first_name"
-                            id="first_name"
-                            autoComplete="given-name"
-                            mt={1}
-                            focusBorderColor="brand.400"
-                            shadow="sm"
-                            size="sm"
-                            w="full"
-                            rounded="md"
-                            value={name}
-                            onChange={(e) => setCardName(e.target.value)}
-                        />
+                            type="search"
+                            placeholder="Busca por nombre de carta"
+                            onChange={(e) => dispatch({ type: 'searchValue', searchValue: e.target.value })}>
+                        </Input>
+                        <Flex direction="column" gap={2} mt={4}>
+                            {filteredCardData.map(({ name }, index: number) => (
+                                <>
+                                    <Button onClick={() => handleImportSelection(index)}>
+                                        {name}
+                                        <Box position="absolute" right={4} top={2}>
+                                        <Badge variant='subtle' colorScheme="orange">Test</Badge>
+                                        </Box>
+                                    </Button>
+                                </>
+                            ))}
+                        </Flex>
+                    </ModalBody>
 
-                    </FormControl>
-                    <HStack>
-                        {["Mana", "Attack", "Health"].map((key, index) => {
+                    <ModalFooter>
+                        <Button colorScheme='blue' mr={3} onClick={onClose}>
+                            Cerrar
+                        </Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
 
-                            return (
-                                <FormControl as={GridItem} colSpan={[6, 3]} key={index}>
-                                    <FormLabel
-                                        htmlFor="last_name"
-                                        fontSize="sm"
-                                        fontWeight="md"
-                                        color="gray.700"
-                                        _dark={{
-                                            color: "gray.50",
-                                        }}
-                                    >
-                                        {key}
-                                    </FormLabel>
-                                    <NumberInput
-                                        size="sm"
-                                        defaultValue={1}
-                                        max={15}
-                                        min={0}
-                                        clampValueOnBlur={false}
-                                        onChange={(value) => setStats({ ...stats, [key]: value })}
-                                    >
-                                        <NumberInputField />
-                                        <NumberInputStepper>
-                                            <NumberIncrementStepper />
-                                            <NumberDecrementStepper />
-                                        </NumberInputStepper>
-                                    </NumberInput>
-                                </FormControl>
-                            )
-                        })}
-                    </HStack>
-                </HStack>
-
-                <FormControl mt={2}>
-                    <FormLabel
-                        htmlFor="description"
-                        fontSize="sm"
-                        fontWeight="md"
-                        color="gray.700"
-                        _dark={{
-                            color: "gray.50",
-                        }}
-                    >
-                        Description
-                    </FormLabel>
-
-                    <Editor
-                        toolbar={{
-                            options: ['inline', 'textAlign', 'history'],
-                            inline: {
-                                inDropdown: false,
-                                options: ['bold', 'italic', 'underline', 'strikethrough'],
-                            },
-                            textAlign: { inDropdown: false },
-                            link: { inDropdown: false },
-                            history: { inDropdown: false },
-
-                        }}
-                        editorState={editorState}
-                        toolbarClassName="toolbar-classname"
-                        wrapperClassName="wrapperClassName"
-                        editorClassName="editorClassName"
-                        onEditorStateChange={onEditorStateChange}
-                    />
-                </FormControl>
-                <Flex gap={6} mt="10px">
-
-                    <FrameSelector />
-                </Flex>
-                <Button mt="10px" onClick={() => onCapture('image_final', name)}>Save</Button>
-            </Box>
-            <Box
-                h="50%"
-                p="40px"
-                bg="whiteAlpha.100"
-                borderRadius={8}
+            <Flex
+                gap="4"
+                mt="10px"
+                width="100%"
+                maxWidth="1280px"
+                minH="777px"
+                mx="auto"
+                justifyContent="center"
+                direction={{ base: "column-reverse", md: "row" }}
+                px={{ base: 4, md: 4 }}
             >
-                <CardWrapper id="image_final">
-                    <Image id="GVG_096" clip />
-                    <Frame image={`/images/parts/frames/${rarity.toLowerCase()}/${faction.toLowerCase()}.png`} />
-                    <Mana fontFamily="Inversionz Unboxed">{stats.Mana}</Mana>
-                    <Race fontFamily="Inversionz Unboxed">Unit</Race>
-                    <Health fontFamily="Inversionz Unboxed">{stats.Health}</Health>
-                    <Attack fontFamily="Inversionz Unboxed">{stats.Attack}</Attack>
-                    <Title fontFamily="Montserrat" flow>{name}</Title>
-                    <Description rich fontFamily="Montserrat">
-                        {draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-                    </Description>
-                </CardWrapper>
-            </Box>
-        </Flex >
+                <Box w={{ base: "100%", md: "50%" }} mt="0" height="100%" bg="whiteAlpha.100" p="20px" borderRadius={8}>
+                    <HStack>
+                        <FormControl as={GridItem} colSpan={[6, 3]}>
+                            <FormLabel
+                                htmlFor="card_name"
+                                fontSize="sm"
+                                fontWeight="md"
+                                color="gray.700"
+                                _dark={{
+                                    color: "gray.50",
+                                }}
+                            >
+                                Nombre de carta
+                            </FormLabel>
+                            <InputGroup size='md'>
+                                <Input
+                                    type="text"
+                                    name="first_name"
+                                    id="first_name"
+                                    autoComplete="given-name"
+                                    mt={1}
+                                    focusBorderColor="brand.400"
+                                    shadow="sm"
+                                    size="sm"
+                                    w="full"
+                                    rounded="md"
+                                    value={state.cardName}
+                                    onChange={(e) => dispatch({ type: 'cardName', cardName: e.target.value.toUpperCase() })}
+                                />
+                                <InputRightElement width='4.8rem' mr={1}>
+                                    <Button h='1.5rem' size='sm' onClick={onOpen}>
+                                        Importar
+                                    </Button>
+                                </InputRightElement>
+                            </InputGroup>
+                        </FormControl>
+                        <HStack>
+                            {["mana", "attack", "health"].map((key, index) => {
+
+                                return (
+                                    <FormControl as={GridItem} colSpan={[6, 3]} key={index}>
+                                        <FormLabel
+                                            htmlFor="last_name"
+                                            fontSize="sm"
+                                            fontWeight="md"
+                                            color="gray.700"
+                                            _dark={{
+                                                color: "gray.50",
+                                            }}
+                                        >
+                                            {key}
+                                        </FormLabel>
+                                        <NumberInput
+                                            size="sm"
+                                            defaultValue={1}
+                                            max={15}
+                                            min={0}
+                                            clampValueOnBlur={false}
+                                            value={state[key]}
+                                            onChange={(value) => dispatch({ type: key, [key]: value })}
+                                        >
+                                            <NumberInputField borderRadius={6} />
+                                            <NumberInputStepper>
+                                                <NumberIncrementStepper />
+                                                <NumberDecrementStepper />
+                                            </NumberInputStepper>
+                                        </NumberInput>
+                                    </FormControl>
+                                )
+                            })}
+                        </HStack>
+                    </HStack>
+
+                    <Flex mt={4}>
+                        <Box w="50%">
+
+                            <Box >
+                                <Editor
+
+                                    toolbar={{
+                                        options: ['inline', 'textAlign', 'history'],
+                                        inline: {
+                                            inDropdown: false,
+                                            options: ['bold', 'italic', 'underline', 'strikethrough']
+                                        },
+                                        textAlign: { inDropdown: false },
+                                        link: { inDropdown: false },
+                                        history: { inDropdown: false },
+
+                                    }}
+                                    editorState={editorState}
+                                    toolbarClassName="editor-toolbar"
+                                    wrapperClassName="editor-wrapper"
+                                    editorClassName="editor-box"
+                                    onEditorStateChange={onEditorStateChange}
+                                />
+                            </Box>
+                        </Box>
+                        <Flex direction="column" gap={2} w="50%" px={6}>
+                            <Box
+                                as="label"
+                                className="custom-file-upload"
+                                htmlFor="image-importer"
+                                h="auto"
+                            >
+                                <Box
+                                    bg="whiteAlpha.200"
+                                    px={2}
+                                    py={3}
+                                    borderRadius={6}
+                                    _hover={{
+                                        bg: "whiteAlpha.300"
+                                    }}
+                                >
+                                    <PlusSquareIcon /> Subir imagen
+                                </Box>
+
+                                <Input id="image-importer" type="file" onChange={(e: any) => { imageHandler(e); }}>
+                                </Input>
+                            </Box>
+                            <Select placeholder='Tipo de carta' onChange={(event: any) => dispatch({ type: 'cardType', cardType: event.target.value })}>
+                                <option value='Unit'>Unit</option>
+                                <option value='Vehicle'>Vehicle</option>
+                                <option value='Structure'>Structure</option>
+                                <option value='Tactic'>Tactic</option>
+                            </Select>
+                        </Flex>
+                    </Flex>
+
+                    <Flex gap={6} mt="10px">
+                        <FrameSelector />
+                    </Flex>
+                    <Button mt="10px" onClick={() => onCapture('image_final', state.cardName)}>Guardar</Button>
+                </Box>
+
+                <Box
+                    h="50%"
+                    p="40px"
+                    bg="whiteAlpha.100"
+                    borderRadius={8}
+                >
+                    <Box w={{ base: "50%", md: "100%" }} mx="auto" transition="all .2s ease-in-out">
+                        <CardWrapper id="image_final">
+                            <Image image={selectedImage} id="GVG_096" clip />
+                            <Frame image={`/images/parts/frames/${state.rarity.toLowerCase()}/${state.faction.toLowerCase()}.png`} />
+                            <Mana fontFamily="Inversionz Unboxed">{state.mana}</Mana>
+                            <Type fontFamily="Inversionz Unboxed">{state.cardType}</Type>
+                            <Health fontFamily="Inversionz Unboxed">{state.health}</Health>
+                            <Attack fontFamily="Inversionz Unboxed">{state.attack}</Attack>
+                            <Title fontFamily="Montserrat" flow>{state.cardName}</Title>
+                            <Description rich fontFamily="Montserrat">
+                                {draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+                            </Description>
+                        </CardWrapper>
+                    </Box>
+
+                </Box>
+            </Flex >
+        </>
+
     )
 }
 

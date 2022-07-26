@@ -88,20 +88,60 @@ body, html {
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
-.wrapperClassName {
-  border: 1px solid;
+.editor-wrapper {
+  border: 1px solid #9d9d9d30;
   border-radius: 3px;
+
 }
 
-.editorClassName {
+.editor-box {
   min-height: 80px;
-
 }
 
 .public-DraftStyleDefault-block {
   margin: 0;
   padding: 0;
   margin-top: 10px;
-  line-height: 1px;
+
   padding-left: 5px;
+}
+.editor-box:hover {
+  cursor: text;
+}
+
+.editor-toolbar {
+  background: #9d9d9d30 !important;
+  border: unset !important;
+  border-radius: 10px;
+}
+
+.rdw-option-wrapper {
+  background: rgba(213, 213, 213, 0.6) !important;
+  border: unset !important;
+}
+
+.editor-toolbar > .rdw-inline-wrapper > .rdw-option-wrapper:hover {
+  background: rgb(228 228 228 / 73%) !important;
+  border: unset !important;
+  box-shadow: unset !important;
+  width: 25px !important;
+}
+
+.rdw-option-active {
+  background: rgb(234, 234, 234) !important;
+  box-shadow: 2px 2px 0px #f2f2f2 inset !important;
+}
+
+.import-modal { 
+  overflow: hidden !important; 
+  max-width: 5%;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  cursor: pointer;
+}
+
+#image-importer {
+  display: none;
 }

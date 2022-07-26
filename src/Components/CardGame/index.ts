@@ -1,5 +1,5 @@
 export { default as CardWrapper } from './CardWrapper';
-export { default as Race } from './Race';
+export { default as Type } from './Type';
 export { default as Title } from './Title';
 export { default as Description } from './Description';
 export { default as Frame } from './Frame';

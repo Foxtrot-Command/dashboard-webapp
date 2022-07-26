@@ -1,4 +1,4 @@
-export const Image = ({ id, clip }) =>
+export const Image = ({ id, image, clip }) =>
     <image
         id={id}
         type="MSBitmapLayer"
@@ -6,7 +6,7 @@ export const Image = ({ id, clip }) =>
         y="0"
         width="580"
         height="1100"
-        href={"/images/Obliterator.jpg"}
+        href={image}
         clipPath={clip && "url(#image-clip-path)"}
     />;
 export default Image;

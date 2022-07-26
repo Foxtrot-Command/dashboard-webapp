@@ -15,6 +15,9 @@ import {
     useBreakpointValue,
     useDisclosure,
     Image,
+    Avatar,
+    WrapItem,
+    AvatarBadge,
 } from '@chakra-ui/react';
 
 import Link from 'next/link';
@@ -77,7 +80,7 @@ export default function Navbar() {
                     justify={'flex-end'}
                     direction={'row'}
                     spacing={6}>
-                    <Button
+                    {/* <Button
                         as={'a'}
                         fontSize={'sm'}
                         fontWeight={400}
@@ -95,7 +98,10 @@ export default function Navbar() {
                             bg: 'neutrals.300',
                         }}>
                         Sign Up
-                    </Button>
+                    </Button> */}
+                    <Avatar size="sm">
+                        <AvatarBadge boxSize='1.25em' bg='green.500' />
+                    </Avatar>
                 </Stack>
             </Flex>
 

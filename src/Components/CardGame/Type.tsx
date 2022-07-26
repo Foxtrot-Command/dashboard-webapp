@@ -1,5 +1,5 @@
-export const Race = ({ children, fontFamily }) =>
-    <g id="Race" transform="translate(110.000000, 940.000000)">
+export const Type = ({ children, fontFamily }) =>
+    <g id="Type" transform="translate(110.000000, 940.000000)">
         {/* <image
             id="race"
             type="MSBitmapLayer"
@@ -9,21 +9,21 @@ export const Race = ({ children, fontFamily }) =>
             height="106"
         href={require("../static/race.png")}
         /> */}
-        {children &&
+
             <text
-                id="Mech"
-                stroke="#000000"
-                strokeWidth="0px"
+                id="Type"
                 fill="#D8D8D8"
                 fontFamily={fontFamily || "sans-serif"}
-                paintOrder="stroke"
-                fontSize="48"
+                fontSize="40"
                 fontWeight="400"
+                letterSpacing="-6px"
+                dominant-baseline="middle" 
+                text-anchor="middle"
             >
-                <tspan x="224" y="95" fill="#FFF">
+                <tspan x="275" y="85" fill="#FFF">
                     {children}
                 </tspan>
-            </text>}
+            </text>
     </g>;
 
-export default Race;
+export default Type;
