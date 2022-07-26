@@ -24,9 +24,9 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "ssr": "next build",
     "start": "next start",
-    "ssg": "next build && next export"
+    "build": "next build && next export"
   },
   "devDependencies": {
     "@types/draft-js": "^0.11.9",
