@@ -23,8 +23,38 @@ export const saveAs = (blob: any, fileName: string) => {
 }
 
 export const onCapture = (id: any, cardName: string) => {
-    htmlToImage.toPng(document.getElementById(id)!)
+    htmlToImage.toPng(document.getElementById(id)!, { quality: 1})
         .then(function (dataUrl) {
             saveAs(dataUrl, `${cardName.toLowerCase()}.png`);
         });
+}
+
+export function svg_to_png(container) {
+    var wrapper: any = document.getElementById(container);
+    var svg: any = wrapper.querySelector("svg");
+
+    if (typeof window.XMLSerializer != "undefined") {
+        var svgData: any = (new XMLSerializer()).serializeToString(svg);
+    } else if (typeof svg.xml != "undefined") {
+        var svgData: any = svg.xml;
+    }
+
+    var canvas = document.createElement("canvas");
+    var svgSize = svg.getBoundingClientRect();
+    canvas.width = svgSize.width;
+    canvas.height = svgSize.height;
+    var ctx: any = canvas.getContext("2d");
+
+    var img = document.createElement("img");
+    img.setAttribute("src", "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData))) );
+
+    img.onload = function() {
+        ctx.drawImage(img, 0, 0);
+        var imgsrc = canvas.toDataURL("image/png");
+
+        var a = document.createElement("a");
+        a.download = container+".png";
+        a.href = imgsrc;
+        a.click();
+    };
 }

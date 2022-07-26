@@ -1,44 +1,67 @@
-import React, { Component } from 'react';
-import MainPage from 'Components/CardBox';
-import { Image, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Badge, Box, Container, Flex, Heading, Text } from '@chakra-ui/react';
+import Link from 'next/link';
 
-class App extends Component {
-  render() {
-    return (
-      <>
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-          <Container>
-            <Navbar.Brand href="#home" className="m-0">
-                <img className="fluid" style={{width: "128px"}} src="/images/fxd_logo.svg" />
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-              <Nav className="me-auto">
-                {/* <NavDropdown title="Generadores" id="collasible-nav-dropdown">
-                  <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                </NavDropdown> */}
-              </Nav>
-              {/* <Nav>
-                <Nav.Link href="#deets">More deets</Nav.Link>
-                <Nav.Link eventKey={2} href="#fxd">
-                  Foxtrot Cards
-                </Nav.Link>
-              </Nav> */}
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
-        <Container className="mt-3">
+const CardBoxElement = ({
+  title,
+  link = '/',
+  text = '',
+  color = 'purple'
+}) => {
+  return (
+    <Link href={link}>
+      <Box
+        w="230px"
+        h="110px"
+        bg="whiteAlpha.100"
+        borderRadius={6}
+        py={8}
+        px={4}
+        position="relative"
+        transition="all .2s ease-in-out"
+        _hover={{
+          transform: "translateY(-5px)",
+          transition: "all .2s ease-in-out",
+          cursor: "pointer",
+          bg: "whiteAlpha.200"
+        }}
 
-          <MainPage />
-        </Container>
+      >
+        <Text fontWeight="bold">
+          {title}
+        </Text>
 
-      </>
-    );
-  }
+        <Box position="absolute" left={4} top={2}>
+          <Text fontSize="13px" fontWeight="light">Generadores</Text>
+        </Box>
+
+        <Box position="absolute" right={4} bottom={2}>
+          <Badge variant='subtle' colorScheme={color}>{text}</Badge>
+        </Box>
+      </Box>
+    </Link>
+  )
 }
+const Home = () => {
+  return (
+    <Container maxW='3xl' minHeight="777px">
 
-export default App;
+      <Box as="section">
+
+        <Heading my={4}>
+          Herramientas
+        </Heading>
+        <Flex gap={5} flexWrap="wrap" justifyContent="space-between">
+
+          <CardBoxElement title="Cartas" link="/generators/card" color="purple" text="Beta" />
+          <CardBoxElement title="Post redes sociales" color="red" text="WIP" />
+          <CardBoxElement title="Partnership" color="red" text="WIP" />
+          <CardBoxElement title="Documento NDA" color="red" text="WIP" />
+        </Flex>
+
+      </Box>
+
+    </Container>
+  );
+};
+
+export default Home;
