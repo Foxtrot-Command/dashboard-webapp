@@ -8,10 +8,9 @@ frontend:
       commands:
         - yarn run build
   artifacts:
-    baseDirectory: .next
+    baseDirectory: build
     files:
       - '**/*'
   cache:
     paths:
       - node_modules/**/*
-      - .next/cache/**/*
