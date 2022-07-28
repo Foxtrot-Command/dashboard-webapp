@@ -64,8 +64,7 @@ export default function Navbar() {
                         color={useColorModeValue('gray.800', 'white')}>
                         <Link href="/">
                             <a>
-                                Home
-                                {/* <Image style={{ width: "128px" }} src="/images/fxd_logo.svg" /> */}
+                                <Image style={{ width: "128px" }} src="/images/fxd_logo.svg" />
                             </a>
                         </Link>
                     </Text>
