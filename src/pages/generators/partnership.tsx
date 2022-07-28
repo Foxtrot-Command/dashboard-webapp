@@ -1,10 +1,24 @@
 import { PlusSquareIcon } from '@chakra-ui/icons';
 import { Box, Button, Flex, Heading, Input, Switch } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import Draggable from 'react-draggable';
+import Draggable, { DraggableProps } from 'react-draggable';
 import { onCapture } from 'utils';
 import { AiOutlineClose } from 'react-icons/ai';
 import useImageHandler from 'hooks/useImageHandler';
+
+
+type DraggablePropsExpanded = DraggableProps & any; 
+
+const DraggableBox = (props: DraggablePropsExpanded) => {
+
+  const { children, ...restProps } = props;
+
+  return (
+    <Draggable {...restProps}>
+      {children}
+    </Draggable>
+  );
+}
 
 const partnership = () => {
 
@@ -109,7 +123,7 @@ const partnership = () => {
               display: showBox ? 'inline' : 'none'
             }} />
 
-            <Draggable bounds={{ top: -70, left: -50, right: 50, bottom: 60 }} grid={[10, 10]}>
+            <DraggableBox bounds={{ top: -70, left: -50, right: 50, bottom: 60 }} grid={[10, 10]}>
               <g>
                 {!selectedImage ?
                   <svg height="140" width="500" x="550" y="170">
@@ -143,7 +157,7 @@ const partnership = () => {
                 }
 
               </g>
-            </Draggable>
+            </DraggableBox>
 
 
             <text
