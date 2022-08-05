@@ -1,29 +1,29 @@
 export const Type = ({ children, fontFamily }) =>
-    <g id="Type" transform="translate(110.000000, 940.000000)">
-        {/* <image
+    <svg width="585" height="140" x="111" y="937">
+        {children && <image
             id="race"
             type="MSBitmapLayer"
-            x="0"
-            y="0"
-            width="529"
-            height="106"
-        href={require("../static/race.png")}
-        /> */}
+            x="187"
+            y="58"
+            width="178"
+            height="65"
+            href="/images/parts/stats/placeholder.png"
+        />}
 
-            <text
-                id="Type"
-                fill="#D8D8D8"
-                fontFamily={fontFamily || "sans-serif"}
-                fontSize="40"
-                fontWeight="400"
-                letterSpacing="-6px"
-                dominant-baseline="middle" 
-                text-anchor="middle"
-            >
-                <tspan x="275" y="85" fill="#FFF">
-                    {children}
-                </tspan>
-            </text>
-    </g>;
+        <text
+            id="TypeText"
+            fill="#D8D8D8"
+            font-family="Inversionz Unboxed"
+            font-size="40"
+            font-weight="400"
+            letter-spacing="-6px"
+            dominant-baseline="middle"
+            text-anchor="middle"
+            x="273"
+            y="91"
+        >
+            {children}
+        </text>
+    </svg>;
 
 export default Type;

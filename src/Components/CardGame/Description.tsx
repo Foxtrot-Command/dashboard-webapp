@@ -7,17 +7,16 @@ export const Description = ({ children, rich, fontFamily }) => {
         return (
             <foreignObject
                 x="210"
-                y="690"
+                y="750"
                 width="370"
-                height="250"
-                color="white"
+                height="200"
                 display="block"
             >
                 <div
                     className="text-container"
                     style={{
                         textAlign: "center",
-                        display: "table",
+                        /* display: "table", */
                         height: "100%",
                         width: "100%",
                         fontFamily: "serif",
@@ -26,7 +25,7 @@ export const Description = ({ children, rich, fontFamily }) => {
                     }}
                 >
                     {parser.parse(
-                        `<div class="text" style="vertical-align: middle; height: 100%; display: table-cell; font-family: ${fontFamily}">${children}</div>`
+                        `<div class="text" style="vertical-align: middle; height: 100%; font-family: ${fontFamily}">${children}</div>`
                     )}
                 </div>
             </foreignObject>

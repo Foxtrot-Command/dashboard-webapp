@@ -6,8 +6,16 @@ import { onCapture } from 'utils';
 import { AiOutlineClose } from 'react-icons/ai';
 import useImageHandler from 'hooks/useImageHandler';
 
+interface ExtraBounds {
+  bounds: {
+    top: number;
+    left: number;
+    right: number;
+    bottom: number;
+  }
+}
 
-type DraggablePropsExpanded = DraggableProps & any; 
+type DraggablePropsExpanded = DraggableProps & ExtraBounds | any; 
 
 const DraggableBox = (props: DraggablePropsExpanded) => {
 
