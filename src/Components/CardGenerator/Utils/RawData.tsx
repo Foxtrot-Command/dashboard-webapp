@@ -3,14 +3,15 @@ export const factionArr = [
     { name: 'Gannicus', isDisabled: true },
     { name: 'Forgotten', isDisabled: false },
     { name: 'Fe Verde', isDisabled: true },
-    { name: 'Resistencia', isDisabled: true },
+    { name: 'Resistence', isDisabled: false },
 ];
+
 export const rarityArr = [
     { name: 'Common', color: '#FFFFFF', isDisabled: false },
     { name: 'Uncommon', color: '#75D24B', isDisabled: false },
     { name: 'Rare', color: '#0755FF', isDisabled: false },
     { name: 'Epic', color: '#F840FF', isDisabled: false },
-    { name: 'Legendary', color: '#FFB908', isDisabled: true },
+    { name: 'Legendary', color: '#FFB908', isDisabled: false },
 ];
 
 export const cardData = [
@@ -23,8 +24,9 @@ export const cardData = [
             health: 5
         },
         faction: "Forgotten",
-        rarity: "Epic",
-        image: "/images/obliterator.jpg"
+        rarity: "Legendary",
+        image: "/images/obliterator.jpg",
+        type: "vehicle"
     },
     {
         name: 'Feast Time',
@@ -36,7 +38,8 @@ export const cardData = [
         },
         faction: "Forgotten",
         rarity: "Uncommon",
-        image: "/images/feast_time.png"
+        image: "/images/feast_time.png",
+        type: "tactic"
     },
     {
         name: 'Plains Rider',

@@ -65,12 +65,11 @@ if (typeof window === 'object') {
 import { PlusSquareIcon } from '@chakra-ui/icons';
 import { EditorProps } from 'react-draft-wysiwyg';
 import { cardData, factionArr, rarityArr } from 'Components/CardGenerator/Utils/RawData';
+import { Notify } from 'notiflix';
 
 const CardView = () => {
 
     const [editorState, setEditorState] = useState<EditorState | any>(EditorState.createEmpty());
-
-    const [isSpell, setIsSpell] = useState<boolean>(false);
 
     const onEditorStateChange = (editorState: any) => {
         setEditorState(editorState)
@@ -86,7 +85,7 @@ const CardView = () => {
         mana: 1,
         attack: 1,
         health: 1,
-        cardType: 'Unit'
+        cardType: ''
     }
 
     function reducer(state, action) {
@@ -148,7 +147,7 @@ const CardView = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const handleImportSelection = (index: number) => {
-        const { name, description, stats, faction, rarity, image } = cardData[index]
+        const { name, type, description, stats, faction, rarity, image } = cardData[index]
         dispatch({
             type: 'multiStatement',
             payload: {
@@ -158,6 +157,7 @@ const CardView = () => {
                 health: stats.health,
                 faction: faction,
                 rarity: rarity,
+                cardType: type ?? '',
                 searchValue: ''
             }
         })
@@ -180,11 +180,19 @@ const CardView = () => {
 
 
     const imageHandler = (event: Event) => {
-        let reader = new FileReader();
-        reader.onload = function (e: any) {
-            setSelectedImage(e.target.result);
-        };
+
         if (event.target instanceof HTMLInputElement && event.target.files) {
+
+            if (!event.target.files[0].type.match('image.*')) {
+                return Notify.failure('Prueba con otro tipo de imagen');
+            }
+
+            let reader = new FileReader();
+
+            reader.onload = function (e: any) {
+                setSelectedImage(e.target.result);
+            };
+
             reader.readAsDataURL(event.target.files[0]);
         }
     }
@@ -208,7 +216,7 @@ const CardView = () => {
                                     <Button onClick={() => handleImportSelection(index)}>
                                         {name}
                                         <Box position="absolute" right={4} top={2}>
-                                        <Badge variant='subtle' colorScheme="orange">Test</Badge>
+                                            <Badge variant='subtle' colorScheme="orange">Test</Badge>
                                         </Box>
                                     </Button>
                                 </>
@@ -355,7 +363,13 @@ const CardView = () => {
                                 <Input id="image-importer" type="file" onChange={(e: any) => { imageHandler(e); }}>
                                 </Input>
                             </Box>
-                            <Select placeholder='Tipo de carta' onChange={(event: any) => dispatch({ type: 'cardType', cardType: event.target.value })}>
+                            <Select
+                                placeholder='Sin tipo'
+                                onChange={(event: any) => dispatch({
+                                    type: 'cardType',
+                                    cardType: event.target.value
+                                })}
+                            >
                                 <option value='Unit'>Unit</option>
                                 <option value='Vehicle'>Vehicle</option>
                                 <option value='Structure'>Structure</option>
@@ -382,8 +396,14 @@ const CardView = () => {
                             <Frame image={`/images/parts/frames/${state.rarity.toLowerCase()}/${state.faction.toLowerCase()}.png`} />
                             <Mana fontFamily="Inversionz Unboxed">{state.mana}</Mana>
                             <Type fontFamily="Inversionz Unboxed">{state.cardType}</Type>
-                            <Health fontFamily="Inversionz Unboxed">{state.health}</Health>
-                            <Attack fontFamily="Inversionz Unboxed">{state.attack}</Attack>
+
+                            {state.cardType.toLowerCase() !== 'tactic' &&
+                                <>
+                                    <Health fontFamily="Inversionz Unboxed">{state.health}</Health>
+                                    <Attack fontFamily="Inversionz Unboxed">{state.attack}</Attack>
+                                </>
+                            }
+
                             <Title fontFamily="Montserrat" flow>{state.cardName}</Title>
                             <Description rich fontFamily="Montserrat">
                                 {draftToHtml(convertToRaw(editorState.getCurrentContent()))}
