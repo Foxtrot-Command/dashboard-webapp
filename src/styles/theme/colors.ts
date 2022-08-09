@@ -1,6 +1,11 @@
 import { DeepPartial, Theme } from "@chakra-ui/react";
 
 const extendedColors: DeepPartial<Record<string, any>> = {
+    faction: {
+        bushido: "#502828",
+        forgotten: "#4d3818",
+        resistence: "#bd7800",
+    },
     neutrals: {
         200: "#D6DCE5",
         300: "#828E9B",

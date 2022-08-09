@@ -34,7 +34,7 @@ export const saveDocumentSize = ({ id, quality = 1 }: { id: string, quality: num
         });
 }
 
-export const onCapture = ({ id, name, quality = 1 }: { id: string, name: string, quality: number }) => {
+export const onCapture = ({ id, name, quality = 1 }: { id: string, name: string, quality?: number }) => {
     htmlToImage.toPng(document.getElementById(id)!, {
         quality: 1,
         pixelRatio: quality

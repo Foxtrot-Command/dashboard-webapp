@@ -10,7 +10,7 @@ export const BottomRectangle = () =>
 
         {/* <defs>
             <clipPath id="corner-path">
-                <path d="M -10 0 h560 a20,20 0 0 1 20,20 v400 a20,20 0 0 1 -20,20 h-530 a20,20 0 0 1 -20,-20 v-400 a20,20 0 0 1 20,-20 z" fill="none" stroke="#000000" stroke-width="10" />
+                <path d="M -10 0 h560 a20,20 0 0 1 20,20 v400 a20,20 0 0 1 -20,20 h-530 a20,20 0 0 1 -20,-20 v-400 a20,20 0 0 1 20,-20 z" fill="none" stroke="#000000" strokeWidth="10" />
             </clipPath>
         </defs> */}
 
