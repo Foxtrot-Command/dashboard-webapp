@@ -25,7 +25,7 @@ export const cardData = [
         },
         faction: "Forgotten",
         rarity: "Legendary",
-        image: "/images/obliterator.jpg",
+        image: "/images/obliterator_.jpg",
         type: "vehicle"
     },
     {

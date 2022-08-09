@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react'
+import React, { ChangeEvent, useReducer, useState } from 'react'
 
 import {
     CardWrapper,
@@ -42,9 +42,12 @@ import {
     useDisclosure,
     Select,
     Text,
-    Badge
+    Badge,
+    Center,
+    Spinner,
+    Divider
 } from '@chakra-ui/react';
-import { onCapture } from 'utils';
+import { capitalize, onCapture, saveDocumentSize } from 'utils';
 
 import draftToHtml from 'draftjs-to-html';
 import dynamic from "next/dynamic"
@@ -67,6 +70,25 @@ import { EditorProps } from 'react-draft-wysiwyg';
 import { cardData, factionArr, rarityArr } from 'Components/CardGenerator/Utils/RawData';
 import { Notify } from 'notiflix';
 
+const Loading = () => (
+    <Center alignSelf="center" h="100%" position="absolute"
+        top={0}
+        bottom={0}
+        left={0}
+        right={0}
+        m="auto">
+
+        <Spinner
+            m="auto"
+            thickness='4px'
+            speed='0.65s'
+            emptyColor='primary.200'
+            color='primary.500'
+            size='xl'
+        />
+    </Center>
+)
+
 const CardView = () => {
 
     const [editorState, setEditorState] = useState<EditorState | any>(EditorState.createEmpty());
@@ -76,6 +98,9 @@ const CardView = () => {
     }
 
     const [selectedImage, setSelectedImage] = useState<string | any>(null);
+    const [isLoadingContent, setLoadingContent] = useState<boolean>(false);
+    const [documentSize, setDocumentSize] = useState<string>("0 MB");
+    const [loadingQuality, setLoadingQuality] = useState<boolean>(false);
 
     const initialState: any = {
         cardName: '',
@@ -85,7 +110,8 @@ const CardView = () => {
         mana: 1,
         attack: 1,
         health: 1,
-        cardType: ''
+        cardType: '',
+        cardQuality: 1
     }
 
     function reducer(state, action) {
@@ -106,6 +132,8 @@ const CardView = () => {
                 return { ...state, health: action.health };
             case 'cardType':
                 return { ...state, cardType: action.cardType };
+            case 'cardQuality':
+                return { ...state, cardQuality: action.cardQuality };
             case 'multiStatement':
                 return { ...state, ...action.payload };
             default:
@@ -147,6 +175,7 @@ const CardView = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const handleImportSelection = (index: number) => {
+        setLoadingContent(true)
         const { name, type, description, stats, faction, rarity, image } = cardData[index]
         dispatch({
             type: 'multiStatement',
@@ -163,6 +192,7 @@ const CardView = () => {
         })
 
         setSelectedImage(image)
+        handleChangeQuality(state.cardQuality)
 
         const contentBlock = htmlToDraft(description);
         if (contentBlock) {
@@ -172,14 +202,33 @@ const CardView = () => {
         }
 
         onClose()
+        setTimeout(() => {
+            setLoadingContent(false)
+        }, 1000)
     }
 
     const filteredCardData = cardData.filter((content: any) => {
         return content.name.toLowerCase().includes(state.searchValue.toLowerCase());
     });
 
+    const handleChangeQuality = (quality: number | string) => {
+        dispatch({
+            type: 'cardQuality',
+            cardQuality: Number(quality)
+        })
 
-    const imageHandler = (event: Event) => {
+        setLoadingQuality(true);
+        saveDocumentSize({
+            id: 'image_final',
+            quality: Number(quality)
+        }).then(data => {
+            setDocumentSize(data)
+            setLoadingQuality(false);
+        })
+    }
+
+
+    const imageHandler = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
 
         if (event.target instanceof HTMLInputElement && event.target.files) {
 
@@ -208,7 +257,9 @@ const CardView = () => {
                         <Input
                             type="search"
                             placeholder="Busca por nombre de carta"
-                            onChange={(e) => dispatch({ type: 'searchValue', searchValue: e.target.value })}>
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => dispatch(
+                                { type: 'searchValue', searchValue: event.target.value }
+                            )}>
                         </Input>
                         <Flex direction="column" gap={2} mt={4}>
                             {filteredCardData.map(({ name }, index: number) => (
@@ -216,6 +267,8 @@ const CardView = () => {
                                     <Button onClick={() => handleImportSelection(index)}>
                                         {name}
                                         <Box position="absolute" right={4} top={2}>
+                                            <Badge variant='subtle' colorScheme="red" mr={2}>EN</Badge>
+
                                             <Badge variant='subtle' colorScheme="orange">Test</Badge>
                                         </Box>
                                     </Button>
@@ -293,7 +346,7 @@ const CardView = () => {
                                                 color: "gray.50",
                                             }}
                                         >
-                                            {key}
+                                            {capitalize(key)}
                                         </FormLabel>
                                         <NumberInput
                                             size="sm"
@@ -357,15 +410,39 @@ const CardView = () => {
                                         bg: "whiteAlpha.300"
                                     }}
                                 >
-                                    <PlusSquareIcon /> Subir imagen
+                                    <Flex
+                                        direction="row"
+                                        gap={6}
+                                        justifyContent="space-between">
+
+                                        <Box as={Flex} gap={2} my="auto">
+                                            <PlusSquareIcon my="auto" />
+                                            <Text>Subir imagen</Text>
+                                        </Box>
+
+                                        {selectedImage ? <ChakraImage
+                                            src={selectedImage}
+                                            w="32px"
+                                            h="32px"
+                                            alt="base image"
+                                            objectFit='cover'
+                                            justifyContent="flex-end"
+                                            borderRadius={6}
+
+                                        /> :
+                                            <Box w="32px" h="32px"
+                                                background="neutrals.500"
+                                                borderRadius={6} position="relative">
+                                            </Box>}
+                                    </Flex>
                                 </Box>
 
-                                <Input id="image-importer" type="file" onChange={(e: any) => { imageHandler(e); }}>
+                                <Input id="image-importer" type="file" onChange={(event: React.ChangeEvent<HTMLInputElement>) => { imageHandler(event); }}>
                                 </Input>
                             </Box>
                             <Select
                                 placeholder='Sin tipo'
-                                onChange={(event: any) => dispatch({
+                                onChange={(event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => dispatch({
                                     type: 'cardType',
                                     cardType: event.target.value
                                 })}
@@ -381,16 +458,43 @@ const CardView = () => {
                     <Flex gap={6} mt="10px">
                         <FrameSelector />
                     </Flex>
-                    <Button mt="10px" onClick={() => onCapture('image_final', state.cardName)}>Guardar</Button>
+                    <Divider mt="14px" />
+
+                    <Flex mx="auto" w="100%" mt="14px" gap={4}>
+
+                        <Select
+                            onChange={(event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => handleChangeQuality(event.target.value)}
+                        >
+                            <option selected value='1'>Calidad Baja</option>
+                            <option value='2'>Calidad Media</option>
+                            <option value='3'>Calidad Alta</option>
+                            <option value='5'>Calidad Ultra Alta</option>
+                        </Select>
+                        <Button
+                            isLoading={loadingQuality}
+                            loadingText='Loading'
+                            w="100%"
+                            onClick={() => onCapture(
+                                {
+                                    id: 'image_final',
+                                    name: state.cardName,
+                                    quality: state.cardQuality
+                                }
+                            )}>Guardar ({documentSize})</Button>
+
+                    </Flex>
                 </Box>
 
                 <Box
-                    h="50%"
+                    h="40%"
+                    w="auto"
                     p="40px"
                     bg="whiteAlpha.100"
                     borderRadius={8}
+                    position="relative"
                 >
-                    <Box w={{ base: "50%", md: "100%" }} mx="auto" transition="all .2s ease-in-out">
+                    {isLoadingContent && <Loading />}
+                    <Box w={{ base: "50%", md: "100%" }} mx="auto" transition="all .2s ease-in-out" opacity={isLoadingContent ? 0.4 : 1}>
                         <CardWrapper id="image_final">
                             <Image image={selectedImage} id="GVG_096" clip />
                             <Frame image={`/images/parts/frames/${state.rarity.toLowerCase()}/${state.faction.toLowerCase()}.png`} />

@@ -3,9 +3,8 @@ export const Image = ({ id, image, clip }) =>
     <>
         <defs>
             <clipPath id="image-path">
-                <rect id="card-clip" x="100" width="600" height="1100" />
+                <path d="M 64.967 54.941 L 61.821 1065.01 L 101.154 1035 L 267.925 1045 L 291.525 1050 L 444.136 1080 L 480 1045 L 651.814 1040 L 673.84 1000 L 672.267 47.075 L 66.541 48.648" fill="none" stroke="#000000" stroke-width="10" />
             </clipPath>
-
         </defs>
 
         <image
