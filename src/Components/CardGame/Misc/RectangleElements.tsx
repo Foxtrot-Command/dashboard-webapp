@@ -7,7 +7,14 @@ export const TopRectangle = () =>
 
 export const BottomRectangle = () =>
     <svg width="581" height="327" x="99" y="725">
-        <rect width="581" height="327" style={{
+
+        {/* <defs>
+            <clipPath id="corner-path">
+                <path d="M -10 0 h560 a20,20 0 0 1 20,20 v400 a20,20 0 0 1 -20,20 h-530 a20,20 0 0 1 -20,-20 v-400 a20,20 0 0 1 20,-20 z" fill="none" stroke="#000000" strokeWidth="10" />
+            </clipPath>
+        </defs> */}
+
+        <rect width="581" height="327" clipPath={"url(#corner-path)"} style={{
             fill: "rgba(0,0,0, 0.5)"
         }} />
     </svg>;

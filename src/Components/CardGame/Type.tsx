@@ -13,12 +13,12 @@ export const Type = ({ children, fontFamily }) =>
         <text
             id="TypeText"
             fill="#D8D8D8"
-            font-family="Inversionz Unboxed"
-            font-size="40"
-            font-weight="400"
-            letter-spacing="-6px"
-            dominant-baseline="middle"
-            text-anchor="middle"
+            fontFamily="Inversionz Unboxed"
+            fontSize="40"
+            fontWeight="400"
+            letterSpacing="-6px"
+            dominantBaseline="middle"
+            textAnchor="middle"
             x="273"
             y="91"
         >

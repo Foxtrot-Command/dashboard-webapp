@@ -77,7 +77,7 @@ const partnership = () => {
             </Flex>
           </Box>
 
-          <Button ml={4} h="auto" onClick={() => onCapture('partnership_identifier', "partner")}>
+          <Button ml={4} h="auto" onClick={() => onCapture({id: 'partnership_identifier', name: "partner"})}>
             Guardar partnership
           </Button>
         </Flex>

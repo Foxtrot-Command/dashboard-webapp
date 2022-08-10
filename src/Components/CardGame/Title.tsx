@@ -1,7 +1,5 @@
 export const Title = ({ children, fontFamily, flow }) =>
     <g>
-
-
         {children &&
             <text
                 x="400"

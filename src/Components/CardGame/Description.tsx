@@ -8,8 +8,8 @@ export const Description = ({ children, rich, fontFamily }) => {
             <foreignObject
                 x="210"
                 y="750"
-                width="370"
-                height="200"
+                width="375"
+                height="220"
                 display="block"
             >
                 <div

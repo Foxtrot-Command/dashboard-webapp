@@ -5,8 +5,8 @@ export const Frame = ({ image = '/images/parts/frames/uncommon/bushido.png' }) =
     <>
         <TopRectangle />
         <BottomRectangle />
-        <LeftLine/>
-        <RightLine/>
+        {/* <LeftLine/>
+        <RightLine/> */}
         <image
             id="mNeutral"
             type="MSBitmapLayer"
