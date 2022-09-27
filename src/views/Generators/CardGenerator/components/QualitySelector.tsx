@@ -8,11 +8,11 @@ const QualitySelector = () => {
 
     const { state, dispatch } = useContext(CardContext)
 
-    const { 
+    const {
         setLoadingQuality,
         setDocumentSize,
-        loadingQuality, 
-        documentSize 
+        loadingQuality,
+        documentSize
     } = useContext(SaveCardContext);
 
     const handleChangeQuality = (quality: number | string) => {
@@ -37,7 +37,7 @@ const QualitySelector = () => {
             <Select
                 onChange={(event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => handleChangeQuality(event.target.value)}
             >
-                <option selected value='1'>Calidad Baja</option>
+                <option defaultChecked={true} value='1'>Calidad Baja</option>
                 <option value='2'>Calidad Media</option>
                 <option value='3'>Calidad Alta</option>
                 <option value='5'>Calidad Ultra Alta</option>

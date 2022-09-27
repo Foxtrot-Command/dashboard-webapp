@@ -1,10 +1,19 @@
 import React from 'react';
-import HomeWrapper from 'views/Home';
+import { Box, Container } from '@chakra-ui/react';
+import {Data, Tools,Stats} from 'views/Home';
 
 const Home = () => {
 
   return (
-    <HomeWrapper/>
+    <Container maxW='5xl' minHeight="777px">
+
+      <Box as="section">
+        <Stats />
+        <Tools />
+        <Data/>
+      </Box>
+
+    </Container >
   );
 };
 

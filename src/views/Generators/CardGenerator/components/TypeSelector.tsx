@@ -15,10 +15,10 @@ const TypeSelector = () => {
                 cardType: event.target.value
             })}
         >
-            <option selected={state.cardType === 'unit'} value='Unit'>Unit</option>
-            <option selected={state.cardType === 'vehicle'} value='Vehicle'>Vehicle</option>
-            <option selected={state.cardType === 'structure'} value='Structure'>Structure</option>
-            <option selected={state.cardType === 'tactic'} value='Tactic'>Tactic</option>
+            <option defaultChecked={state.cardType === 'unit'} value='Unit'>Unit</option>
+            <option defaultChecked={state.cardType === 'vehicle'} value='Vehicle'>Vehicle</option>
+            <option defaultChecked={state.cardType === 'structure'} value='Structure'>Structure</option>
+            <option defaultChecked={state.cardType === 'tactic'} value='Tactic'>Tactic</option>
         </Select>
     )
 }

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react"
+import { useState } from "react"
 
 const useImageHandler = () => {
 
@@ -15,7 +15,11 @@ const useImageHandler = () => {
         reader.onload = function (e: any) {
           setSelectedImage(e.target.result);
         };
+
         if (event.target instanceof HTMLInputElement && event.target.files) {
+
+          if(!event.target.files[0]) return;
+
           reader.readAsDataURL(event.target.files[0]);
         }
       }
