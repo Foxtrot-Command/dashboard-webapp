@@ -44,15 +44,13 @@ const InstagramCardVariant = () => {
         <Box
           h="640px"
           w="360px"
-          minW="360px"
-          minH="640px"
           position="relative"
           justifyContent="center"
           alignItems="center"
           mx="auto"
-          id="instagram_stories"
         >
           <Box
+            id="instagram_stories"
             backgroundRepeat="no-repeat"
             backgroundSize="100%"
             position="absolute"
