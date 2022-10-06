@@ -1,7 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-*.lock
-
 # dependencies
 /node_modules
 /.pnp
@@ -26,3 +24,7 @@ yarn-error.log*
 
 #next js
 .next
+out
+
+#intellij
+.idea/**

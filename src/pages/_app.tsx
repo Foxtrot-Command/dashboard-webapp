@@ -1,16 +1,19 @@
 import type { AppProps } from 'next/app'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '@fontsource/montserrat/latin.css';
-import "./../App.css";
 import Head from 'next/head';
+import '@fontsource/montserrat/latin.css';
+import { ChakraProvider } from "@chakra-ui/react";
+import fxdTheme from "styles/theme";
+import Layout from 'Components/Common/Layout';
+import 'styles/globals.css'
 
 function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Head>
-        <title>FXD - Card Maker</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <link
+      <ChakraProvider resetCSS theme={fxdTheme}>
+        <Head>
+          <title>Foxtrot Command Dashboard</title>
+          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+          <link
             rel="preload"
             href="/fonts/impact.ttf"
             as="font"
@@ -22,8 +25,11 @@ function App({ Component, pageProps }: AppProps) {
             as="font"
             crossOrigin=""
           />
-      </Head>
-      <Component {...pageProps} />
+        </Head>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ChakraProvider>
     </>
   )
 }

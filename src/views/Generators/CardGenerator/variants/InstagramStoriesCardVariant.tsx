@@ -1,0 +1,136 @@
+import {
+  Box,
+  Flex,
+  Text
+} from '@chakra-ui/react'
+import SliderOpacity from 'Components/SliderOpacity';
+import React, { useContext, useState } from 'react'
+import { hexToRgb } from 'utils'
+import CardView from '../components/CardView';
+import DownloadButton from '../components/DownloadButton';
+import CardContext from '../context/CardContext'
+import { rarityArr } from '../Utils/RawData'
+
+const InstagramCardVariant = () => {
+  const {
+    state,
+    selectedImage,
+  } = useContext(CardContext)
+
+  const [sliderValue, setSliderValue] = useState(35)
+
+  const rarityColor = () => {
+    const { color = '#000' } = rarityArr.filter((value) => value.name === state.rarity)[0]
+    return hexToRgb(color).join(', ');
+  }
+
+  return (
+    <Flex
+      flexDirection="column"
+      gap={6}
+      h="auto"
+      w="100%"
+      bg="whiteAlpha.100"
+      px="14px"
+      py="20px"
+      borderRadius="lg"
+    >
+      <Box borderRadius={8} bg="whiteAlpha.100" alignItems="center" textAlign="center" p={4}>
+        <Text>Instagram Stories 1920x1080</Text>
+      </Box>
+      <Flex flexDirection="row">
+
+        <SliderOpacity sliderValue={sliderValue} defaultValue={35} setSliderValue={setSliderValue} />
+        <Box
+          h="640px"
+          w="360px"
+          minW="360px"
+          minH="640px"
+          position="relative"
+          justifyContent="center"
+          alignItems="center"
+          mx="auto"
+          id="instagram_stories"
+        >
+          <Box
+            backgroundRepeat="no-repeat"
+            backgroundSize="100%"
+            position="absolute"
+            h="100%"
+            w="auto"
+            mx="auto"
+            justifyContent="center"
+            alignItems="center"
+            left={0}
+            right={0}
+          >
+            <Box
+              as="img"
+              src="/images/generators/cards/backgrounds/1920x1080.png"
+              h="100%"
+              w="auto"
+              justifyContent="center"
+              alignItems="center"
+              zIndex={1}
+              mx="auto"
+            />
+
+            <Box
+              as="img"
+              src={selectedImage}
+              position="absolute"
+              objectFit="cover"
+              h="100%"
+              w="auto"
+              mx="auto"
+              left={0}
+              right={0}
+              top={0}
+              bottom={0}
+              opacity={0.08}
+              filter="blur(0.8px)"
+              zIndex={2}
+            />
+            <Box
+              as="img"
+              src="/images/fxd_logo.svg"
+              w="140px"
+              position="absolute"
+              mx="auto"
+              bottom={16}
+              left={3}
+              right={0}
+              zIndex={2}
+            />
+
+            <Box
+              position="absolute"
+              h="100%"
+              w="100%"
+              mx="auto"
+              top={-14}
+              py="95px"
+              filter={`drop-shadow(0px 5px 15px rgba(${rarityColor()}, ${sliderValue / 100}))`}
+              transition="all .5s ease-in-out"
+              zIndex={2}
+            >
+              <CardView />
+            </Box>
+          </Box>
+
+
+        </Box>
+      </Flex>
+
+      <DownloadButton
+        w="100%"
+        saveConfig={{
+          id: 'instagram_stories',
+          name: `${state.cardName}_storie`,
+          quality: 3
+        }} key='instagram_stories' />
+    </Flex>
+  )
+}
+
+export default InstagramCardVariant
