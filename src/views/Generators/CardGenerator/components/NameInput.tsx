@@ -6,9 +6,9 @@ import CardContext from "../context/CardContext";
 const NameInput = () => {
 
     const { state, dispatch } = useContext(CardContext)
-    
+
     return (
-        <FormControl as={GridItem} colSpan={[6, 3]}>
+        <FormControl>
             <FormLabel
                 htmlFor="card_name"
                 fontSize="sm"
@@ -20,7 +20,7 @@ const NameInput = () => {
             >
                 Nombre de carta
             </FormLabel>
-            <InputGroup size='md'>
+            <InputGroup size='md' w="100%">
                 <Input
                     type="text"
                     name="first_name"
@@ -32,6 +32,7 @@ const NameInput = () => {
                     size="sm"
                     w="full"
                     rounded="md"
+                    pr="5.4rem"
                     value={state.cardName}
                     onChange={(e) => dispatch({ type: 'cardName', cardName: e.target.value.toUpperCase() })}
                 />

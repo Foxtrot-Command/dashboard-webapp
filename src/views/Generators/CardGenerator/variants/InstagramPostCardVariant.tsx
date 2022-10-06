@@ -3,12 +3,13 @@ import {
   Flex,
   Text
 } from '@chakra-ui/react'
-import SliderOpacity from 'Components/SliderOpacity';
 import React, { useContext, useState } from 'react'
-import { hexToRgb } from 'utils'
+
+import CardContext from '../context/CardContext'
 import CardView from '../components/CardView';
 import DownloadButton from '../components/DownloadButton';
-import CardContext from '../context/CardContext'
+import SliderOpacity from 'Components/SliderOpacity';
+import { hexToRgb } from 'utils'xt from '../context/CardContext'
 import { rarityArr } from '../Utils/RawData'
 
 const InstagramPostCardVariant = () => {

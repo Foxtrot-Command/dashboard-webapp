@@ -1,4 +1,4 @@
-import { Button, ButtonProps, ChakraComponent, ChakraProps } from '@chakra-ui/react';
+import { Button, ButtonProps } from '@chakra-ui/react';
 import React from 'react'
 import { onCapture } from 'utils';
 

@@ -13,7 +13,7 @@ import React, { useContext } from 'react'
 import CardContext from 'views/Generators/CardGenerator/context/CardContext';
 
 const InputMaker = ({ value, label, onChange }) => (
-    <FormControl as={GridItem} colSpan={[6, 3]}>
+    <FormControl>
         <FormLabel
             htmlFor="last_name"
             fontSize="sm"
@@ -22,6 +22,7 @@ const InputMaker = ({ value, label, onChange }) => (
             _dark={{
                 color: "gray.50",
             }}
+            mb={3}
         >
             {label}
         </FormLabel>

@@ -9,10 +9,10 @@ const Tools = () => {
 
         <CardBoxElement
           identifier="Generadores"
-          title="Cartas"
+          title="Cartas + Redes sociales"
           link="/generators/card"
           color="purple"
-          text="Beta V2"
+          text="Beta V3"
         />
 
         <CardBoxElement
@@ -29,13 +29,6 @@ const Tools = () => {
           link="/generators/twitter_space"
           color="purple"
           text="Beta"
-        />
-
-        <CardBoxElement
-          identifier="Generadores"
-          title="Post redes sociales"
-          color="red"
-          text="WIP"
         />
 
         <CardBoxElement

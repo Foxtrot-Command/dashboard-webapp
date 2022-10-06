@@ -1,4 +1,4 @@
-import { InputRightElement, Button, Badge, Box, Flex, ModalBody, ModalOverlay, ModalCloseButton, useDisclosure, ModalContent, Modal, Input, ModalHeader, ModalFooter, Text } from '@chakra-ui/react'
+import { InputRightElement, Button, Badge, Box, Flex, ModalBody, ModalOverlay, ModalCloseButton, useDisclosure, ModalContent, Modal, Input, ModalHeader, ModalFooter } from '@chakra-ui/react'
 import CardContext from 'views/Generators/CardGenerator/context/CardContext';
 import React, { useContext } from 'react'
 import { cardData } from 'views/Generators/CardGenerator/Utils/RawData';
@@ -141,9 +141,9 @@ const ImportCard = () => {
       </Modal>
 
       <InputRightElement width='4.8rem' mr={1}>
-        <Button h='1.5rem' size='sm' onClick={onOpen}>
-          Importar
-        </Button>
+          <Button h='1.5rem' size='sm' onClick={onOpen}>
+            Importar
+          </Button>
       </InputRightElement>
     </>
 
