@@ -141,12 +141,10 @@ const ImportCard = () => {
       </Modal>
 
       <InputRightElement width='4.8rem' mr={1}>
-
           <Button h='1.5rem' size='sm' onClick={onOpen}>
             Importar
           </Button>
       </InputRightElement>
-
     </>
 
   )

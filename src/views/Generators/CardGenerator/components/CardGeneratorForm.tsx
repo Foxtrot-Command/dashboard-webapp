@@ -1,5 +1,6 @@
 import { Box, Divider, Flex } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react'
+
 import {
   NameInput,
   ImageUpload,
@@ -13,7 +14,6 @@ import {
 } from '.';
 
 const CardGeneratorForm = () => {
-
   return (
     <Flex direction="column" w={{ base: "100%", md: "auto" }}>
       <Box mt="0" height="auto" w="100%" bg="whiteAlpha.100" p="20px" borderRadius={8}>

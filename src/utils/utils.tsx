@@ -28,8 +28,8 @@ export const saveDocumentSize = ({ id, quality = 1 }: { id: string, quality: num
         pixelRatio: quality
     })
         .then(function (dataUrl) {
-            var base64str = dataUrl.substring(dataUrl.indexOf(',') + 1)
-            var decoded = Buffer.from(base64str, 'base64');
+            let base64str = dataUrl.substring(dataUrl.indexOf(',') + 1)
+            let decoded = Buffer.from(base64str, 'base64');
             return (decoded.length / 1e+6).toFixed(2) + " MB";
         });
 }
