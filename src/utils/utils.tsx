@@ -47,3 +47,9 @@ export const onCapture = ({ id, name, quality = 1 }: { id: string, name: string,
             saveAs(dataUrl, `${name.toLowerCase()}.png`);
         });
 }
+
+export const hexToRgb = (hex) =>
+hex.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i
+           ,(m: any, r: string, g: string, b: string) => '#' + r + r + g + g + b + b)
+  .substring(1).match(/.{2}/g)
+  .map((x: string) => parseInt(x, 16))

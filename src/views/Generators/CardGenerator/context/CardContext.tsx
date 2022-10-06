@@ -20,11 +20,11 @@ function reducer(state, action) {
         case 'cardName':
             return { ...state, cardName: action.cardName };
         case 'mana':
-            return { ...state, mana: action.mana };
+            return { ...state, mana: Number(action.mana) };
         case 'attack':
-            return { ...state, attack: action.attack };
+            return { ...state, attack: Number(action.attack) };
         case 'health':
-            return { ...state, health: action.health };
+            return { ...state, health: Number(action.health) };
         case 'cardType':
             return { ...state, cardType: action.cardType };
         case 'cardQuality':

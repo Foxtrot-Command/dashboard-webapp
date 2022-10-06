@@ -14,7 +14,7 @@ export const Image = ({ id, image, clip }) =>
             y="0"
             width="580"
             height="1100"
-            href={image}
+            href={!image ? '/images/generators/cards/backgrounds/base_card.png' : image}
             clipPath={"url(#image-path)"}
         />;
     </>

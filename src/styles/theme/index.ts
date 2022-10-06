@@ -27,6 +27,9 @@ const fxdTheme = extendTheme({
         md: "4px 5px 24px rgba(0, 0, 0, 0.35)",
       },
     },
+    generators: {
+      cards: "4px 5px 24px rgba(0, 0, 0, 0.35)",
+    }
   },
   config: {
     initialColorMode: "dark",

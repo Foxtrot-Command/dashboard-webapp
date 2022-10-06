@@ -11,7 +11,9 @@ import EditorCardContext from "views/Generators/CardGenerator/context/EditorCard
 import { Box } from "@chakra-ui/react";
 import React from "react";
 
-const DescriptionEditor = React.memo(({editorState, onEditorStateChange}: any) => {
+const DescriptionEditor = () => {
+
+  const { editorState, onEditorStateChange } = useContext(EditorCardContext);
 
   return (
     <Box>
@@ -35,8 +37,6 @@ const DescriptionEditor = React.memo(({editorState, onEditorStateChange}: any) =
       />
     </Box>
   )
-}, (prevProps, nextProps) => {
-  return prevProps.editorState === nextProps.editorState
-})
+}
 
 export default DescriptionEditor
