@@ -11,7 +11,7 @@ const StatElement = ({ label, followers }) => {
             <Text>{followers}</Text>
           </Flex>
         </Badge>
-  
+
         <Text>{label}</Text>
       </Flex>
     )

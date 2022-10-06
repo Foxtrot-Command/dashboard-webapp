@@ -1,5 +1,11 @@
-export const CardWrapper = ({ children, id = 'card-svg' }) =>
-    <svg style={{ width: "100%", height: "100%", userSelect: "none" }} id={id} viewBox="0 0 769 1120">
+export const CardWrapper = ({ children, opacity = 1, id = 'card-svg' }) =>
+    <svg style={{
+      width: "100%",
+      height: "100%",
+      userSelect: "none",
+      opacity,
+      transition: "all .5s ease-in-out"
+      }} id={id} viewBox="0 0 769 1120">
         <defs>
         </defs>
         <g

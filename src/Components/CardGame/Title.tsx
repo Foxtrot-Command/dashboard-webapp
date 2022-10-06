@@ -2,7 +2,7 @@ export const Title = ({ children, fontFamily, flow }) =>
     <g>
         {children &&
             <text
-                x="400"
+                x="386"
                 y="115"
                 fontSize="40px"
                 textAnchor="middle"

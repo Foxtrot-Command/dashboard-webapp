@@ -20,7 +20,7 @@ const StatsCardBox = ({ children, icon, title }) => (
         {React.createElement(icon, { style: { marginTop: '3px' } })}
         <Box as="span">{title}</Box>
       </Flex>
-  
+
       <Flex flexDirection="column" gap={2} mt={2}>
         {children}
       </Flex>

@@ -26,16 +26,17 @@ const CardBoxElement = ({
             cursor: "pointer",
             bg: "whiteAlpha.200"
           }}
-  
+          boxShadow="brand.shadow.md"
+
         >
           <Text fontWeight="bold">
             {title}
           </Text>
-  
+
           <Box position="absolute" left={4} top={2}>
             <Text fontSize="13px" fontWeight="light">{identifier}</Text>
           </Box>
-  
+
           <Box position="absolute" right={4} bottom={2}>
             <Badge variant='subtle' colorScheme={color}>{text}</Badge>
           </Box>
