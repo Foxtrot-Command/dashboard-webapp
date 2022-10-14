@@ -1,10 +1,12 @@
 import { Parser } from "html-to-react";
+import { BottomRectangle } from "./Misc/RectangleElements";
 
 const parser = new Parser();
 
 export const Description = ({ children, rich, fontFamily }) => {
   if (rich) {
-    return (
+    return (<>
+      <BottomRectangle />
       <foreignObject
         x="210"
         y="750"
@@ -18,16 +20,18 @@ export const Description = ({ children, rich, fontFamily }) => {
             textAlign: "center",
             height: "100%",
             width: "100%",
-            fontFamily: "serif",
             fontSize: 31,
             lineHeight: "initial"
           }}
         >
           {parser.parse(
-            `<div class="text" style="vertical-align: middle; height: 100%; font-family: ${fontFamily}">${children}</div>`
+            `<div class="text" style="vertical-align: middle; height: 100%; font-family: ${fontFamily}">
+            ${children}
+            </div>`
           )}
         </div>
       </foreignObject>
+    </>
     );
   }
   return (

@@ -1,12 +1,11 @@
 import { Box, Divider, Flex } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import {
   NameInput,
   ImageUpload,
   TypeSelector,
   QualitySelector,
-  CardView,
   DescriptionEditor,
   FactionSelection,
   RaritySelector,

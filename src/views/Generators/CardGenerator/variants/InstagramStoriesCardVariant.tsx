@@ -8,7 +8,7 @@ import React, { useContext, useState } from 'react'
 import CardContext from '../context/CardContext'
 import CardView from '../components/CardView';
 import DownloadButton from '../components/DownloadButton';
-import SliderOpacity from 'Components/SliderOpacity';
+import SliderOpacity from 'components/SliderOpacity';
 import { hexToRgb } from 'utils'
 import { rarityArr } from '../Utils/RawData'
 

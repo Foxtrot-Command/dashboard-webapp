@@ -1,12 +1,5 @@
-import { BottomRectangle, TopRectangle } from './Misc/RectangleElements'
-import { LeftLine, RightLine } from './Misc/TriangleLinesElements'
-
 export const Frame = ({ image = '/images/parts/frames/uncommon/bushido.png' }) => (
     <>
-        <TopRectangle />
-        <BottomRectangle />
-        {/* <LeftLine/>
-        <RightLine/> */}
         <image
             id="mNeutral"
             type="MSBitmapLayer"

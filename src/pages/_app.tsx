@@ -3,7 +3,7 @@ import Head from 'next/head';
 import '@fontsource/montserrat/latin.css';
 import { ChakraProvider } from "@chakra-ui/react";
 import fxdTheme from "styles/theme";
-import Layout from 'Components/Common/Layout';
+import Layout from 'components/Common/Layout';
 import 'styles/globals.css'
 
 function App({ Component, pageProps }: AppProps) {
