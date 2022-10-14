@@ -3,7 +3,7 @@ import {
   Flex,
   Text
 } from '@chakra-ui/react'
-import SliderOpacity from 'Components/SliderOpacity';
+import SliderOpacity from 'components/SliderOpacity';
 import React, { useContext, useState } from 'react'
 import { hexToRgb } from 'utils'
 import CardView from '../components/CardView';

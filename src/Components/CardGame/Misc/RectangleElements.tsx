@@ -1,22 +1,14 @@
 import { generatePath } from "utils/Svg";
 
-
-export const TopRectangle = () =>
-  <svg width="600" height="100" x="100" y="48">
-    <rect width="600" height="90" style={{
-      fill: "rgba(0,0,0, 0.5)"
-    }} />
-  </svg>;
-
 export const BottomRectangle = () =>
-  <svg width={581} height={327} x={99} y={726}>
+  <svg width={575} height={327} x={99} y={726}>
 
     <defs>
       <clipPath id="corner-path">
         <path d={generatePath({
           x: 0,
           y: 0,
-          width: 580,
+          width: 575,
           height: 327,
           tr: 0,
           br: 40,

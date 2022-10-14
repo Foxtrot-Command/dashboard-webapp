@@ -1,14 +1,16 @@
 import { Box, BoxProps } from '@chakra-ui/react';
-import { Image, Attack, CardWrapper, Description, Frame, Health, Mana, Title, Type } from 'Components/CardGame';
 import React, { useContext } from 'react'
 import { CardContext, EditorCardContext } from '../context';
 import LoadingContent from './LoadingContent';
 import draftToHtml from 'draftjs-to-html';
 import { convertToRaw } from "draft-js";
+import { Attack, CardWrapper, Description, Frame, Health, Mana, Title, Type, Image } from 'components/CardGame';
 
-type Props = BoxProps & {}
+type Props = BoxProps & {
+  showFrame?: boolean;
+}
 
-const CardView = ({ ...props }: Props) => {
+const CardView = ({ showFrame = true }: Props) => {
   const {
     state,
     selectedImage,
@@ -21,22 +23,28 @@ const CardView = ({ ...props }: Props) => {
       {isLoadingContent && <LoadingContent />}
 
       <CardWrapper id="image_final" opacity={isLoadingContent ? 0.4 : 1}>
-        <Image image={selectedImage} id="FXD" clip />
-        <Frame image={`/images/parts/frames/${state.rarity.toLowerCase()}/${state.faction.toLowerCase()}.png`} />
-        <Mana fontFamily="Inversionz Unboxed">{state.mana}</Mana>
-        <Type fontFamily="Inversionz Unboxed">{state.cardType}</Type>
+        <Image image={selectedImage} id="FXD" />
 
-        {state.cardType.toLowerCase() !== 'tactic' &&
-          <>
-            <Health fontFamily="Inversionz Unboxed">{state.health}</Health>
-            <Attack fontFamily="Inversionz Unboxed">{state.attack}</Attack>
-          </>
-        }
-
-        <Title fontFamily="Montserrat" flow>{state.cardName}</Title>
         <Description rich fontFamily="Montserrat">
           {draftToHtml(convertToRaw(editorState.getCurrentContent()))}
         </Description>
+        <Title>{state.cardName}</Title>
+
+        {showFrame && <>
+          <Frame image={`/images/parts/frames/${state.rarity.toLowerCase()}/${state.faction.toLowerCase()}.png`} />
+          <Mana fontFamily="Inversionz Unboxed">{state.mana}</Mana>
+          <Type fontFamily="Inversionz Unboxed">{state.cardType}</Type>
+
+          {state.cardType.toLowerCase() !== 'tactic' &&
+            <>
+              <Health fontFamily="Inversionz Unboxed">{state.health}</Health>
+              <Attack fontFamily="Inversionz Unboxed">{state.attack}</Attack>
+            </>
+
+          }
+        </>
+        }
+
       </CardWrapper>
 
     </>

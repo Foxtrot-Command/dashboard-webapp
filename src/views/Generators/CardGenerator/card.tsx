@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import {
   Box,
@@ -11,8 +11,11 @@ import {
   CardView,
   CardGeneratorForm
 } from './components';
+import DropdownMenu from 'components/DropdownMenu';
 
 const CardPage = () => {
+
+  const [isFrameVisible, setFrameVisibility] = useState<boolean>(true);
 
   return (
     <>
@@ -42,7 +45,12 @@ const CardPage = () => {
             borderRadius={8}
             position="relative"
           >
-            <CardView />
+            <DropdownMenu
+              isActive={isFrameVisible}
+              setActive={setFrameVisibility}
+              title='Marco de la carta'
+            />
+            <CardView showFrame={isFrameVisible} />
           </Box>
         </Flex>
 
