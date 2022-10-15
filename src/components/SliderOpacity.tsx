@@ -1,13 +1,14 @@
+import { useState } from "react";
+
 import {
-  Slider,
-  SliderMark,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
   Box,
+  Slider,
+  SliderFilledTrack,
+  SliderMark,
+  SliderThumb,
+  SliderTrack,
   Tooltip,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import { MdOpacity } from "react-icons/md";
 
 const SliderOpacity = ({

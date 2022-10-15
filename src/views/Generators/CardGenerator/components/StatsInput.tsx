@@ -1,15 +1,15 @@
+import React, { useContext } from "react";
+
 import {
+  Flex,
   FormControl,
-  GridItem,
   FormLabel,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  Flex,
 } from "@chakra-ui/react";
-import React, { useContext } from "react";
 import CardContext from "views/Generators/CardGenerator/context/CardContext";
 
 const InputMaker = ({ value, label, onChange }) => (

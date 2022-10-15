@@ -1,6 +1,7 @@
 import React from "react";
+
 import { Box, Container } from "@chakra-ui/react";
-import { Data, Tools, Stats } from "views/Home";
+import { Data, Stats, Tools } from "views/Home";
 
 const Home = () => {
   return (

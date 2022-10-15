@@ -1,12 +1,13 @@
 import { useContext } from "react";
+
 import {
+  Box,
   Flex,
   Stack,
+  Text,
   Tooltip,
-  Box,
   useRadio,
   useRadioGroup,
-  Text,
 } from "@chakra-ui/react";
 import { rarityArr } from "views/Generators/CardGenerator/Utils/RawData";
 import CardContext from "views/Generators/CardGenerator/context/CardContext";

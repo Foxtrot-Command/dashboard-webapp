@@ -1,5 +1,6 @@
-import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
+
+import { Box, Flex } from "@chakra-ui/react";
 
 const StatsCardBox = ({ children, icon, title }) => (
   <Box

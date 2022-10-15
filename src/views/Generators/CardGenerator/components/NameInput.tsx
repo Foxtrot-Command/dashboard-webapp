@@ -1,13 +1,15 @@
+import React, { useContext } from "react";
+
 import {
   FormControl,
-  GridItem,
   FormLabel,
-  InputGroup,
+  GridItem,
   Input,
+  InputGroup,
 } from "@chakra-ui/react";
-import ImportCard from "./ImportCard";
-import React, { useContext } from "react";
+
 import CardContext from "../context/CardContext";
+import ImportCard from "./ImportCard";
 
 const NameInput = () => {
   const { state, dispatch } = useContext(CardContext);

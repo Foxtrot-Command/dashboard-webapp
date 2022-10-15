@@ -1,10 +1,11 @@
+import React, { useState } from "react";
+
 import { PlusSquareIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, Heading, Input, Switch } from "@chakra-ui/react";
-import React, { useState } from "react";
-import Draggable, { DraggableProps } from "react-draggable";
-import { onCapture } from "utils";
-import { AiOutlineClose } from "react-icons/ai";
 import useImageHandler from "hooks/useImageHandler";
+import Draggable, { DraggableProps } from "react-draggable";
+import { AiOutlineClose } from "react-icons/ai";
+import { onCapture } from "utils";
 
 interface ExtraBounds {
   bounds: {

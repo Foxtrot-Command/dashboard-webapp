@@ -1,8 +1,9 @@
-import { PlusSquareIcon } from "@chakra-ui/icons";
-import { Box, Flex, Input, Image as ChakraImage, Text } from "@chakra-ui/react";
-import CardContext from "views/Generators/CardGenerator/context/CardContext";
-import { Notify } from "notiflix";
 import React, { useContext, useState } from "react";
+
+import { PlusSquareIcon } from "@chakra-ui/icons";
+import { Box, Image as ChakraImage, Flex, Input, Text } from "@chakra-ui/react";
+import { Notify } from "notiflix";
+import CardContext from "views/Generators/CardGenerator/context/CardContext";
 
 const ImageUpload = () => {
   const { selectedImage, setSelectedImage } = useContext(CardContext);

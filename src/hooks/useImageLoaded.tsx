@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const useImageLoaded = () => {
   const [loaded, setLoaded] = useState<boolean>(false);

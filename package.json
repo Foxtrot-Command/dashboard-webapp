@@ -44,6 +44,7 @@
     "save-svg-as-png": "^1.4.17"
   },
   "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^3.3.1",
     "@types/draft-js": "^0.11.9",
     "@types/draftjs-to-html": "^0.8.1",
     "@types/html-to-draftjs": "^1.4.0",

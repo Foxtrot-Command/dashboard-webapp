@@ -1,33 +1,32 @@
-import {
-  Box,
-  Flex,
-  Text,
-  IconButton,
-  Button,
-  Stack,
-  Collapse,
-  Icon,
-  Link as ChakraLink,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  useColorModeValue,
-  useBreakpointValue,
-  useDisclosure,
-  Image,
-  Avatar,
-  WrapItem,
-  AvatarBadge,
-} from "@chakra-ui/react";
-
 import Link from "next/link";
 
 import {
-  HamburgerIcon,
-  CloseIcon,
   ChevronDownIcon,
   ChevronRightIcon,
+  CloseIcon,
+  HamburgerIcon,
 } from "@chakra-ui/icons";
+import {
+  Avatar,
+  AvatarBadge,
+  Box,
+  Button,
+  Link as ChakraLink,
+  Collapse,
+  Flex,
+  Icon,
+  IconButton,
+  Image,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Stack,
+  Text,
+  WrapItem,
+  useBreakpointValue,
+  useColorModeValue,
+  useDisclosure,
+} from "@chakra-ui/react";
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();

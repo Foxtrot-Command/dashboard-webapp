@@ -1,20 +1,22 @@
-import { Box, BoxProps } from "@chakra-ui/react";
 import React, { useContext } from "react";
-import { CardContext, EditorCardContext } from "../context";
-import LoadingContent from "./LoadingContent";
-import draftToHtml from "draftjs-to-html";
-import { convertToRaw } from "draft-js";
+
+import { BoxProps } from "@chakra-ui/react";
 import {
   Attack,
   CardWrapper,
   Description,
   Frame,
   Health,
+  Image,
   Mana,
   Title,
   Type,
-  Image,
 } from "components/CardGame";
+import { convertToRaw } from "draft-js";
+import draftToHtml from "draftjs-to-html";
+
+import { CardContext, EditorCardContext } from "../context";
+import LoadingContent from "./LoadingContent";
 
 type Props = BoxProps & {
   showFrame?: boolean;

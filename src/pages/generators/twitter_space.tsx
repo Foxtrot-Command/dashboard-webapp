@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+
 import { PlusSquareIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -14,13 +16,12 @@ import {
   Stack,
   Switch,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
-import Draggable, { DraggableProps } from "react-draggable";
-import { onCapture } from "utils";
-import { AiOutlineClose } from "react-icons/ai";
 import useImageHandler from "hooks/useImageHandler";
+import Draggable, { DraggableProps } from "react-draggable";
+import { AiOutlineClose } from "react-icons/ai";
+import { BsChatSquareQuote, BsThreeDotsVertical } from "react-icons/bs";
 import { FaToggleOff, FaToggleOn } from "react-icons/fa";
-import { BsThreeDotsVertical, BsChatSquareQuote } from "react-icons/bs";
+import { onCapture } from "utils";
 
 interface ExtraBounds {
   bounds: {

@@ -1,5 +1,6 @@
-import { EditorState } from "draft-js";
 import React, { useState } from "react";
+
+import { EditorState } from "draft-js";
 
 const EditorCardContext = React.createContext<any>({});
 export default EditorCardContext;

@@ -1,11 +1,12 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 
-import CardContext from "../context/CardContext";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import SliderOpacity from "components/SliderOpacity";
 import { hexToRgb } from "utils";
+
 import { rarityArr } from "../Utils/RawData";
 import { CardView, DownloadButton } from "../components";
+import CardContext from "../context/CardContext";
 
 const InstagramCardVariant = () => {
   const { state, selectedImage } = useContext(CardContext);

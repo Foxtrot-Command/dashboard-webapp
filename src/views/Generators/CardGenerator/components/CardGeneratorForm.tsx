@@ -1,15 +1,16 @@
-import { Box, Divider, Flex } from "@chakra-ui/react";
 import React from "react";
 
+import { Box, Divider, Flex } from "@chakra-ui/react";
+
 import {
-  NameInput,
-  ImageUpload,
-  TypeSelector,
-  QualitySelector,
   DescriptionEditor,
   FactionSelection,
+  ImageUpload,
+  NameInput,
+  QualitySelector,
   RaritySelector,
   StatsInput,
+  TypeSelector,
 } from ".";
 
 const CardGeneratorForm = () => {

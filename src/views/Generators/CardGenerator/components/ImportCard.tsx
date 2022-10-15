@@ -1,26 +1,28 @@
+import React, { useContext } from "react";
+
 import {
-  InputRightElement,
-  Button,
   Badge,
   Box,
+  Button,
   Flex,
-  ModalBody,
-  ModalOverlay,
-  ModalCloseButton,
-  useDisclosure,
-  ModalContent,
-  Modal,
   Input,
-  ModalHeader,
+  InputRightElement,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
   ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
 } from "@chakra-ui/react";
-import CardContext from "views/Generators/CardGenerator/context/CardContext";
-import React, { useContext } from "react";
-import { cardData } from "views/Generators/CardGenerator/Utils/RawData";
 import { ContentState, EditorState } from "draft-js";
-import EditorCardContext from "views/Generators/CardGenerator/context/EditorCardContext";
-import SaveCardContext from "../context/SaveCardContext";
 import { saveDocumentSize } from "utils";
+import { cardData } from "views/Generators/CardGenerator/Utils/RawData";
+import CardContext from "views/Generators/CardGenerator/context/CardContext";
+import EditorCardContext from "views/Generators/CardGenerator/context/EditorCardContext";
+
+import SaveCardContext from "../context/SaveCardContext";
 
 let htmlToDraft: any = null;
 if (typeof window === "object") {

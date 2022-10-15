@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
 import { Box, Flex } from "@chakra-ui/react";
+import DropdownMenu from "components/DropdownMenu";
 
+import { CardGeneratorForm, CardView } from "./components";
 import InstagramPostCardVariant from "./variants/InstagramPostCardVariant";
 import InstagramStoriesCardVariant from "./variants/InstagramStoriesCardVariant";
-import { CardView, CardGeneratorForm } from "./components";
-import DropdownMenu from "components/DropdownMenu";
 
 const CardPage = () => {
   const [isFrameVisible, setFrameVisibility] = useState<boolean>(true);

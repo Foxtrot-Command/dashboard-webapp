@@ -1,7 +1,9 @@
-import { RadioGroup, HStack, Radio, Flex } from "@chakra-ui/react";
 import React, { useContext } from "react";
-import CardContext from "../context/CardContext";
+
+import { Flex, HStack, Radio, RadioGroup } from "@chakra-ui/react";
+
 import { factionArr } from "../Utils/RawData";
+import CardContext from "../context/CardContext";
 
 const FactionSelection = () => {
   const { dispatch, state } = useContext(CardContext);

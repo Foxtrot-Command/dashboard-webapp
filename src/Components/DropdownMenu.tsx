@@ -1,17 +1,18 @@
 import React, { Dispatch, SetStateAction } from "react";
+
 import {
   Box,
-  Popover,
-  PopoverTrigger,
+  Button,
   IconButton,
-  PopoverContent,
+  Popover,
   PopoverArrow,
   PopoverBody,
+  PopoverContent,
+  PopoverTrigger,
   Stack,
-  Button,
 } from "@chakra-ui/react";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { FaToggleOn, FaToggleOff } from "react-icons/fa";
+import { FaToggleOff, FaToggleOn } from "react-icons/fa";
 
 type Props = {
   isActive: boolean;

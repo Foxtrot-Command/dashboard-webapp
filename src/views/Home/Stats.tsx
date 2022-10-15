@@ -1,12 +1,14 @@
 import React from "react";
+
 import { Badge, Box, Flex } from "@chakra-ui/react";
 import {
+  FaDiscord,
+  FaInstagram,
   FaTelegramPlane,
   FaTwitter,
-  FaInstagram,
-  FaDiscord,
   FaYoutube,
 } from "react-icons/fa";
+
 import { Section, StatElement, StatsCardBox } from "./components";
 
 const Stats = () => {

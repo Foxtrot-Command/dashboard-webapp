@@ -1,5 +1,7 @@
-import { Select } from "@chakra-ui/react";
 import React, { useContext } from "react";
+
+import { Select } from "@chakra-ui/react";
+
 import CardContext from "../context/CardContext";
 
 const TypeSelector = () => {

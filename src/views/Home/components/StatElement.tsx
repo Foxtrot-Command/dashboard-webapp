@@ -1,5 +1,6 @@
-import { Text, Box, Flex, Badge } from "@chakra-ui/react";
 import React from "react";
+
+import { Badge, Box, Flex, Text } from "@chakra-ui/react";
 import { FaUser } from "react-icons/fa";
 
 const StatElement = ({ label, followers }) => {

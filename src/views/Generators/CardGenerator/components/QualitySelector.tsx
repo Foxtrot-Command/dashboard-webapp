@@ -1,8 +1,10 @@
-import { Flex, Select, Button } from "@chakra-ui/react";
+import React, { useContext } from "react";
+
+import { Flex, Select } from "@chakra-ui/react";
+import { saveDocumentSize } from "utils";
 import CardContext from "views/Generators/CardGenerator/context/CardContext";
 import SaveCardContext from "views/Generators/CardGenerator/context/SaveCardContext";
-import React, { useContext } from "react";
-import { onCapture, saveDocumentSize } from "utils";
+
 import DownloadButton from "./DownloadButton";
 
 const QualitySelector = ({

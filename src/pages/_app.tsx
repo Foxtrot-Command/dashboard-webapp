@@ -1,10 +1,11 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import "@fontsource/montserrat/latin.css";
+
 import { ChakraProvider } from "@chakra-ui/react";
-import fxdTheme from "styles/theme";
+import "@fontsource/montserrat/latin.css";
 import Layout from "components/Common/Layout";
 import "styles/globals.css";
+import fxdTheme from "styles/theme";
 
 function App({ Component, pageProps }: AppProps) {
   return (
