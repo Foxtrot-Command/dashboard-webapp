@@ -1,9 +1,8 @@
-import { PlusSquareIcon } from '@chakra-ui/icons';
-import { Box, Flex, Input, Image as ChakraImage, Text } from '@chakra-ui/react';
-import CardContext from 'views/Generators/CardGenerator/context/CardContext';
-import { Notify } from 'notiflix';
-import React, { useContext, useState } from 'react'
-
+import { PlusSquareIcon } from "@chakra-ui/icons";
+import { Box, Flex, Input, Image as ChakraImage, Text } from "@chakra-ui/react";
+import CardContext from "views/Generators/CardGenerator/context/CardContext";
+import { Notify } from "notiflix";
+import React, { useContext, useState } from "react";
 
 const ImageUpload = () => {
   const { selectedImage, setSelectedImage } = useContext(CardContext);
@@ -12,16 +11,16 @@ const ImageUpload = () => {
     event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
   ) => {
     if (event.target instanceof HTMLInputElement && event.target.files) {
-      if (!event.target.files[0].type.match('image.*')) {
-        return Notify.failure('Prueba con otro tipo de imagen');
+      if (!event.target.files[0].type.match("image.*")) {
+        return Notify.failure("Prueba con otro tipo de imagen");
       }
-      let reader = new FileReader();
+      const reader = new FileReader();
       reader.onload = function (e: any) {
         setSelectedImage(e.target.result);
       };
       reader.readAsDataURL(event.target.files[0]);
     }
-  }
+  };
 
   return (
     <Box
@@ -37,7 +36,7 @@ const ImageUpload = () => {
         py={1}
         borderRadius={6}
         _hover={{
-          bg: "whiteAlpha.300"
+          bg: "whiteAlpha.300",
         }}
       >
         <Flex
@@ -45,44 +44,48 @@ const ImageUpload = () => {
           gap={6}
           flexWrap="nowrap"
           w="100%"
-          justifyContent="space-between">
-
+          justifyContent="space-between"
+        >
           <Box as={Flex} gap={2} my="auto">
             <PlusSquareIcon my="auto" />
             <Text whiteSpace="nowrap">Subir imagen</Text>
           </Box>
 
-          {selectedImage ? <ChakraImage
-            src={selectedImage}
-            w="32px"
-            h="32px"
-            minW="32px"
-            minH="32px"
-            alt="base image"
-            objectFit='cover'
-            justifyContent="flex-end"
-            borderRadius={6}
-            my="auto"
-
-          /> :
-            <Box w="32px" h="32px"
+          {selectedImage ? (
+            <ChakraImage
+              src={selectedImage}
+              w="32px"
+              h="32px"
+              minW="32px"
+              minH="32px"
+              alt="base image"
+              objectFit="cover"
+              justifyContent="flex-end"
+              borderRadius={6}
+              my="auto"
+            />
+          ) : (
+            <Box
+              w="32px"
+              h="32px"
               minW="32px"
               minH="32px"
               background="neutrals.500"
-              borderRadius={6} position="relative">
-            </Box>}
+              borderRadius={6}
+              position="relative"
+            ></Box>
+          )}
         </Flex>
       </Box>
       <Input
         id="image-importer"
-        type="file" onChange={
-          (event: React.ChangeEvent<HTMLInputElement>) => {
-            imageHandler(event);
-          }
-        }>
-      </Input>
+        type="file"
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          imageHandler(event);
+        }}
+      ></Input>
     </Box>
-  )
-}
+  );
+};
 
-export default ImageUpload
+export default ImageUpload;

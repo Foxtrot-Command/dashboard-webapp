@@ -1,11 +1,11 @@
 @font-face {
   font-family: Inversionz Unboxed;
-  src: url('/fonts/Inversionz Unboxed.ttf');
+  src: url("/fonts/Inversionz Unboxed.ttf");
 }
 
 @font-face {
   font-family: Impact;
-  src: url('/fonts/impact.ttf');
+  src: url("/fonts/impact.ttf");
 }
 
 #root {
@@ -39,9 +39,9 @@ body::-webkit-scrollbar-thumb {
 }
 
 body {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    position: relative;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  position: relative;
 }
 
 @font-face {
@@ -54,10 +54,10 @@ html {
   scroll-behavior: smooth;
 }
 
-body, html {
+body,
+html {
   overflow: visible;
 }
-
 
 @media screen and (max-width: 1024px) {
   html {
@@ -67,10 +67,10 @@ body, html {
 
 @keyframes pulse {
   0% {
-    background-color: #001F3F;
+    background-color: #001f3f;
   }
   100% {
-    background-color: #FF4136;
+    background-color: #ff4136;
   }
 }
 
@@ -80,18 +80,17 @@ body, html {
 
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
 .editor-wrapper {
   border: 1px solid #9d9d9d30;
   border-radius: 3px;
-
 }
 
 .editor-box {

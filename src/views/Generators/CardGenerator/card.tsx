@@ -1,20 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
-import {
-  Box,
-  Flex,
-} from '@chakra-ui/react';
+import { Box, Flex } from "@chakra-ui/react";
 
-import InstagramPostCardVariant from './variants/InstagramPostCardVariant';
-import InstagramStoriesCardVariant from './variants/InstagramStoriesCardVariant';
-import {
-  CardView,
-  CardGeneratorForm
-} from './components';
-import DropdownMenu from 'components/DropdownMenu';
+import InstagramPostCardVariant from "./variants/InstagramPostCardVariant";
+import InstagramStoriesCardVariant from "./variants/InstagramStoriesCardVariant";
+import { CardView, CardGeneratorForm } from "./components";
+import DropdownMenu from "components/DropdownMenu";
 
 const CardPage = () => {
-
   const [isFrameVisible, setFrameVisibility] = useState<boolean>(true);
 
   return (
@@ -48,7 +41,7 @@ const CardPage = () => {
             <DropdownMenu
               isActive={isFrameVisible}
               setActive={setFrameVisibility}
-              title='Marco de la carta'
+              title="Marco de la carta"
             />
             <CardView showFrame={isFrameVisible} />
           </Box>
@@ -58,12 +51,9 @@ const CardPage = () => {
           <InstagramPostCardVariant />
           <InstagramStoriesCardVariant />
         </Flex>
-
-      </Flex >
+      </Flex>
     </>
-
-
-  )
-}
+  );
+};
 
 export default CardPage;

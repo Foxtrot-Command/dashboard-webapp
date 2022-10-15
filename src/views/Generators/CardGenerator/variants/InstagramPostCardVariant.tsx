@@ -1,28 +1,23 @@
-import {
-  Box,
-  Flex,
-  Text
-} from '@chakra-ui/react'
-import SliderOpacity from 'components/SliderOpacity';
-import React, { useContext, useState } from 'react'
-import { hexToRgb } from 'utils'
-import CardView from '../components/CardView';
-import DownloadButton from '../components/DownloadButton';
-import CardContext from '../context/CardContext'
-import { rarityArr } from '../Utils/RawData'
+import { Box, Flex, Text } from "@chakra-ui/react";
+import SliderOpacity from "components/SliderOpacity";
+import React, { useContext, useState } from "react";
+import { hexToRgb } from "utils";
+import CardView from "../components/CardView";
+import DownloadButton from "../components/DownloadButton";
+import CardContext from "../context/CardContext";
+import { rarityArr } from "../Utils/RawData";
 
 const InstagramPostCardVariant = () => {
-  const {
-    state,
-    selectedImage
-  } = useContext(CardContext)
+  const { state, selectedImage } = useContext(CardContext);
 
-  const [sliderValue, setSliderValue] = useState(60)
+  const [sliderValue, setSliderValue] = useState(60);
 
   const rarityColor = () => {
-    const { color = '#000' } = rarityArr.filter((value) => value.name === state.rarity)[0]
-    return hexToRgb(color).join(', ');
-  }
+    const { color = "#000" } = rarityArr.filter(
+      (value) => value.name === state.rarity
+    )[0];
+    return hexToRgb(color).join(", ");
+  };
 
   return (
     <Flex
@@ -35,13 +30,21 @@ const InstagramPostCardVariant = () => {
       py="20px"
       borderRadius="lg"
     >
-      <Box borderRadius={8} bg="whiteAlpha.100" alignItems="center" textAlign="center" p={4}>
+      <Box
+        borderRadius={8}
+        bg="whiteAlpha.100"
+        alignItems="center"
+        textAlign="center"
+        p={4}
+      >
         <Text>Instagram Post 1080x1080</Text>
       </Box>
 
       <Flex flexDirection="row" justifyContent="space-around">
-
-        <SliderOpacity sliderValue={sliderValue} setSliderValue={setSliderValue} />
+        <SliderOpacity
+          sliderValue={sliderValue}
+          setSliderValue={setSliderValue}
+        />
         <Box
           backgroundImage="/images/generators/cards/backgrounds/1080x1080.png"
           backgroundPosition="center"
@@ -88,27 +91,28 @@ const InstagramPostCardVariant = () => {
             h="100%"
             mx="auto"
             p="40px"
-            filter={`drop-shadow(0px 5px 27px rgba(${rarityColor()}, ${sliderValue / 100}))`}
+            filter={`drop-shadow(0px 5px 27px rgba(${rarityColor()}, ${
+              sliderValue / 100
+            }))`}
             transition="all .5s ease-in-out"
             zIndex={2}
           >
             <CardView />
           </Box>
-
         </Box>
       </Flex>
 
       <DownloadButton
         w="100%"
         saveConfig={{
-          id: 'instagram_post',
+          id: "instagram_post",
           name: `${state.cardName}_post`,
-          quality: 3
-        }} key='instagram_post'
+          quality: 3,
+        }}
+        key="instagram_post"
       />
-
     </Flex>
-  )
-}
+  );
+};
 
-export default InstagramPostCardVariant
+export default InstagramPostCardVariant;

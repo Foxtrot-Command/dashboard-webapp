@@ -1,5 +1,5 @@
-import { Box, Divider, Flex } from '@chakra-ui/react';
-import React from 'react'
+import { Box, Divider, Flex } from "@chakra-ui/react";
+import React from "react";
 
 import {
   NameInput,
@@ -9,20 +9,30 @@ import {
   DescriptionEditor,
   FactionSelection,
   RaritySelector,
-  StatsInput
-} from '.';
+  StatsInput,
+} from ".";
 
 const CardGeneratorForm = () => {
   return (
     <Flex direction="column" w={{ base: "100%", md: "auto" }}>
-      <Box mt="0" height="auto" w="100%" bg="whiteAlpha.100" p="20px" borderRadius={8}>
+      <Box
+        mt="0"
+        height="auto"
+        w="100%"
+        bg="whiteAlpha.100"
+        p="20px"
+        borderRadius={8}
+      >
         <Flex direction={{ base: "column", lg: "row" }} gap={2}>
           <NameInput />
           <StatsInput />
         </Flex>
 
-        <Flex mt={4} gap={{ base: 4, md: 0 }} direction={{ base: "column", lg: "row" }}>
-
+        <Flex
+          mt={4}
+          gap={{ base: 4, md: 0 }}
+          direction={{ base: "column", lg: "row" }}
+        >
           <Box w={{ base: "100%", lg: "50%" }}>
             <DescriptionEditor />
           </Box>
@@ -36,7 +46,6 @@ const CardGeneratorForm = () => {
             <ImageUpload />
             <TypeSelector />
           </Flex>
-
         </Flex>
 
         <Flex gap={4} mt="10px" direction="column" w="100%" position="relative">
@@ -45,10 +54,10 @@ const CardGeneratorForm = () => {
         </Flex>
         <Divider mt="14px" />
 
-        <QualitySelector key='main_card_selector' />
+        <QualitySelector key="main_card_selector" />
       </Box>
     </Flex>
-  )
-}
+  );
+};
 
-export default CardGeneratorForm
+export default CardGeneratorForm;

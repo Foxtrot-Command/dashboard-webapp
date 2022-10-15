@@ -4,29 +4,24 @@ import CardContext from "../context/CardContext";
 import SaveCardContext from "../context/SaveCardContext";
 
 export async function useHandleQualityChange(quality: number | string) {
-    const { dispatch } = useContext(CardContext)
+  const { dispatch } = useContext(CardContext);
 
-    const {
-        setLoadingQuality,
-        setDocumentSize,
-    } = useContext(SaveCardContext);
+  const { setLoadingQuality, setDocumentSize } = useContext(SaveCardContext);
 
-    dispatch({
-        type: 'cardQuality',
-        cardQuality: Number(quality)
-    })
+  dispatch({
+    type: "cardQuality",
+    cardQuality: Number(quality),
+  });
 
-    setLoadingQuality(true);
+  setLoadingQuality(true);
 
-        
-        saveDocumentSize({
-            id: 'image_final',
-            quality: Number(quality)
-        }).then(data => {
-            setDocumentSize(data)
-            setLoadingQuality(false);
-        })
-
+  saveDocumentSize({
+    id: "image_final",
+    quality: Number(quality),
+  }).then((data) => {
+    setDocumentSize(data);
+    setLoadingQuality(false);
+  });
 }
 
-export default useHandleQualityChange
+export default useHandleQualityChange;
