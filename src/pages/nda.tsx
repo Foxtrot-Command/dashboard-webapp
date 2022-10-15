@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const nda = () => {
-  return (
-    <div>nda</div>
-  )
-}
+  return <div>nda</div>;
+};
 
-export default nda
+export default nda;

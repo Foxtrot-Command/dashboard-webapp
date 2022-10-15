@@ -1,62 +1,69 @@
-import { InputRightElement, Button, Badge, Box, Flex, ModalBody, ModalOverlay, ModalCloseButton, useDisclosure, ModalContent, Modal, Input, ModalHeader, ModalFooter } from '@chakra-ui/react'
-import CardContext from 'views/Generators/CardGenerator/context/CardContext';
-import React, { useContext } from 'react'
-import { cardData } from 'views/Generators/CardGenerator/Utils/RawData';
-import { ContentState, EditorState } from 'draft-js';
-import EditorCardContext from 'views/Generators/CardGenerator/context/EditorCardContext';
-import SaveCardContext from '../context/SaveCardContext';
-import { saveDocumentSize } from 'utils';
+import React, { FC, useContext } from "react";
+
+import {
+  Badge,
+  Box,
+  Button,
+  Flex,
+  Input,
+  InputRightElement,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { ContentState, EditorState } from "draft-js";
+import { saveDocumentSize } from "utils";
+import { cardData } from "views/Generators/CardGenerator/Utils/RawData";
+import CardContext from "views/Generators/CardGenerator/context/CardContext";
+import EditorCardContext, { EditorCardContextType } from "views/Generators/CardGenerator/context/EditorCardContext";
+
+import SaveCardContext, { SaveCardContextType } from "../context/SaveCardContext";
 
 let htmlToDraft: any = null;
-if (typeof window === 'object') {
+if (typeof window === "object") {
   htmlToDraft = require('html-to-draftjs').default;
 }
 
 const ImportCard = () => {
-
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [searchValue, setSearchValue] = React.useState('');
-  const {
-    state,
-    setSelectedImage,
-    setLoadingContent,
-    dispatch
-  } = useContext(CardContext);
+  const [searchValue, setSearchValue] = React.useState("");
+  const { state, setSelectedImage, setLoadingContent, dispatch } =
+    useContext(CardContext);
 
-  const {
-    setEditorState
-  } = useContext(EditorCardContext);
+  const { setEditorState } = useContext(EditorCardContext) as EditorCardContextType;
 
-  const {
-    setLoadingQuality,
-    setDocumentSize,
-  } = useContext(SaveCardContext);
+  const { setLoadingQuality, setDocumentSize } = useContext(SaveCardContext) as SaveCardContextType;
 
   const handleChangeQuality = (quality: number | string) => {
     dispatch({
-      type: 'cardQuality',
-      cardQuality: Number(quality)
-    })
+      type: "cardQuality",
+      cardQuality: Number(quality),
+    });
 
     setLoadingQuality(true);
     saveDocumentSize({
-      id: 'image_final',
-      quality: Number(quality)
-    }).then(data => {
-      setDocumentSize(data)
+      id: "image_final",
+      quality: Number(quality),
+    }).then((data) => {
+      setDocumentSize(data);
       setLoadingQuality(false);
-    })
-  }
+    });
+  };
 
   const handleImportSelection = (index: number) => {
-    onClose()
+    onClose();
 
     setTimeout(() => {
-
-      setLoadingContent(true)
-      const { name, type, description, stats, faction, rarity, image } = cardData[index]
+      setLoadingContent(true);
+      const { name, type, description, stats, faction, rarity, image } =
+        cardData[index];
       dispatch({
-        type: 'multiStatement',
+        type: "multiStatement",
         payload: {
           cardName: name.toUpperCase(),
           mana: stats.mana,
@@ -64,30 +71,31 @@ const ImportCard = () => {
           health: stats.health,
           faction: faction,
           rarity: rarity,
-          cardType: type ?? ''
-        }
-      })
+          cardType: type ?? "",
+        },
+      });
 
-      setSelectedImage(image)
-      handleChangeQuality(state.cardQuality)
+      setSelectedImage(image);
+      handleChangeQuality(state.cardQuality);
 
       const contentBlock = htmlToDraft(description);
       if (contentBlock) {
         const contentState = ContentState.createFromBlockArray(contentBlock);
         const editorState = EditorState.createWithContent(contentState);
-        setEditorState(editorState)
+        setEditorState(editorState);
       }
 
       setTimeout(() => {
-        setLoadingContent(false)
-      }, 1000)
-    }, 200)
-
-  }
+        setLoadingContent(false);
+      }, 1000);
+    }, 200);
+  };
 
   const filteredCardData = cardData.filter((content: any) => {
-    return content.name.toLowerCase().includes(searchValue.toLowerCase())
-      || content.faction.toLowerCase().includes(searchValue.toLowerCase());
+    return (
+      content.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+      content.faction.toLowerCase().includes(searchValue.toLowerCase())
+    );
   });
 
   return (
@@ -103,8 +111,10 @@ const ImportCard = () => {
               autoComplete="off"
               type="search"
               placeholder="Busca por nombre de carta"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => setSearchValue(event.target.value)}>
-            </Input>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setSearchValue(event.target.value)
+              }
+            ></Input>
             <Flex direction="column" gap={2} mt={4}>
               {filteredCardData.map(({ name, faction }, index: number) => (
                 <Box
@@ -115,16 +125,19 @@ const ImportCard = () => {
                   px={4}
                   _hover={{
                     background: "whiteAlpha.300",
-                    cursor: "pointer"
+                    cursor: "pointer",
                   }}
                   onClick={() => handleImportSelection(index)}
                 >
                   <Flex direction="row" justifyContent="space-between">
-
                     <Box>{name}</Box>
                     <Box>
-                      <Badge variant='subtle' colorScheme="red" mr={2}>EN</Badge>
-                      <Badge variant='outline' colorScheme="success">{faction}</Badge>
+                      <Badge variant="subtle" colorScheme="red" mr={2}>
+                        EN
+                      </Badge>
+                      <Badge variant="outline" colorScheme="success">
+                        {faction}
+                      </Badge>
                     </Box>
                   </Flex>
                 </Box>
@@ -133,21 +146,20 @@ const ImportCard = () => {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={onClose}>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
               Cerrar
             </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
 
-      <InputRightElement width='4.8rem' mr={1}>
-          <Button h='1.5rem' size='sm' onClick={onOpen}>
-            Importar
-          </Button>
+      <InputRightElement width="4.8rem" mr={1}>
+        <Button h="1.5rem" size="sm" onClick={onOpen}>
+          Importar
+        </Button>
       </InputRightElement>
     </>
+  );
+};
 
-  )
-}
-
-export default ImportCard
+export default ImportCard;

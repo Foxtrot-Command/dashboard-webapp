@@ -1,12 +1,11 @@
-import { Flex } from '@chakra-ui/react'
-import React from 'react'
-import { CardBoxElement, Section } from './components'
+import { Flex } from "@chakra-ui/react";
+
+import { CardBoxElement, Section } from "./components";
 
 const Tools = () => {
   return (
     <Section title="Herramientas">
       <Flex gap={5} flexWrap="wrap" justifyContent="space-between">
-
         <CardBoxElement
           identifier="Generadores"
           title="Cartas + Redes sociales"
@@ -37,10 +36,9 @@ const Tools = () => {
           color="red"
           text="WIP"
         />
-
       </Flex>
     </Section>
-  )
-}
+  );
+};
 
-export default Tools
+export default Tools;

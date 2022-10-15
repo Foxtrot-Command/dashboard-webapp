@@ -1,11 +1,14 @@
-export const Health = ({ children, fontFamily }) => {
 
+type Props = {
+  value: number;
+}
+export const Health = ({ value }: Props) => {
   const handleAmountPosition = (amount: number) => {
     if (amount === 11) return 1;
     if (amount >= 10) return -13;
     if (amount === 7) return 34;
     return 26;
-  }
+  };
 
   return (
     <g id="Health" transform="translate(598.000000, 885.000000)">
@@ -18,25 +21,26 @@ export const Health = ({ children, fontFamily }) => {
         height="177"
         href="/images/parts/stats/health.png"
       />
-      {children !== undefined &&
+      {value !== undefined && (
         <text
           id="value"
           stroke="#000000"
           strokeWidth="0px"
           fill="#D8D8D8"
           type="MSTextLayer"
-          fontFamily={fontFamily || "sans-serif"}
+          fontFamily="Inversionz Unboxed"
           paintOrder="stroke"
           fontSize="193"
           fontWeight="400"
           letterSpacing="-70px"
         >
-          <tspan x={handleAmountPosition(children)} y={192} fill="#FFF">
-            {children}
+          <tspan x={handleAmountPosition(value)} y={192} fill="#FFF">
+            {value}
           </tspan>
-        </text>}
+        </text>
+      )}
     </g>
-  )
-}
+  );
+};
 
 export default Health;

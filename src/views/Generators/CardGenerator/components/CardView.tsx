@@ -1,46 +1,63 @@
-import { Box, BoxProps } from '@chakra-ui/react';
-import { Image, Attack, CardWrapper, Description, Frame, Health, Mana, Title, Type } from 'Components/CardGame';
-import React, { useContext } from 'react'
-import { CardContext, EditorCardContext } from '../context';
-import LoadingContent from './LoadingContent';
-import draftToHtml from 'draftjs-to-html';
+import React, { useContext } from "react";
+
+import { BoxProps } from "@chakra-ui/react";
+import {
+  Attack,
+  CardWrapper,
+  Description,
+  Frame,
+  Health,
+  Image,
+  Mana,
+  Title,
+  Type,
+} from "components/CardGame";
 import { convertToRaw } from "draft-js";
+import draftToHtml from "draftjs-to-html";
 
-type Props = BoxProps & {}
+import { CardContext, EditorCardContext } from "../context";
+import LoadingContent from "./LoadingContent";
+import { EditorCardContextType } from "../context/EditorCardContext";
 
-const CardView = ({ ...props }: Props) => {
-  const {
-    state,
-    selectedImage,
-    isLoadingContent,
-  } = useContext(CardContext)
+type Props = BoxProps & {
+  showFrame?: boolean;
+};
 
-  const { editorState } = useContext(EditorCardContext);
+const CardView = ({ showFrame = true }: Props) => {
+  const { state, selectedImage, isLoadingContent } = useContext(CardContext);
+
+  const { editorState } = useContext(EditorCardContext) as EditorCardContextType;
   return (
     <>
       {isLoadingContent && <LoadingContent />}
 
       <CardWrapper id="image_final" opacity={isLoadingContent ? 0.4 : 1}>
-        <Image image={selectedImage} id="FXD" clip />
-        <Frame image={`/images/parts/frames/${state.rarity.toLowerCase()}/${state.faction.toLowerCase()}.png`} />
-        <Mana fontFamily="Inversionz Unboxed">{state.mana}</Mana>
-        <Type fontFamily="Inversionz Unboxed">{state.cardType}</Type>
+        <Image image={selectedImage} id="FXD" />
 
-        {state.cardType.toLowerCase() !== 'tactic' &&
-          <>
-            <Health fontFamily="Inversionz Unboxed">{state.health}</Health>
-            <Attack fontFamily="Inversionz Unboxed">{state.attack}</Attack>
-          </>
-        }
-
-        <Title fontFamily="Montserrat" flow>{state.cardName}</Title>
-        <Description rich fontFamily="Montserrat">
+        <Description rich>
           {draftToHtml(convertToRaw(editorState.getCurrentContent()))}
         </Description>
+        <Title text={state.cardName} />
+
+        {showFrame && (
+          <>
+            <Frame
+              image={`/images/parts/frames/${state.rarity.toLowerCase()}/${state.faction.toLowerCase()}.png`}
+            />
+            <Mana value={state.mana} />
+            <Type value={state.cardType} />
+
+            {state.cardType.toLowerCase() !== "tactic" && (
+              <>
+                <Health value={state.health} />
+                <Attack value={state.attack} />
+              </>
+            )}
+          </>
+        )}
       </CardWrapper>
-
     </>
-  )
-}
+  );
+};
 
-export default CardView
+export default CardView;

@@ -8,11 +8,11 @@ const fxdTheme = extendTheme({
   fonts,
   colors,
   breakpoints: {
-    sm: '30em',
-    md: '46em',
-    lg: '62em',
-    xl: '80em',
-    '2xl': '96em',
+    sm: "30em",
+    md: "46em",
+    lg: "62em",
+    xl: "80em",
+    "2xl": "96em",
   },
   layerStyles,
   styles: {
@@ -29,7 +29,7 @@ const fxdTheme = extendTheme({
     },
     generators: {
       cards: "4px 5px 24px rgba(0, 0, 0, 0.35)",
-    }
+    },
   },
   config: {
     initialColorMode: "dark",

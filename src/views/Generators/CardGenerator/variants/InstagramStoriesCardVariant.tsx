@@ -1,29 +1,24 @@
-import {
-  Box,
-  Flex,
-  Text
-} from '@chakra-ui/react'
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from "react";
 
-import CardContext from '../context/CardContext'
-import CardView from '../components/CardView';
-import DownloadButton from '../components/DownloadButton';
-import SliderOpacity from 'Components/SliderOpacity';
-import { hexToRgb } from 'utils'
-import { rarityArr } from '../Utils/RawData'
+import { Box, Flex, Text } from "@chakra-ui/react";
+import SliderOpacity from "components/SliderOpacity";
+import { hexToRgb } from "utils";
+
+import { rarityArr } from "../Utils/RawData";
+import { CardView, DownloadButton } from "../components";
+import CardContext from "../context/CardContext";
 
 const InstagramCardVariant = () => {
-  const {
-    state,
-    selectedImage,
-  } = useContext(CardContext)
+  const { state, selectedImage } = useContext(CardContext);
 
-  const [sliderValue, setSliderValue] = useState(35)
+  const [sliderValue, setSliderValue] = useState(35);
 
   const rarityColor = () => {
-    const { color = '#000' } = rarityArr.filter((value) => value.name === state.rarity)[0]
-    return hexToRgb(color).join(', ');
-  }
+    const { color = "#000" } = rarityArr.filter(
+      (value) => value.name === state.rarity
+    )[0];
+    return hexToRgb(color).join(", ");
+  };
 
   return (
     <Flex
@@ -36,12 +31,21 @@ const InstagramCardVariant = () => {
       py="20px"
       borderRadius="lg"
     >
-      <Box borderRadius={8} bg="whiteAlpha.100" alignItems="center" textAlign="center" p={4}>
+      <Box
+        borderRadius={8}
+        bg="whiteAlpha.100"
+        alignItems="center"
+        textAlign="center"
+        p={4}
+      >
         <Text>Instagram Stories 1920x1080</Text>
       </Box>
       <Flex flexDirection="row">
-
-        <SliderOpacity sliderValue={sliderValue} defaultValue={35} setSliderValue={setSliderValue} />
+        <SliderOpacity
+          sliderValue={sliderValue}
+          defaultValue={35}
+          setSliderValue={setSliderValue}
+        />
         <Box
           h="640px"
           w="360px"
@@ -112,27 +116,29 @@ const InstagramCardVariant = () => {
               mx="auto"
               top={-14}
               py="95px"
-              filter={`drop-shadow(0px 5px 15px rgba(${rarityColor()}, ${sliderValue / 100}))`}
+              filter={`drop-shadow(0px 5px 15px rgba(${rarityColor()}, ${
+                sliderValue / 100
+              }))`}
               transition="all .5s ease-in-out"
               zIndex={2}
             >
               <CardView />
             </Box>
           </Box>
-
-
         </Box>
       </Flex>
 
       <DownloadButton
         w="100%"
         saveConfig={{
-          id: 'instagram_stories',
+          id: "instagram_stories",
           name: `${state.cardName}_storie`,
-          quality: 3
-        }} key='instagram_stories' />
+          quality: 3,
+        }}
+        key="instagram_stories"
+      />
     </Flex>
-  )
-}
+  );
+};
 
-export default InstagramCardVariant
+export default InstagramCardVariant;

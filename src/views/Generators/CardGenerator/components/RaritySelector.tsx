@@ -1,73 +1,88 @@
-import { useContext } from "react"
-import { Flex, Stack, Tooltip, Box, useRadio, useRadioGroup, Text } from "@chakra-ui/react"
-import { rarityArr } from "views/Generators/CardGenerator/Utils/RawData"
-import CardContext from "views/Generators/CardGenerator/context/CardContext"
+import { useContext } from "react";
 
+import {
+  Box,
+  Flex,
+  Stack,
+  Text,
+  Tooltip,
+  useRadio,
+  useRadioGroup,
+} from "@chakra-ui/react";
+import { rarityArr } from "views/Generators/CardGenerator/Utils/RawData";
+import CardContext from "views/Generators/CardGenerator/context/CardContext";
 
-function RadioCard(props) {
-  const { getInputProps, getCheckboxProps } = useRadio(props)
+type RadioCardType = {
+  label: string;
+  color: string;
+  children?: React.ReactNode;
+  isDisabled: boolean;
+}
+function RadioCard({label, color, children, ...props}: RadioCardType) {
+  const { getInputProps, getCheckboxProps } = useRadio(props);
 
-  const input = getInputProps()
-  const checkbox = getCheckboxProps()
+  const input = getInputProps();
+  const checkbox = getCheckboxProps();
 
   return (
-    <Box as='label'>
+    <Box as="label">
       <input {...input} />
-      <Tooltip label={props.label}>
+      <Tooltip label={label}>
         <Box
           {...checkbox}
-          backgroundColor={props.color}
-          cursor='pointer'
-          borderRadius='md'
+          backgroundColor={color}
+          cursor="pointer"
+          borderRadius="md"
           width="32px"
           height="32px"
           _checked={{
-            borderWidth: '4px',
-            borderColor: 'blackAlpha.600',
+            borderWidth: "4px",
+            borderColor: "blackAlpha.600",
           }}
           _focus={{
-            boxShadow: 'outline',
+            boxShadow: "outline",
           }}
         >
-          {props.children}
+          {children}
         </Box>
       </Tooltip>
     </Box>
-  )
+  );
 }
 
 const RaritySelector = () => {
-
-  const { state, dispatch } = useContext(CardContext)
+  const { state, dispatch } = useContext(CardContext);
 
   const { getRadioProps } = useRadioGroup({
-    name: 'rarities',
+    name: "rarities",
     value: state.rarity,
-    defaultValue: 'Common',
-    onChange: (rarity) => dispatch({ type: 'rarity', rarity: rarity }),
-  })
+    defaultValue: "Common",
+    onChange: (rarity) => dispatch({ type: "rarity", rarity: rarity }),
+  });
 
   return (
     <>
       <Flex direction="column" gap={4} w="100%" position="relative">
-        <Stack direction='row'>
+        <Stack direction="row">
           <Text my="auto">Rareza: </Text>
           {rarityArr.map(({ name, color, isDisabled }, index: number) => {
             const radio = getRadioProps({
-              value: name
-            })
+              value: name,
+            });
             return (
-
               <RadioCard
+              {...radio}
                 key={name}
-                label={name} {...radio} isDisabled={isDisabled} color={color}>
-              </RadioCard>
-            )
+                label={name}
+                isDisabled={isDisabled}
+                color={color}
+              />
+            );
           })}
         </Stack>
       </Flex>
     </>
-  )
-}
+  );
+};
 
 export default RaritySelector;

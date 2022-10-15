@@ -1,15 +1,19 @@
-import { Box, Heading } from '@chakra-ui/react'
-import React from 'react'
+import React from "react";
 
-const Section = ({ title, children }) => (
-    <>
-      <Box mb={10}>
-        <Heading my={4}>
-          {title}
-        </Heading>
-        {children}
-      </Box>
-    </>
-  )
+import { Box, Heading } from "@chakra-ui/react";
 
-export default Section
+type Props = {
+  title: string;
+  children: React.ReactNode;
+}
+
+const Section = ({ title, children }: Props) => (
+  <>
+    <Box mb={10}>
+      <Heading my={4}>{title}</Heading>
+      {children}
+    </Box>
+  </>
+);
+
+export default Section;

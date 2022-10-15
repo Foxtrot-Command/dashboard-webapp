@@ -1,19 +1,17 @@
-import React from 'react';
-import { Box, Container } from '@chakra-ui/react';
-import {Data, Tools,Stats} from 'views/Home';
+import React from "react";
+
+import { Box, Container } from "@chakra-ui/react";
+import { Data, Stats, Tools } from "views/Home";
 
 const Home = () => {
-
   return (
-    <Container maxW='5xl' minHeight="777px">
-
+    <Container maxW="5xl" minHeight="777px">
       <Box as="section">
         <Stats />
         <Tools />
-        <Data/>
+        <Data />
       </Box>
-
-    </Container >
+    </Container>
   );
 };
 

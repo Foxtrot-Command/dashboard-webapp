@@ -11,5 +11,3 @@ export { default as QualitySelector } from './QualitySelector';
 export { default as RaritySelector } from './RaritySelector';
 export { default as StatsInput } from './StatsInput';
 export { default as TypeSelector } from './TypeSelector';
-export { default as _useHandleQualityChange } from './_useHandleQualityChange';
-export * from './index';

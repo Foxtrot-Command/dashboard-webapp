@@ -1,33 +1,32 @@
-import { useContext } from "react";
 import dynamic from "next/dynamic";
-import { EditorProps } from 'react-draft-wysiwyg'
+
+import React, { useContext } from "react";
+
+import { Box } from "@chakra-ui/react";
+import { EditorProps } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import EditorCardContext, { EditorCardContextType } from "views/Generators/CardGenerator/context/EditorCardContext";
 
 const Editor = dynamic<EditorProps>(
-  () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
+  () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
   { ssr: false }
-)
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import EditorCardContext from "views/Generators/CardGenerator/context/EditorCardContext";
-import { Box } from "@chakra-ui/react";
-import React from "react";
+);
 
 const DescriptionEditor = () => {
-
-  const { editorState, onEditorStateChange } = useContext(EditorCardContext);
+  const { editorState, onEditorStateChange } = useContext(EditorCardContext) as EditorCardContextType;
 
   return (
     <Box>
       <Editor
         toolbar={{
-          options: ['inline', 'textAlign', 'history'],
+          options: ["inline", "textAlign", "history"],
           inline: {
             inDropdown: false,
-            options: ['bold', 'italic', 'underline', 'strikethrough']
+            options: ["bold", "italic", "underline", "strikethrough"],
           },
           textAlign: { inDropdown: false },
           link: { inDropdown: false },
           history: { inDropdown: false },
-
         }}
         editorState={editorState}
         toolbarClassName="editor-toolbar"
@@ -36,7 +35,7 @@ const DescriptionEditor = () => {
         onEditorStateChange={onEditorStateChange}
       />
     </Box>
-  )
-}
+  );
+};
 
-export default DescriptionEditor
+export default DescriptionEditor;

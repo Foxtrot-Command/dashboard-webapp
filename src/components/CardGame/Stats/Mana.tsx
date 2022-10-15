@@ -1,11 +1,14 @@
-export const Mana = ({ children, fontFamily }) => {
 
+type Props = {
+  value: number;
+}
+export const Mana = ({ value }: Props) => {
   const handleAmountPosition = (amount: number) => {
     if (amount === 11) return 10;
     if (amount === 7) return 43;
     if (amount >= 10) return -2;
     return 35;
-  }
+  };
 
   return (
     <g id="ManaCircle" transform="translate(590.000000, -10.000000)">
@@ -18,25 +21,25 @@ export const Mana = ({ children, fontFamily }) => {
         height="177"
         href="/images/parts/stats/mana.png"
       />
-      {children !== undefined &&
+      {value !== undefined && (
         <text
           id="value"
           stroke="#000000"
           strokeWidth="0px"
           fill="#D8D8D8"
           type="MSTextLayer"
-          fontFamily={fontFamily || "sans-serif"}
+          fontFamily="Inversionz Unboxed"
           paintOrder="stroke"
           fontSize="193"
           letterSpacing="-70px"
         >
-          <tspan x={handleAmountPosition(children)} y={145} fill="#FFF">
-            {children}
+          <tspan x={handleAmountPosition(value)} y={145} fill="#FFF">
+            {value}
           </tspan>
-        </text>}
+        </text>
+      )}
     </g>
-  )
-}
-
+  );
+};
 
 export default Mana;
