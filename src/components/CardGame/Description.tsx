@@ -55,7 +55,7 @@ export const Description = ({ children, rich }: Props) => {
             }}
           >
             {parser.parse(
-              `<div class="text" style="vertical-align: middle; height: 100%; font-family: Montserrat;>
+              `<div class="text" style="vertical-align: middle; height: 100%; font-family: Montserrat">
             ${children}
             </div>`
             )}
