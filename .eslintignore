@@ -1,0 +1,7 @@
+*.config.js
+*.md
+*.css
+*.png
+*.webp
+*.html
+/out
