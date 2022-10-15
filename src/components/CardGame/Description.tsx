@@ -3,7 +3,12 @@ import { generatePath } from "utils/Svg";
 
 const parser = new Parser();
 
-export const Description = ({ children, rich, fontFamily }) => {
+type Props = {
+  children: React.ReactNode;
+  rich: boolean;
+}
+
+export const Description = ({ children, rich }: Props) => {
   if (rich) {
     return (
       <>
@@ -50,7 +55,7 @@ export const Description = ({ children, rich, fontFamily }) => {
             }}
           >
             {parser.parse(
-              `<div class="text" style="vertical-align: middle; height: 100%; font-family: ${fontFamily}">
+              `<div class="text" style="vertical-align: middle; height: 100%; font-family: Montserrat;>
             ${children}
             </div>`
             )}

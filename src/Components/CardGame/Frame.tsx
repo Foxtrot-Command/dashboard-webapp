@@ -1,6 +1,10 @@
+type Props = {
+  image: string;
+}
+
 export const Frame = ({
   image = "/images/parts/frames/uncommon/bushido.png",
-}) => (
+}: Props) => (
   <>
     <image
       id="mNeutral"

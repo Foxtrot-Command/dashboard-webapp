@@ -5,23 +5,13 @@ import {
   Box,
   Button,
   Flex,
-  Heading,
-  IconButton,
   Input,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverContent,
-  PopoverTrigger,
-  Stack,
-  Switch,
 } from "@chakra-ui/react";
 import useImageHandler from "hooks/useImageHandler";
 import Draggable, { DraggableProps } from "react-draggable";
 import { AiOutlineClose } from "react-icons/ai";
-import { BsChatSquareQuote, BsThreeDotsVertical } from "react-icons/bs";
-import { FaToggleOff, FaToggleOn } from "react-icons/fa";
 import { onCapture } from "utils";
+import { DropdownMenu } from "components";
 
 interface ExtraBounds {
   bounds: {
@@ -40,42 +30,12 @@ const DraggableBox = (props: DraggablePropsExpanded) => {
   return <Draggable {...restProps}>{children}</Draggable>;
 };
 
-const TopMenu = ({ setShowBox, showBox }) => {
-  return (
-    <Box position="absolute" top={2} right={2}>
-      <Popover placement="bottom" isLazy>
-        <PopoverTrigger>
-          <IconButton
-            aria-label="More server options"
-            icon={<BsThreeDotsVertical />}
-            variant="solid"
-            w="fit-content"
-          />
-        </PopoverTrigger>
-        <PopoverContent w="fit-content" _focus={{ boxShadow: "none" }}>
-          <PopoverArrow />
-          <PopoverBody>
-            <Stack>
-              <Button
-                w="194px"
-                variant="ghost"
-                rightIcon={showBox ? <FaToggleOn /> : <FaToggleOff />}
-                justifyContent="space-between"
-                fontWeight="normal"
-                fontSize="sm"
-                onClick={() => setShowBox(!showBox)}
-              >
-                Ver caja de logo
-              </Button>
-            </Stack>
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
-    </Box>
-  );
-};
+type UploadLogoButtonType = {
+  selectedImage: boolean;
+  imageHandler: any;
+}
 
-const UploadLogoButton = ({ selectedImage, imageHandler }) => {
+const UploadLogoButton = ({ selectedImage, imageHandler }: UploadLogoButtonType) => {
   return (
     <Box
       as="label"
@@ -99,9 +59,7 @@ const UploadLogoButton = ({ selectedImage, imageHandler }) => {
           <Input
             id="image-importer"
             type="file"
-            onChange={(e: any) => {
-              imageHandler(e);
-            }}
+            onChange={imageHandler}
           />
         </Box>
 
@@ -164,7 +122,7 @@ const TwitterSpace = () => {
         borderRadius={8}
         position="relative"
       >
-        <TopMenu setShowBox={setShowBox} showBox={showBox} />
+        <DropdownMenu setActive={setShowBox} isActive={showBox} />
 
         <Flex direction="column" gap={2}>
           <Flex gap={2} direction="row">

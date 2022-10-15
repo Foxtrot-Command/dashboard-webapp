@@ -1,6 +1,6 @@
 import React, { useReducer, useState } from "react";
 
-const initialState: any = {
+const initialState: {[key: string]: number | string} = {
   cardName: "",
   faction: "Bushido",
   rarity: "Common",
@@ -39,9 +39,14 @@ function reducer(state, action) {
 const CardContext = React.createContext<any>({ state: initialState });
 export default CardContext;
 
-export function CardContextProvider({ children }) {
+
+type Props = {
+  children: React.ReactNode;
+}
+
+export function CardContextProvider({ children }: Props) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [selectedImage, setSelectedImage] = useState<string | any>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isLoadingContent, setLoadingContent] = useState<boolean>(false);
 
   return (

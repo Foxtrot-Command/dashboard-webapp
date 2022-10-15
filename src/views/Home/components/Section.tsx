@@ -2,7 +2,12 @@ import React from "react";
 
 import { Box, Heading } from "@chakra-ui/react";
 
-const Section = ({ title, children }) => (
+type Props = {
+  title: string;
+  children: React.ReactNode;
+}
+
+const Section = ({ title, children }: Props) => (
   <>
     <Box mb={10}>
       <Heading my={4}>{title}</Heading>

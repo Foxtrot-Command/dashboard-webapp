@@ -5,7 +5,7 @@ import { CardContextProvider } from "views/Generators/CardGenerator/context/Card
 import { EditorCardContextProvider } from "views/Generators/CardGenerator/context/EditorCardContext";
 import { SaveCardContextProvider } from "views/Generators/CardGenerator/context/SaveCardContext";
 
-const ContextProviders = ({ children }) => (
+const ContextProviders = ({ children }: {children: React.ReactNode}) => (
   <CardContextProvider>
     <SaveCardContextProvider>
       <EditorCardContextProvider>{children}</EditorCardContextProvider>

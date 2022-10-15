@@ -3,18 +3,22 @@ import React, { useContext } from "react";
 import { Flex, Select } from "@chakra-ui/react";
 import { saveDocumentSize } from "utils";
 import CardContext from "views/Generators/CardGenerator/context/CardContext";
-import SaveCardContext from "views/Generators/CardGenerator/context/SaveCardContext";
+import SaveCardContext, { SaveCardContextType } from "views/Generators/CardGenerator/context/SaveCardContext";
 
 import DownloadButton from "./DownloadButton";
 
+type Props = {
+  imageSelector?: string;
+  allowSelectQuality?: boolean;
+}
 const QualitySelector = ({
   imageSelector = "image_final",
   allowSelectQuality = true,
-}) => {
+}: Props) => {
   const { state, dispatch } = useContext(CardContext);
 
   const { setLoadingQuality, setDocumentSize, loadingQuality, documentSize } =
-    useContext(SaveCardContext);
+    useContext(SaveCardContext) as SaveCardContextType;
 
   const handleChangeQuality = (
     quality: number | string,

@@ -1,9 +1,12 @@
-import React from "react";
-
 import { Badge, Box, Flex, Text } from "@chakra-ui/react";
 import { FaUser } from "react-icons/fa";
 
-const StatElement = ({ label, followers }) => {
+type Props = {
+  label: string;
+  followers: number;
+}
+
+const StatElement = ({ label, followers }: Props) => {
   return (
     <Flex gap={2}>
       <Badge my="auto" py={1} px={2} borderRadius={4} w="60px">

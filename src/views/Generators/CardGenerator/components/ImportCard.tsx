@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { FC, useContext } from "react";
 
 import {
   Badge,
@@ -20,13 +20,13 @@ import { ContentState, EditorState } from "draft-js";
 import { saveDocumentSize } from "utils";
 import { cardData } from "views/Generators/CardGenerator/Utils/RawData";
 import CardContext from "views/Generators/CardGenerator/context/CardContext";
-import EditorCardContext from "views/Generators/CardGenerator/context/EditorCardContext";
+import EditorCardContext, { EditorCardContextType } from "views/Generators/CardGenerator/context/EditorCardContext";
 
-import SaveCardContext from "../context/SaveCardContext";
+import SaveCardContext, { SaveCardContextType } from "../context/SaveCardContext";
 
 let htmlToDraft: any = null;
 if (typeof window === "object") {
-  htmlToDraft = require("html-to-draftjs").default;
+  htmlToDraft = require('html-to-draftjs').default;
 }
 
 const ImportCard = () => {
@@ -35,9 +35,9 @@ const ImportCard = () => {
   const { state, setSelectedImage, setLoadingContent, dispatch } =
     useContext(CardContext);
 
-  const { setEditorState } = useContext(EditorCardContext);
+  const { setEditorState } = useContext(EditorCardContext) as EditorCardContextType;
 
-  const { setLoadingQuality, setDocumentSize } = useContext(SaveCardContext);
+  const { setLoadingQuality, setDocumentSize } = useContext(SaveCardContext) as SaveCardContextType;
 
   const handleChangeQuality = (quality: number | string) => {
     dispatch({

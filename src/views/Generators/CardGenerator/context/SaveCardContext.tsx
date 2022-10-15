@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 
-const SaveCardContext = React.createContext<any>({});
+export type SaveCardContextType = {
+  documentSize: string;
+  setDocumentSize: (todo: string) => void;
+  loadingQuality: boolean;
+  setLoadingQuality: (todo: boolean) => void;
+}
+
+const SaveCardContext = React.createContext<SaveCardContextType | null>(null);
 export default SaveCardContext;
 
-export function SaveCardContextProvider({ children }) {
+export function SaveCardContextProvider({ children }: {children: React.ReactNode}) {
   const [documentSize, setDocumentSize] = useState<string>("0 MB");
   const [loadingQuality, setLoadingQuality] = useState<boolean>(false);
 

@@ -1,4 +1,9 @@
-export const CardWrapper = ({ children, opacity = 1, id = "card-svg" }) => (
+type Props = {
+  children: React.ReactNode;
+  opacity: number;
+  id: string;
+}
+export const CardWrapper = ({ children, opacity = 1, id = "card-svg" }: Props) => (
   <svg
     style={{
       width: "100%",

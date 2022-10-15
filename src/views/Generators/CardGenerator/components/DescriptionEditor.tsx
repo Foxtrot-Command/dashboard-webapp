@@ -5,7 +5,7 @@ import React, { useContext } from "react";
 import { Box } from "@chakra-ui/react";
 import { EditorProps } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import EditorCardContext from "views/Generators/CardGenerator/context/EditorCardContext";
+import EditorCardContext, { EditorCardContextType } from "views/Generators/CardGenerator/context/EditorCardContext";
 
 const Editor = dynamic<EditorProps>(
   () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
@@ -13,7 +13,7 @@ const Editor = dynamic<EditorProps>(
 );
 
 const DescriptionEditor = () => {
-  const { editorState, onEditorStateChange } = useContext(EditorCardContext);
+  const { editorState, onEditorStateChange } = useContext(EditorCardContext) as EditorCardContextType;
 
   return (
     <Box>

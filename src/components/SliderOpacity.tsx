@@ -4,19 +4,24 @@ import {
   Box,
   Slider,
   SliderFilledTrack,
-  SliderMark,
   SliderThumb,
   SliderTrack,
   Tooltip,
 } from "@chakra-ui/react";
 import { MdOpacity } from "react-icons/md";
 
+type Props = {
+  sliderValue: number;
+  defaultValue?: number;
+  setSliderValue: (val: number) => void;
+}
+
 const SliderOpacity = ({
   sliderValue = 60,
   defaultValue = 60,
   setSliderValue,
   ...props
-}) => {
+}: Props) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
@@ -26,7 +31,7 @@ const SliderOpacity = ({
         defaultValue={defaultValue}
         min={30}
         max={70}
-        onChange={(val: React.SetStateAction<number>) => setSliderValue(val)}
+        onChange={setSliderValue}
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
       >

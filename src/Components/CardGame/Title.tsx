@@ -1,5 +1,9 @@
-export const Title = ({ children }) => {
-  const handleTitleSize = (text) => {
+type Props = {
+  text: string;
+}
+
+export const Title = ({ text }: Props) => {
+  const handleTitleSize = (text: string) => {
     const size = text.split("").length;
     if (size >= 18) return 34;
 
@@ -15,11 +19,11 @@ export const Title = ({ children }) => {
         }}
       />
       <g>
-        {children && (
+        {text && (
           <text
             x={265}
             y={50}
-            fontSize={`${handleTitleSize(children)}px`}
+            fontSize={`${handleTitleSize(text)}px`}
             textAnchor="middle"
             alignmentBaseline="middle"
             fill="white"
@@ -30,7 +34,7 @@ export const Title = ({ children }) => {
             fontFamily="Montserrat"
             fontWeight={700}
           >
-            {children}
+            {text}
           </text>
         )}
       </g>

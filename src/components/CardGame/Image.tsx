@@ -1,4 +1,9 @@
-export const Image = ({ id, image }) => (
+type Props = {
+  id: string;
+  image: string;
+}
+
+export const Image = ({ id, image }: Props) => (
   <>
     <defs>
       <clipPath id="image-path">

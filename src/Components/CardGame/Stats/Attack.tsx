@@ -1,4 +1,8 @@
-export const Attack = ({ children, fontFamily }) => {
+
+type Props = {
+  value: number;
+}
+export const Attack = ({ value }: Props) => {
   const handleAmountPosition = (amount: number) => {
     if (amount === 11) return 50;
     if (amount >= 10) return 36;
@@ -17,21 +21,21 @@ export const Attack = ({ children, fontFamily }) => {
         height="260"
         href="/images/parts/stats/attack.png"
       />
-      {children !== undefined && (
+      {value !== undefined && (
         <text
           id="value"
           stroke="#000000"
           strokeWidth="0px"
           fill="#D8D8D8"
           type="MSTextLayer"
-          fontFamily={fontFamily || "sans-serif"}
+          fontFamily="Inversionz Unboxed"
           paintOrder="stroke"
           fontSize="193"
           fontWeight="400"
           letterSpacing="-70px"
         >
-          <tspan x={handleAmountPosition(children)} y={194} fill="#FFF">
-            {children}
+          <tspan x={handleAmountPosition(value)} y={194} fill="#FFF">
+            {value}
           </tspan>
         </text>
       )}

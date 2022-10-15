@@ -1,4 +1,8 @@
-export const Type = ({ children, fontFamily }) => {
+
+type Props = {
+  value: string;
+}
+export const Type = ({ value }: Props) => {
   const typeConfig = {
     structure: {
       size: "39px",
@@ -21,7 +25,7 @@ export const Type = ({ children, fontFamily }) => {
 
   return (
     <svg width={585} height={140} x={111} y={937}>
-      {children && (
+      {value && (
         <image
           id="race"
           type="MSBitmapLayer"
@@ -37,15 +41,15 @@ export const Type = ({ children, fontFamily }) => {
         id="TypeText"
         fill="#D8D8D8"
         fontFamily="Inversionz Unboxed"
-        fontSize={typeConfig[children.toLowerCase()]?.size}
+        fontSize={typeConfig[value.toLowerCase()]?.size}
         fontWeight={400}
-        letterSpacing={typeConfig[children.toLowerCase()]?.letterSpacing}
+        letterSpacing={typeConfig[value.toLowerCase()]?.letterSpacing}
         dominantBaseline="middle"
         textAnchor="middle"
-        x={typeConfig[children.toLowerCase()]?.x ?? 273}
+        x={typeConfig[value.toLowerCase()]?.x ?? 273}
         y={91}
       >
-        {children}
+        {value}
       </text>
     </svg>
   );

@@ -2,15 +2,22 @@ import React, { useState } from "react";
 
 import { EditorState } from "draft-js";
 
-const EditorCardContext = React.createContext<any>({});
+export type EditorCardContextType = {
+  editorState: EditorState;
+  setEditorState: (todo: EditorState) => void;
+  onEditorStateChange: (todo: EditorState) => void;
+}
+
+const EditorCardContext = React.createContext<EditorCardContextType | null>(null);
 export default EditorCardContext;
 
-export function EditorCardContextProvider({ children }) {
-  const [editorState, setEditorState] = useState<EditorState | any>(
+export function EditorCardContextProvider({ children }: { children: React.ReactNode }) {
+
+  const [editorState, setEditorState] = useState<EditorState>(
     EditorState.createEmpty()
   );
 
-  const onEditorStateChange = (editorState: any) => {
+  const onEditorStateChange = (editorState: EditorState) => {
     setEditorState(editorState);
   };
 

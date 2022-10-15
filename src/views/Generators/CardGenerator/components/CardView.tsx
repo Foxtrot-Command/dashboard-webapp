@@ -17,6 +17,7 @@ import draftToHtml from "draftjs-to-html";
 
 import { CardContext, EditorCardContext } from "../context";
 import LoadingContent from "./LoadingContent";
+import { EditorCardContextType } from "../context/EditorCardContext";
 
 type Props = BoxProps & {
   showFrame?: boolean;
@@ -25,7 +26,7 @@ type Props = BoxProps & {
 const CardView = ({ showFrame = true }: Props) => {
   const { state, selectedImage, isLoadingContent } = useContext(CardContext);
 
-  const { editorState } = useContext(EditorCardContext);
+  const { editorState } = useContext(EditorCardContext) as EditorCardContextType;
   return (
     <>
       {isLoadingContent && <LoadingContent />}
@@ -33,23 +34,23 @@ const CardView = ({ showFrame = true }: Props) => {
       <CardWrapper id="image_final" opacity={isLoadingContent ? 0.4 : 1}>
         <Image image={selectedImage} id="FXD" />
 
-        <Description rich fontFamily="Montserrat">
+        <Description rich>
           {draftToHtml(convertToRaw(editorState.getCurrentContent()))}
         </Description>
-        <Title>{state.cardName}</Title>
+        <Title text={state.cardName} />
 
         {showFrame && (
           <>
             <Frame
               image={`/images/parts/frames/${state.rarity.toLowerCase()}/${state.faction.toLowerCase()}.png`}
             />
-            <Mana fontFamily="Inversionz Unboxed">{state.mana}</Mana>
-            <Type fontFamily="Inversionz Unboxed">{state.cardType}</Type>
+            <Mana value={state.mana} />
+            <Type value={state.cardType} />
 
             {state.cardType.toLowerCase() !== "tactic" && (
               <>
-                <Health fontFamily="Inversionz Unboxed">{state.health}</Health>
-                <Attack fontFamily="Inversionz Unboxed">{state.attack}</Attack>
+                <Health value={state.health} />
+                <Attack value={state.attack} />
               </>
             )}
           </>

@@ -21,7 +21,9 @@
     "sourceType": "module"
   },
   "plugins": ["react", "import", "@typescript-eslint"],
-  "rules": {},
+  "rules": {
+    "@typescript-eslint/no-var-requires": "off"
+  },
   "ignorePatterns": ["node_modules/"],
   "settings": {
     "react": { "version": "detect" }

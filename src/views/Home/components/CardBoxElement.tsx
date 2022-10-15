@@ -1,8 +1,14 @@
 import Link from "next/link";
 
-import React from "react";
-
 import { Badge, Box, Text } from "@chakra-ui/react";
+
+type Props = {
+  identifier: string;
+  title: string;
+  link?: string | URL;
+  text: string;
+  color: string;
+}
 
 const CardBoxElement = ({
   identifier,
@@ -10,7 +16,7 @@ const CardBoxElement = ({
   link = "/",
   text = "",
   color = "purple",
-}) => {
+}: Props) => {
   return (
     <Link href={link}>
       <Box

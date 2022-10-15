@@ -1,8 +1,15 @@
 import React from "react";
 
 import { Box, Flex } from "@chakra-ui/react";
+import { IconType } from "react-icons";
 
-const StatsCardBox = ({ children, icon, title }) => (
+type Props = {
+  children: React.ReactNode;
+  icon: IconType;
+  title: string;
+}
+
+const StatsCardBox = ({ children, icon, title }: Props) => (
   <Box
     height="auto"
     bg="whiteAlpha.200"

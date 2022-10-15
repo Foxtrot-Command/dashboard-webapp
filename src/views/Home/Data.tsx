@@ -1,5 +1,3 @@
-import React from "react";
-
 import { CardBoxElement, Section } from "./components";
 
 const Data = () => {

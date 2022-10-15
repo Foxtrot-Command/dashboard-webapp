@@ -12,7 +12,13 @@ import {
 } from "@chakra-ui/react";
 import CardContext from "views/Generators/CardGenerator/context/CardContext";
 
-const InputMaker = ({ value, label, onChange }) => (
+type Props = {
+  value: number;
+  label: string;
+  onChange: any
+}
+
+const InputMaker = ({ value, label, onChange }: Props) => (
   <FormControl>
     <FormLabel
       htmlFor="last_name"
@@ -45,7 +51,7 @@ const InputMaker = ({ value, label, onChange }) => (
   </FormControl>
 );
 
-const StatsInput = (): any => {
+const StatsInput = () => {
   const { state, dispatch } = useContext(CardContext);
 
   return (

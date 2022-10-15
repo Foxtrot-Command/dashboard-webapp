@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Badge, Box, Flex } from "@chakra-ui/react";
 import {
   FaDiscord,

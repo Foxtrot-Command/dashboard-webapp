@@ -12,7 +12,13 @@ import {
 import { rarityArr } from "views/Generators/CardGenerator/Utils/RawData";
 import CardContext from "views/Generators/CardGenerator/context/CardContext";
 
-function RadioCard(props) {
+type RadioCardType = {
+  label: string;
+  color: string;
+  children?: React.ReactNode;
+  isDisabled: boolean;
+}
+function RadioCard({label, color, children, ...props}: RadioCardType) {
   const { getInputProps, getCheckboxProps } = useRadio(props);
 
   const input = getInputProps();
@@ -21,10 +27,10 @@ function RadioCard(props) {
   return (
     <Box as="label">
       <input {...input} />
-      <Tooltip label={props.label}>
+      <Tooltip label={label}>
         <Box
           {...checkbox}
-          backgroundColor={props.color}
+          backgroundColor={color}
           cursor="pointer"
           borderRadius="md"
           width="32px"
@@ -37,7 +43,7 @@ function RadioCard(props) {
             boxShadow: "outline",
           }}
         >
-          {props.children}
+          {children}
         </Box>
       </Tooltip>
     </Box>
@@ -65,12 +71,12 @@ const RaritySelector = () => {
             });
             return (
               <RadioCard
+              {...radio}
                 key={name}
                 label={name}
-                {...radio}
                 isDisabled={isDisabled}
                 color={color}
-              ></RadioCard>
+              />
             );
           })}
         </Stack>
