@@ -39,13 +39,13 @@ const CardView = ({ showFrame = true }: Props) => {
         </Description>
         <Title text={state.cardName} />
 
+        <Type value={state.cardType} />
         {showFrame && (
           <>
             <Frame
               image={`/images/parts/frames/${state.rarity.toLowerCase()}/${state.faction.toLowerCase()}.png`}
             />
             <Mana value={state.mana} />
-            <Type value={state.cardType} />
 
             {state.cardType.toLowerCase() !== "tactic" && (
               <>
