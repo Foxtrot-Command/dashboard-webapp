@@ -39,7 +39,6 @@ const CardView = ({ showFrame = true }: Props) => {
         </Description>
         <Title text={state.cardName} />
 
-        <Type value={state.cardType} />
         {showFrame && (
           <>
             <Frame
@@ -55,6 +54,7 @@ const CardView = ({ showFrame = true }: Props) => {
             )}
           </>
         )}
+        <Type value={state.cardType} />
       </CardWrapper>
     </>
   );
