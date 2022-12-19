@@ -21,10 +21,18 @@ export const Type = ({ value }: Props) => {
       size: "40px",
       letterSpacing: "-6px",
     },
+    soldier: {
+      size: "38px",
+      letterSpacing: "-6px",
+    },
+    equipment: {
+      size: "39px",
+      letterSpacing: "-9px",
+    }
   };
 
   return (
-    <svg width={585} height={140} x={111} y={937}>
+    <svg width={585} height={140} x={111.2} y={936}>
       {value && (
         <image
           id="race"

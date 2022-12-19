@@ -32,6 +32,12 @@ const TypeSelector = () => {
       <option defaultChecked={state.cardType === "tactic"} value="Tactic">
         Tactic
       </option>
+      <option defaultChecked={state.cardType === "soldier"} value="Soldier">
+        Soldier
+      </option>
+      <option defaultChecked={state.cardType === "equipment"} value="Equipment">
+        Equipment
+      </option>
     </Select>
   );
 };
