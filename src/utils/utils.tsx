@@ -1,8 +1,5 @@
 import * as htmlToImage from "html-to-image";
 
-export const capitalize = (s: string | any[]) =>
-  s && s[0].toUpperCase() + s.slice(1);
-
 export const saveAs = (blob: any, fileName: string) => {
   const elem = window.document.createElement("a") as any;
   elem.href = blob;
@@ -25,23 +22,20 @@ export const saveAs = (blob: any, fileName: string) => {
   elem.remove();
 };
 
-export const saveDocumentSize = ({
+export const saveDocumentSize = async ({
   id,
   quality = 1,
 }: {
   id: string;
   quality: number;
 }) => {
-  return htmlToImage
-    .toPng(document.getElementById(id)!, {
-      quality: 1,
-      pixelRatio: quality,
-    })
-    .then(function (dataUrl) {
-      const base64str = dataUrl.substring(dataUrl.indexOf(",") + 1);
-      const decoded = Buffer.from(base64str, "base64");
-      return (decoded.length / 1e6).toFixed(2) + " MB";
-    });
+  const dataUrl = await htmlToImage.toPng(document.getElementById(id)!, {
+    quality: 1,
+    pixelRatio: quality,
+  });
+  const base64str = dataUrl.substring(dataUrl.indexOf(",") + 1);
+  const decoded = Buffer.from(base64str, "base64");
+  return (decoded.length / 1000000).toFixed(2) + " MB";
 };
 
 export const onCapture = ({
@@ -72,3 +66,8 @@ export const hexToRgb = (hex) =>
     .substring(1)
     .match(/.{2}/g)
     .map((x: string) => parseInt(x, 16));
+
+export const capitalize = (word: string) => {
+  if (!word) return undefined;
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}

@@ -14,7 +14,7 @@ type Props = {
   sliderValue: number;
   defaultValue?: number;
   setSliderValue: (val: number) => void;
-}
+};
 
 const SliderOpacity = ({
   sliderValue = 60,

@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 
 import { PlusSquareIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Button,
-  Flex,
-  Input,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Input } from "@chakra-ui/react";
+import { DropdownMenu } from "components";
 import useImageHandler from "hooks/useImageHandler";
 import Draggable, { DraggableProps } from "react-draggable";
 import { AiOutlineClose } from "react-icons/ai";
 import { onCapture } from "utils";
-import { DropdownMenu } from "components";
 
 interface ExtraBounds {
   bounds: {
@@ -33,9 +28,12 @@ const DraggableBox = (props: DraggablePropsExpanded) => {
 type UploadLogoButtonType = {
   selectedImage: boolean;
   imageHandler: any;
-}
+};
 
-const UploadLogoButton = ({ selectedImage, imageHandler }: UploadLogoButtonType) => {
+const UploadLogoButton = ({
+  selectedImage,
+  imageHandler,
+}: UploadLogoButtonType) => {
   return (
     <Box
       as="label"
@@ -56,11 +54,7 @@ const UploadLogoButton = ({ selectedImage, imageHandler }: UploadLogoButtonType)
           whiteSpace="nowrap"
         >
           <PlusSquareIcon /> Subir Logo
-          <Input
-            id="image-importer"
-            type="file"
-            onChange={imageHandler}
-          />
+          <Input id="image-importer" type="file" onChange={imageHandler} />
         </Box>
 
         <Button

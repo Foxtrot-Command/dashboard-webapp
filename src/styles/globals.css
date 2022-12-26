@@ -44,11 +44,6 @@ body {
   position: relative;
 }
 
-@font-face {
-  font-family: Inversionz;
-  src: url("/fonts/Inversionz.ttf");
-}
-
 html {
   scroll-padding-top: 5vw;
   scroll-behavior: smooth;
