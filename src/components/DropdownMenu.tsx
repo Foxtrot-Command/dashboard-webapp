@@ -36,8 +36,16 @@ const DropdownMenu = ({
             w="fit-content"
           />
         </PopoverTrigger>
-        <PopoverContent w="fit-content" _focus={{ boxShadow: "none" }}>
-          <PopoverArrow />
+        <PopoverContent
+          w="fit-content"
+          _focus={{ boxShadow: "none" }}
+          backgroundColor="neutrals.900"
+          borderColor="neutrals.800"
+        >
+          <PopoverArrow
+            backgroundColor="neutrals.900"
+            borderColor="neutrals.800"
+          />
           <PopoverBody>
             <Stack>
               <Button
