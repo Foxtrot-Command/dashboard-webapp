@@ -42,7 +42,7 @@ const CardView = ({ showFrame = true }: Props) => {
         {showFrame && (
           <>
             <Frame
-              image={`/images/parts/frames/${cardState.rarity}/${cardState.faction}.png`}
+              image={`/images/parts/frames/${cardState.rarity}/${cardState.faction}.png`.toLowerCase()}
             />
             <Mana value={cardState.stats.mana} />
 
