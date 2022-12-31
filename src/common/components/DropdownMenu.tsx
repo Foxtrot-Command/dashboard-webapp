@@ -26,10 +26,7 @@ const DropdownMenu = ({
   title = "Habilitar o Deshabilitar",
 }: Props) => {
   return (
-    <Box
-      position="absolute"
-      top={0} right={0}
-    >
+    <Box position="absolute" top={0} right={0}>
       <Popover placement="bottom" isLazy>
         <PopoverTrigger>
           <IconButton

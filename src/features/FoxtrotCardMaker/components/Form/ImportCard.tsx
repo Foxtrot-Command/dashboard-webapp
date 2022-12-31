@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import {
   Badge,
   Box,
@@ -15,6 +16,7 @@ import {
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
+import { calculateDocumentSize } from "common/utils";
 import { ContentState, EditorState } from "draft-js";
 import { WRAPPER_ID } from "features/FoxtrotCardMaker/constants/cards";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
@@ -24,7 +26,6 @@ import {
   TCardType,
 } from "features/FoxtrotCardMaker/types/cards";
 import { cardData } from "features/FoxtrotCardMaker/utils/RawData";
-import { calculateDocumentSize } from "common/utils";
 import shallow from "zustand/shallow";
 
 let htmlToDraft: any = null;
@@ -36,13 +37,19 @@ const ImportCard = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchValue, setSearchValue] = useState("");
 
-  const { downloadQuality, setCardState, setLoading, setImageSize, setEditorState } = useCardStore(
+  const {
+    downloadQuality,
+    setCardState,
+    setLoading,
+    setImageSize,
+    setEditorState,
+  } = useCardStore(
     (state) => ({
       downloadQuality: state.cardState.downloadQuality,
       setCardState: state.setCardState,
       setLoading: state.setLoading,
       setImageSize: state.setImageSize,
-      setEditorState: state.setEditorState
+      setEditorState: state.setEditorState,
     }),
     shallow
   );

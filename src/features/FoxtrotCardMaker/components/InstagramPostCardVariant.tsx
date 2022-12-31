@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import {
   Box,
@@ -31,7 +31,6 @@ const buttonArguments = {
 };
 
 const InstagramPostCardVariant = () => {
-
   const { cardName, selectedImage, cardRarity } = useCardStore(
     (state) => ({
       cardName: state.cardState.name,
@@ -46,6 +45,8 @@ const InstagramPostCardVariant = () => {
   // Todo: search type for this useRef
   const [imageSize, setImageSize] = useState<Array<number>>([540, 540]);
   const [showLogo, setShowLogo] = useState<boolean>(true);
+  const [rarityRGBA, setRarityRGBA] = useState<string>("255, 255, 255");
+  const nodeRef = useRef(null);
 
   const handleResize = (type: "+" | "++" | "+++" | "-" | "--" | "---") => {
     const [width, height] = imageSize;
@@ -58,6 +59,12 @@ const InstagramPostCardVariant = () => {
   const ToggleShowLogo = () => {
     setShowLogo((prevState) => !prevState);
   };
+
+  useEffect(() => {
+    setRarityRGBA(rarityColorByRarityState(
+      cardRarity
+    ))
+  }, [cardRarity])
 
   return (
     <Tabs
@@ -147,9 +154,7 @@ const InstagramPostCardVariant = () => {
                   h="100%"
                   mx="auto"
                   p="40px"
-                  filter={`drop-shadow(0px 5px 27px rgba(${rarityColorByRarityState(
-                    cardRarity
-                  )}, ${sliderValue / 100}))`}
+                  filter={`drop-shadow(0px 5px 27px rgba(${rarityRGBA}, ${sliderValue / 100}))`}
                   transition="all .5s ease-in-out"
                   zIndex={2}
                 >
@@ -208,8 +213,9 @@ const InstagramPostCardVariant = () => {
                 id="instagram_post_illustration"
                 overflow="hidden"
               >
-                <Draggable>
+                <Draggable nodeRef={nodeRef}>
                   <Box
+                  ref={nodeRef}
                     my="auto"
                     top={0}
                     bottom={0}

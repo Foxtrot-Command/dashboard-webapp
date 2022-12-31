@@ -1,8 +1,4 @@
-import {
-  ChakraTheme,
-  DeepPartial,
-  theme,
-} from "@chakra-ui/react";
+import { ChakraTheme, DeepPartial, theme } from "@chakra-ui/react";
 
 const Tabs: DeepPartial<ChakraTheme["components"]["Tabs"]> = {
   variants: {

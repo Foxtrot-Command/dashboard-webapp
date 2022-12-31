@@ -5,11 +5,10 @@ import shallow from "zustand/shallow";
 import ImportCard from "./ImportCard";
 
 const NameInput = () => {
-
   const { cardName, setName } = useCardStore(
     (state) => ({
       cardName: state.cardState.name,
-      setName: state.setName
+      setName: state.setName,
     }),
     shallow
   );

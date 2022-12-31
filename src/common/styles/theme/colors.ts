@@ -55,8 +55,8 @@ const extendedColors: DeepPartial<Record<string, any>> = {
 const overridenChakraColors: DeepPartial<Theme["colors"]> = {};
 
 const colors = {
-    ...overridenChakraColors,
-    ...extendedColors,
+  ...overridenChakraColors,
+  ...extendedColors,
 };
 
 export default colors;

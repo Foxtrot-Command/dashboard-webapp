@@ -1,13 +1,13 @@
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
+import shallow from "zustand/shallow";
+
 import StatInputComponent from "./StatInputComponent";
-import shallow from 'zustand/shallow'
 
 const ManaInput = () => {
-
   const { cardMana, setStats } = useCardStore(
     (state) => ({
       cardMana: state.cardState.stats.mana,
-      setStats: state.setStats
+      setStats: state.setStats,
     }),
     shallow
   );

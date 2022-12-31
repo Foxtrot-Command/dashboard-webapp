@@ -1,11 +1,12 @@
 import dynamic from "next/dynamic";
 
+import React from "react";
+
 import { Box } from "@chakra-ui/react";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
 import { EditorProps } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import shallow from "zustand/shallow";
-import React from "react";
 
 const Editor = dynamic<EditorProps>(
   () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
@@ -13,11 +14,10 @@ const Editor = dynamic<EditorProps>(
 );
 
 const DescriptionEditor = () => {
-
   const { editorState, setEditorState } = useCardStore(
     (state) => ({
       editorState: state.editorState,
-      setEditorState: state.setEditorState
+      setEditorState: state.setEditorState,
     }),
     shallow
   );

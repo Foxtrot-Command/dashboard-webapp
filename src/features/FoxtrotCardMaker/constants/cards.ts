@@ -17,6 +17,15 @@ export const enum CardType {
   EQUIPMENT = "equipment",
 }
 
+export const CARD_TYPE_VALUES = {
+  [CardType.UNIT]: "unit",
+  [CardType.VEHICLE]: "vehicle",
+  [CardType.STRUCTURE]: "structure",
+  [CardType.TACTIC]: "tactic",
+  [CardType.SOLDIER]: "soldier",
+  [CardType.EQUIPMENT]: "equipment",
+};
+
 export const enum CardFaction {
   GLOBAL = "global",
   BUSHIDO = "bushido",

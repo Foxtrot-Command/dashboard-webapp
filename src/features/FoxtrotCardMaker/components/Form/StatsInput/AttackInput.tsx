@@ -1,13 +1,13 @@
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
+import shallow from "zustand/shallow";
+
 import StatInputComponent from "./StatInputComponent";
-import shallow from 'zustand/shallow'
 
 const AttackInput = () => {
-
   const { cardAttack, setStats } = useCardStore(
     (state) => ({
       cardAttack: state.cardState.stats.attack,
-      setStats: state.setStats
+      setStats: state.setStats,
     }),
     shallow
   );

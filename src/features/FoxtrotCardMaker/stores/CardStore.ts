@@ -2,7 +2,7 @@ import { EditorState } from "draft-js";
 import produce from "immer";
 import { WritableDraft } from "immer/dist/internal";
 import create from "zustand";
-import { devtools, persist } from "zustand/middleware"
+import { devtools, persist } from "zustand/middleware";
 
 import { CardFaction, CardRarity } from "../constants/cards";
 import { TCardFaction, TCardRarity, TCardType } from "../types/cards";
@@ -81,7 +81,7 @@ const store = (set: StoreSet) => ({
       state.cardState = initialCardState;
       state.editorState = EditorState.createEmpty();
       state.imageSize = defaultImageSize;
-    })
+    });
   },
   setEditorState: (editorContentState: EditorState) => {
     set((state) => {
@@ -145,6 +145,4 @@ const store = (set: StoreSet) => ({
     });
   },
 });
-export const useCardStore = create<CardStore>()(
-  devtools(immer(store))
-);
+export const useCardStore = create<CardStore>()(devtools(immer(store)));

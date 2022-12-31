@@ -1,26 +1,40 @@
-import { Box, BoxProps, IconButton } from '@chakra-ui/react'
-import { shallowEqual } from 'common/utils'
-import { initialCardState, useCardStore } from 'features/FoxtrotCardMaker/stores/CardStore'
-import React from 'react'
-import { FaTrash } from 'react-icons/fa'
-import shallow from 'zustand/shallow'
+import React, { useEffect, useState } from "react";
 
-type Props = BoxProps & {}
+import { Box, BoxProps, IconButton } from "@chakra-ui/react";
+import { shallowEqual } from "common/utils";
+import {
+  initialCardState,
+  useCardStore,
+} from "features/FoxtrotCardMaker/stores/CardStore";
+import { FaTrash } from "react-icons/fa";
+import shallow from "zustand/shallow";
+
+type Props = BoxProps;
 
 const ResetForm = (props: Props) => {
 
-  const { cardState, resetState } = useCardStore((state) => ({
-    cardState: state.cardState,
-    resetState: state.resetState
-  }), shallow);
+  const [handleStateStatus, setStateStatus] = useState<boolean>(false);
+  const { cardState, resetState } = useCardStore(
+    (state) => ({
+      cardState: state.cardState,
+      resetState: state.resetState,
+    }),
+    shallow
+  );
 
-  const handleStateStatus = shallowEqual(cardState, initialCardState);
+  useEffect(() => {
+    setStateStatus(shallowEqual(cardState, initialCardState));
+
+  }, [cardState])
+
 
   return (
-    <Box {...props}
+    <Box
+      {...props}
       my="auto"
       position="absolute"
-      top={0} right={0}
+      top={0}
+      right={0}
       px={4}
       py={2}
       backgroundColor="whiteAlpha.200"
@@ -31,7 +45,7 @@ const ResetForm = (props: Props) => {
       variant="glossy"
       onClick={resetState}
       cursor={!handleStateStatus ? "pointer" : "not-allowed"}
-      opacity={!handleStateStatus ? 1 : '0.2'}
+      opacity={!handleStateStatus ? 1 : "0.2"}
     >
       <IconButton
         variant="ghost"
@@ -39,13 +53,13 @@ const ResetForm = (props: Props) => {
         color="neutrals.200"
         disabled={handleStateStatus}
         as={FaTrash}
-        aria-label={''}
+        aria-label={""}
         size="32px"
         pointerEvents="none"
         userSelect="none"
       />
     </Box>
-  )
-}
+  );
+};
 
-export default ResetForm
+export default ResetForm;

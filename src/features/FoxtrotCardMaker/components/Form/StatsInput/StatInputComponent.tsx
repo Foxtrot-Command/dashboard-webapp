@@ -1,5 +1,14 @@
-import { FormControl, FormLabel, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper } from '@chakra-ui/react';
-import React from 'react'
+import React from "react";
+
+import {
+  FormControl,
+  FormLabel,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+} from "@chakra-ui/react";
 
 type Props = {
   value: number;

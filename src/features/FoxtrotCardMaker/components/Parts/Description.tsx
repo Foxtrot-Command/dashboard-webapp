@@ -1,6 +1,7 @@
 import React from "react";
-import { Parser } from "html-to-react";
+
 import { generatePath } from "common/utils/svg";
+import { Parser } from "html-to-react";
 
 const parser = new Parser();
 

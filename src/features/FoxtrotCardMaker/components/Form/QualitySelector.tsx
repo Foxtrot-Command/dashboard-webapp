@@ -1,7 +1,7 @@
 import { Flex, Select } from "@chakra-ui/react";
+import { calculateDocumentSize } from "common/utils";
 import { WRAPPER_ID } from "features/FoxtrotCardMaker/constants/cards";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
-import { calculateDocumentSize } from "common/utils";
 import shallow from "zustand/shallow";
 
 import DownloadButton from "./DownloadButton";
@@ -14,7 +14,6 @@ const QualitySelector = ({
   imageSelector = WRAPPER_ID,
   allowSelectQuality = true,
 }: Props) => {
-
   const {
     imageSize,
     cardName,
@@ -22,7 +21,7 @@ const QualitySelector = ({
     loadingQualityContent,
     setDownloadQuality,
     setImageSize,
-    setLoading
+    setLoading,
   } = useCardStore(
     (state) => ({
       imageSize: state.imageSize,
@@ -36,14 +35,17 @@ const QualitySelector = ({
     shallow
   );
 
-  const handleChangeQuality = async (quality: number, imageSelector: string) => {
+  const handleChangeQuality = async (
+    quality: number,
+    imageSelector: string
+  ) => {
     setDownloadQuality(quality);
     setLoading({ qualityValue: true });
 
     const size = await calculateDocumentSize({
       id: imageSelector,
       quality: !allowSelectQuality ? 3 : Number(quality),
-    })
+    });
 
     setImageSize(size);
     setLoading({ qualityValue: false });

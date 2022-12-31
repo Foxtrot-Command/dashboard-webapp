@@ -5,11 +5,10 @@ import { Notify } from "notiflix";
 import shallow from "zustand/shallow";
 
 const ImageUpload = () => {
-
   const { cardImage, setImage } = useCardStore(
     (state) => ({
       cardImage: state.cardState.selectedImage,
-      setImage: state.setImage
+      setImage: state.setImage,
     }),
     shallow
   );

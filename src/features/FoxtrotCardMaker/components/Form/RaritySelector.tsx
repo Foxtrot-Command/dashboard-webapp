@@ -7,10 +7,10 @@ import {
   useRadio,
   useRadioGroup,
 } from "@chakra-ui/react";
-import { rarityCheckbox } from "features/FoxtrotCardMaker/constants/cards";
+import { capitalize } from "common/utils";
+import { CardRarity, rarityCheckbox } from "features/FoxtrotCardMaker/constants/cards";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
 import { TCardRarity } from "features/FoxtrotCardMaker/types/cards";
-import { capitalize } from "common/utils";
 import shallow from "zustand/shallow";
 
 type RadioCardType = {
@@ -20,17 +20,14 @@ type RadioCardType = {
   isDisabled: boolean;
 };
 function RadioCard({ label, color, children, ...props }: RadioCardType) {
-  const { getInputProps, getCheckboxProps } = useRadio(props);
-
-  const input = getInputProps();
-  const checkbox = getCheckboxProps();
+  const { state, getInputProps, getCheckboxProps, getLabelProps } = useRadio(props);
 
   return (
     <Box as="label">
-      <input {...input} />
-      <Tooltip label={label} bg="neutrals.700" color="white">
+      <input {...getInputProps({})} hidden />
+      <Tooltip textTransform="capitalize" label={label} bg="neutrals.700" color="white">
         <Box
-          {...checkbox}
+          {...getCheckboxProps()}
           backgroundColor={color}
           cursor="pointer"
           borderRadius="md"
@@ -43,6 +40,7 @@ function RadioCard({ label, color, children, ...props }: RadioCardType) {
           _focus={{
             boxShadow: "outline",
           }}
+          {...getLabelProps()}
         >
           {children}
         </Box>
@@ -52,36 +50,33 @@ function RadioCard({ label, color, children, ...props }: RadioCardType) {
 }
 
 const RaritySelector = () => {
-
   const { cardRarity, setRarity } = useCardStore(
     (state) => ({
       cardRarity: state.cardState.rarity,
-      setRarity: state.setRarity
+      setRarity: state.setRarity,
     }),
     shallow
   );
 
-  const { getRadioProps } = useRadioGroup({
+  const { getRadioProps, getRootProps } = useRadioGroup({
     name: "rarities",
-    value: cardRarity,
-    defaultValue: "Common",
+    defaultValue: cardRarity,
     onChange: (rarity) => setRarity(rarity as TCardRarity),
   });
 
   return (
     <>
       <Flex direction="column" gap={4} w="100%" position="relative">
-        <Stack direction="row">
+        <Stack direction="row" {...getRootProps()}>
           <Text my="auto">Rareza: </Text>
           {rarityCheckbox.map(({ name, color, isDisabled }, index: number) => {
-            const radio = getRadioProps({
-              value: capitalize(name),
-            });
             return (
               <RadioCard
-                {...radio}
+                {...getRadioProps({
+                  value: name,
+                })}
                 key={index}
-                label={capitalize(name)}
+                label={name}
                 isDisabled={isDisabled}
                 color={color}
               />

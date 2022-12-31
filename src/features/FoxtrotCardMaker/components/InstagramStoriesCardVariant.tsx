@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Box, Flex, Text } from "@chakra-ui/react";
 import SliderOpacity from "common/components/SliderOpacity";
@@ -9,6 +9,7 @@ import shallow from "zustand/shallow";
 
 const InstagramCardVariant = () => {
   const [sliderValue, setSliderValue] = useState(35);
+  const [rarityRGBA, setRarityRGBA] = useState<string>("255, 255, 255");
 
   const { cardName, selectedImage, cardRarity } = useCardStore(
     (state) => ({
@@ -18,6 +19,12 @@ const InstagramCardVariant = () => {
     }),
     shallow
   );
+
+  useEffect(() => {
+    setRarityRGBA(rarityColorByRarityState(
+      cardRarity
+    ))
+  }, [cardRarity])
 
   return (
     <Flex
@@ -115,9 +122,7 @@ const InstagramCardVariant = () => {
               mx="auto"
               top={-14}
               py="95px"
-              filter={`drop-shadow(0px 5px 15px rgba(${rarityColorByRarityState(
-                cardRarity
-              )}, ${sliderValue / 100}))`}
+              filter={`drop-shadow(0px 5px 15px rgba(${rarityRGBA}, ${sliderValue / 100}))`}
               transition="all .5s ease-in-out"
               zIndex={2}
             >

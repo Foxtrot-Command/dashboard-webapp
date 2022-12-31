@@ -1,16 +1,15 @@
-import { Flex, HStack, Radio, RadioGroup } from "@chakra-ui/react";
+import { Box, Flex, HStack, Radio, RadioGroup } from "@chakra-ui/react";
+import { capitalize } from "common/utils";
 import { factionCheckbox } from "features/FoxtrotCardMaker/constants/cards";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
 import { TCardFaction } from "features/FoxtrotCardMaker/types/cards";
-import { capitalize } from "common/utils";
 import shallow from "zustand/shallow";
 
 const FactionSelection = () => {
-
   const { cardFaction, setFaction } = useCardStore(
     (state) => ({
       cardFaction: state.cardState.faction,
-      setFaction: state.setFaction
+      setFaction: state.setFaction,
     }),
     shallow
   );
@@ -20,11 +19,17 @@ const FactionSelection = () => {
       <RadioGroup
         onChange={(value) => setFaction(value as TCardFaction)}
         value={cardFaction}
+        textTransform="capitalize"
       >
         <HStack flexWrap="wrap">
           {factionCheckbox.map(({ name, isDisabled }, index: number) => (
-            <Radio value={capitalize(name)} key={index} isDisabled={isDisabled}>
-              {capitalize(name)}
+            <Radio
+              value={name}
+              id={`${index}_${name}`}
+              key={index}
+              isDisabled={isDisabled}
+            >
+              {name}
             </Radio>
           ))}
         </HStack>

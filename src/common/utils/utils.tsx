@@ -27,24 +27,23 @@ export const calculateDocumentSize = async ({
 };
 
 const showImageInBlobFormat = (blob: Blob, title: string) => {
+  const objectUrl = new window.Blob([blob], { type: "image/png" });
+  const previewUrl = URL.createObjectURL(objectUrl);
+  const previewWindow = window.open(previewUrl, "_blank") as Window;
+  new window.WeakRef(previewWindow);
 
-  const objectUrl = new window.Blob([blob], { type: 'image/png' })
-  const previewUrl = URL.createObjectURL(objectUrl)
-  const previewWindow = window.open(previewUrl, '_blank') as Window;
-  new window.WeakRef(previewWindow)
-
-  const newTitle = `${title} | Preview`
-  previewWindow.document.title = newTitle
-}
+  const newTitle = `${title} | Preview`;
+  previewWindow.document.title = newTitle;
+};
 
 const showPerformance = (fn: () => void) => {
   const t1 = performance.now();
   fn();
   const t2 = performance.now();
   console.log(`Generated thumbnails: ${((t2 - t1) * 0.001).toFixed(2)}s`);
-}
+};
 
-export const captureHtmlAndSavePng = async ({
+export const captureHtmlAndSavePng = ({
   id,
   name,
   quality = 1,
@@ -53,16 +52,19 @@ export const captureHtmlAndSavePng = async ({
   name: string;
   quality?: number;
 }) => {
-
-  const dataUrl = await htmlToImage
-    .toPng(document.getElementById(id)!, {
-      quality: 1,
-      pixelRatio: quality,
-    })
-  downloadURL(dataUrl, `${name.toLowerCase()}.png`);
+  htmlToImage.toPng(document.getElementById(id)!, {
+    quality: 1,
+    pixelRatio: quality,
+  }).then((dataUrl) => {
+    downloadURL(dataUrl, `${name.toLowerCase()}.png`);
+  })
 };
 
 export const hexToRgb = (hex) => {
+  if(!hex) return null;
+
+  if (hex.length !== 7) return null;
+
   return hex
     .replace(
       /^#?([a-f\d])([a-f\d])([a-f\d])$/i,
@@ -71,29 +73,27 @@ export const hexToRgb = (hex) => {
     .substring(1)
     .match(/.{2}/g)
     .map((x: string) => parseInt(x, 16));
-}
+};
 
 export const capitalize = (word: string) => {
-  if (!word) return undefined;
-  return word.charAt(0).toUpperCase() + word.slice(1);
-}
+  return word.replace(/(^\w|\s\w)/g, m => m.toUpperCase());
+};
 
 type TObj = {
   [key: string]: any;
-}
+};
 
 export function shallowEqual(object1: TObj, object2: TObj) {
-
   if (!object1 && !object2) return false;
 
-    const keys1 = Object.keys(object1);
-    const keys2 = Object.keys(object2);
-    if (keys1.length !== keys2.length) return false;
+  const keys1 = Object.keys(object1);
+  const keys2 = Object.keys(object2);
+  if (keys1.length !== keys2.length) return false;
 
-    for (let key of keys1) {
-      if (object1[key] !== object2[key]) {
-        return false;
-      }
+  for (const key of keys1) {
+    if (object1[key] !== object2[key]) {
+      return false;
     }
-    return true;
+  }
+  return true;
 }

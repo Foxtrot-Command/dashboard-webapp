@@ -1,3 +1,5 @@
+import React from "react";
+
 import { BoxProps } from "@chakra-ui/react";
 import LoadingContent from "common/components/LoadingContent";
 import { convertToRaw } from "draft-js";
@@ -19,9 +21,6 @@ import {
 } from "features/FoxtrotCardMaker/constants/cards";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
 import shallow from "zustand/shallow";
-import { enableMapSet } from "immer";
-import React from "react";
-enableMapSet();
 
 type Props = BoxProps & {
   showFrame?: boolean;
@@ -38,7 +37,7 @@ const CardView = ({ showFrame = true }: Props) => {
     cardType,
     selectedImage,
     loadingCardContent,
-    editorState
+    editorState,
   } = useCardStore(
     (state) => ({
       loadingCardContent: state.loadingState.cardContent,
@@ -50,7 +49,7 @@ const CardView = ({ showFrame = true }: Props) => {
       cardMana: state.cardState.stats.mana,
       cardType: state.cardState.type,
       selectedImage: state.cardState.selectedImage,
-      editorState: state.editorState
+      editorState: state.editorState,
     }),
     shallow
   );
@@ -89,4 +88,4 @@ const CardView = ({ showFrame = true }: Props) => {
   );
 };
 
-export default React.memo(CardView);
+export default CardView;
