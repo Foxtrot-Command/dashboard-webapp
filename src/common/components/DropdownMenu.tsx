@@ -26,11 +26,18 @@ const DropdownMenu = ({
   title = "Habilitar o Deshabilitar",
 }: Props) => {
   return (
-    <Box position="absolute" top={2} right={2}>
+    <Box
+      position="absolute"
+      top={0} right={0}
+    >
       <Popover placement="bottom" isLazy>
         <PopoverTrigger>
           <IconButton
-            aria-label="More server options"
+            borderTopLeftRadius={0}
+            borderRightRadius={8}
+            borderBottomLeftRadius={8}
+            borderBottomRightRadius={0}
+            aria-label="Items"
             icon={<BsThreeDotsVertical />}
             variant="solid"
             w="fit-content"

@@ -8,7 +8,7 @@ export { default as ImportCard } from "./Form/ImportCard";
 export { default as NameInput } from "./Form/NameInput";
 export { default as QualitySelector } from "./Form/QualitySelector";
 export { default as RaritySelector } from "./Form/RaritySelector";
-export { default as StatsInput } from "./Form/StatsInput";
+export { default as StatsInput } from "./Form/StatsInput/AttackInput";
 export { default as TypeSelector } from "./Form/TypeSelector";
 export { default as InstagramPostCardVariant } from "./InstagramPostCardVariant";
 export { default as InstagramStoriesCardVariant } from "./InstagramStoriesCardVariant";

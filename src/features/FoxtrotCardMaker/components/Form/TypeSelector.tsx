@@ -4,15 +4,24 @@ import { Select } from "@chakra-ui/react";
 import { CardType } from "features/FoxtrotCardMaker/constants/cards";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
 import { TCardType } from "features/FoxtrotCardMaker/types/cards";
-import { capitalize } from "utils";
+import { capitalize } from "common/utils";
+import shallow from "zustand/shallow";
 
 const TypeSelector = () => {
-  const { cardState, setType } = useCardStore();
+
+  const { cardType, setType } = useCardStore(
+    (state) => ({
+      cardType: state.cardState.type,
+      setType: state.setType,
+    }),
+    shallow
+  );
 
   return (
     <Select
       placeholder="Sin tipo"
-      defaultValue={cardState.type}
+      defaultValue={cardType}
+      value={cardType}
       onChange={(
         event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
       ) => {
@@ -22,8 +31,7 @@ const TypeSelector = () => {
       {Object.values(CardType).map((value: string, index: number) => (
         <option
           key={index}
-          value={capitalize(value)}
-          selected={value === cardState.type}
+          value={value}
         >
           {capitalize(value)}
         </option>

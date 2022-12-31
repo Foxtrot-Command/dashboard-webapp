@@ -4,6 +4,8 @@ import { Box } from "@chakra-ui/react";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
 import { EditorProps } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import shallow from "zustand/shallow";
+import React from "react";
 
 const Editor = dynamic<EditorProps>(
   () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
@@ -11,13 +13,20 @@ const Editor = dynamic<EditorProps>(
 );
 
 const DescriptionEditor = () => {
-  const { editorState, setEditorState } = useCardStore();
+
+  const { editorState, setEditorState } = useCardStore(
+    (state) => ({
+      editorState: state.editorState,
+      setEditorState: state.setEditorState
+    }),
+    shallow
+  );
 
   return (
     <Box>
       <Editor
         toolbar={{
-          options: ["inline", "textAlign", "history"],
+          options: ["inline", "history"],
           inline: {
             inDropdown: false,
             options: ["bold", "italic", "underline", "strikethrough"],
@@ -36,4 +45,4 @@ const DescriptionEditor = () => {
   );
 };
 
-export default DescriptionEditor;
+export default React.memo(DescriptionEditor);

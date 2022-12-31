@@ -2,11 +2,11 @@ import React, { useState } from "react";
 
 import { PlusSquareIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, Input } from "@chakra-ui/react";
-import { DropdownMenu } from "components";
-import useImageHandler from "hooks/useImageHandler";
+import { DropdownMenu } from "common/components";
+import useImageHandler from "common/hooks/useImageHandler";
 import Draggable, { DraggableProps } from "react-draggable";
 import { AiOutlineClose } from "react-icons/ai";
-import { onCapture } from "utils";
+import { captureHtmlAndSavePng } from "common/utils";
 
 interface ExtraBounds {
   bounds: {
@@ -136,7 +136,7 @@ const TwitterSpace = () => {
             w="100%"
             h="40px"
             onClick={() =>
-              onCapture({
+              captureHtmlAndSavePng({
                 id: "TwitterSpace_identifier",
                 name: "twitter_space",
               })

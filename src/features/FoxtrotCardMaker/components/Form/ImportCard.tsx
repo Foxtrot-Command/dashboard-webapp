@@ -24,7 +24,8 @@ import {
   TCardType,
 } from "features/FoxtrotCardMaker/types/cards";
 import { cardData } from "features/FoxtrotCardMaker/utils/RawData";
-import { saveDocumentSize } from "utils";
+import { calculateDocumentSize } from "common/utils";
+import shallow from "zustand/shallow";
 
 let htmlToDraft: any = null;
 if (typeof window === "object") {
@@ -35,8 +36,16 @@ const ImportCard = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchValue, setSearchValue] = useState("");
 
-  const { cardState, setCardState, setLoading, setImageSize, setEditorState } =
-    useCardStore();
+  const { downloadQuality, setCardState, setLoading, setImageSize, setEditorState } = useCardStore(
+    (state) => ({
+      downloadQuality: state.cardState.downloadQuality,
+      setCardState: state.setCardState,
+      setLoading: state.setLoading,
+      setImageSize: state.setImageSize,
+      setEditorState: state.setEditorState
+    }),
+    shallow
+  );
 
   const handleImportSelection = (index: number) => {
     onClose();
@@ -56,14 +65,14 @@ const ImportCard = () => {
         faction: faction as TCardFaction,
         rarity: rarity as TCardRarity,
         type: type as TCardType,
-        downloadQuality: cardState.downloadQuality,
+        downloadQuality: downloadQuality,
         selectedImage: image,
       });
 
       setLoading({ qualityValue: true });
-      saveDocumentSize({
+      calculateDocumentSize({
         id: WRAPPER_ID,
-        quality: cardState.downloadQuality,
+        quality: downloadQuality,
       }).then((data) => {
         setImageSize(data);
         setLoading({ qualityValue: false });

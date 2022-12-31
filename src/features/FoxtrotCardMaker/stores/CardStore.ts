@@ -2,6 +2,7 @@ import { EditorState } from "draft-js";
 import produce from "immer";
 import { WritableDraft } from "immer/dist/internal";
 import create from "zustand";
+import { devtools, persist } from "zustand/middleware"
 
 import { CardFaction, CardRarity } from "../constants/cards";
 import { TCardFaction, TCardRarity, TCardType } from "../types/cards";
@@ -30,6 +31,7 @@ interface CardStore {
   loadingState: LoadingState;
   editorState: any;
   imageSize: any;
+  resetState: () => void;
   setEditorState: (editor: EditorState) => void;
   setImageSize: (size: string) => void;
   setName: (name: string) => void;
@@ -37,14 +39,14 @@ interface CardStore {
   setType: (type: TCardType) => void;
   setRarity: (rarity: TCardRarity) => void;
   setFaction: (faction: TCardFaction) => void;
-  setImage: (image: any) => void;
+  setImage: (image: string | ArrayBuffer | null | undefined) => void;
   setCardState: (cardState: CardState) => void;
   setDownloadQuality: (quality: number) => void;
   setLoading: (loading: LoadingState) => void;
 }
 
-const initialCardState: CardState = {
-  name: undefined,
+export const initialCardState: CardState = {
+  name: "",
   faction: CardFaction.BUSHIDO,
   rarity: CardRarity.COMMON,
   stats: {
@@ -62,6 +64,8 @@ const initialLoadingStatus: LoadingState = {
   qualityValue: false,
 };
 
+const defaultImageSize = "0 MB";
+
 export const immer = (config) => (set, get) =>
   config((fn) => set(produce(fn)), get);
 
@@ -71,7 +75,14 @@ const store = (set: StoreSet) => ({
   cardState: initialCardState,
   loadingState: initialLoadingStatus,
   editorState: EditorState.createEmpty(),
-  imageSize: "0 MB",
+  imageSize: defaultImageSize,
+  resetState: () => {
+    set((state) => {
+      state.cardState = initialCardState;
+      state.editorState = EditorState.createEmpty();
+      state.imageSize = defaultImageSize;
+    })
+  },
   setEditorState: (editorContentState: EditorState) => {
     set((state) => {
       state.editorState = editorContentState;
@@ -134,4 +145,6 @@ const store = (set: StoreSet) => ({
     });
   },
 });
-export const useCardStore = create<CardStore>(immer(store));
+export const useCardStore = create<CardStore>()(
+  devtools(immer(store))
+);

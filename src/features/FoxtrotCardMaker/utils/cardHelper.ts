@@ -1,4 +1,4 @@
-import { hexToRgb } from "utils";
+import { hexToRgb } from "common/utils";
 
 import { RARITY_COLORS } from "../constants/cards";
 

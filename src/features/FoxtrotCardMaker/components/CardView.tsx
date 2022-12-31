@@ -1,5 +1,5 @@
 import { BoxProps } from "@chakra-ui/react";
-import LoadingContent from "components/LoadingContent";
+import LoadingContent from "common/components/LoadingContent";
 import { convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import {
@@ -18,46 +18,75 @@ import {
   WRAPPER_ID,
 } from "features/FoxtrotCardMaker/constants/cards";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
+import shallow from "zustand/shallow";
+import { enableMapSet } from "immer";
+import React from "react";
+enableMapSet();
 
 type Props = BoxProps & {
   showFrame?: boolean;
 };
 
 const CardView = ({ showFrame = true }: Props) => {
-  const { cardState, loadingState, editorState } = useCardStore();
+  const {
+    cardName,
+    cardFaction,
+    cardRarity,
+    cardAttack,
+    cardHealth,
+    cardMana,
+    cardType,
+    selectedImage,
+    loadingCardContent,
+    editorState
+  } = useCardStore(
+    (state) => ({
+      loadingCardContent: state.loadingState.cardContent,
+      cardName: state.cardState.name,
+      cardFaction: state.cardState.faction,
+      cardRarity: state.cardState.rarity,
+      cardAttack: state.cardState.stats.attack,
+      cardHealth: state.cardState.stats.health,
+      cardMana: state.cardState.stats.mana,
+      cardType: state.cardState.type,
+      selectedImage: state.cardState.selectedImage,
+      editorState: state.editorState
+    }),
+    shallow
+  );
+
   return (
     <>
-      {loadingState.cardContent && <LoadingContent />}
-
-      <CardWrapper id={WRAPPER_ID} opacity={loadingState.cardContent ? 0.4 : 1}>
-        <Image image={cardState.selectedImage!} id="FXD" />
+      {loadingCardContent && <LoadingContent />}
+      <CardWrapper id={WRAPPER_ID} opacity={loadingCardContent ? 0.4 : 1}>
+        <Image image={selectedImage!} id="FXD" />
 
         <Description rich>
           {editorState
             ? draftToHtml(convertToRaw(editorState?.getCurrentContent()))
             : ""}
         </Description>
-        <Title text={cardState?.name} />
+        <Title text={cardName?.toUpperCase()} />
 
         {showFrame && (
           <>
             <Frame
-              image={`/images/parts/frames/${cardState.rarity}/${cardState.faction}.png`.toLowerCase()}
+              image={`/images/parts/frames/${cardRarity}/${cardFaction}.png`.toLowerCase()}
             />
-            <Mana value={cardState.stats.mana} />
+            <Mana value={cardMana} />
 
-            {cardState.type?.toLowerCase() !== CardType.TACTIC && (
+            {cardType?.toLowerCase() !== CardType.TACTIC && (
               <>
-                <Health value={cardState.stats.health} />
-                <Attack value={cardState.stats.attack} />
+                <Health value={cardHealth} />
+                <Attack value={cardAttack} />
               </>
             )}
           </>
         )}
-        <Type value={cardState.type} />
+        <Type value={cardType} />
       </CardWrapper>
     </>
   );
 };
 
-export default CardView;
+export default React.memo(CardView);

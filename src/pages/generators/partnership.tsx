@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
 import { PlusSquareIcon } from "@chakra-ui/icons";
-import { Box, Button, Flex, Heading, Input, Switch } from "@chakra-ui/react";
-import useImageHandler from "hooks/useImageHandler";
+import { Box, Button, Flex, Input, Switch } from "@chakra-ui/react";
+import useImageHandler from "common/hooks/useImageHandler";
 import Draggable, { DraggableProps } from "react-draggable";
 import { AiOutlineClose } from "react-icons/ai";
-import { onCapture } from "utils";
+import { captureHtmlAndSavePng } from "common/utils";
 
 interface ExtraBounds {
   bounds: {
@@ -91,7 +91,7 @@ const partnership = () => {
             ml={4}
             h="auto"
             onClick={() =>
-              onCapture({ id: "partnership_identifier", name: "partner" })
+              captureHtmlAndSavePng({ id: "partnership_identifier", name: "partner" })
             }
           >
             Guardar partnership

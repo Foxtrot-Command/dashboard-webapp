@@ -1,7 +1,8 @@
 import { Flex, Select } from "@chakra-ui/react";
 import { WRAPPER_ID } from "features/FoxtrotCardMaker/constants/cards";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
-import { saveDocumentSize } from "utils";
+import { calculateDocumentSize } from "common/utils";
+import shallow from "zustand/shallow";
 
 import DownloadButton from "./DownloadButton";
 
@@ -13,25 +14,39 @@ const QualitySelector = ({
   imageSelector = WRAPPER_ID,
   allowSelectQuality = true,
 }: Props) => {
+
   const {
     imageSize,
-    cardState,
-    loadingState,
-    setImageSize,
-    setLoading,
+    cardName,
+    downloadQuality,
+    loadingQualityContent,
     setDownloadQuality,
-  } = useCardStore();
+    setImageSize,
+    setLoading
+  } = useCardStore(
+    (state) => ({
+      imageSize: state.imageSize,
+      cardName: state.cardState.name,
+      downloadQuality: state.cardState.downloadQuality,
+      loadingQualityContent: state.loadingState.qualityValue,
+      setDownloadQuality: state.setDownloadQuality,
+      setImageSize: state.setImageSize,
+      setLoading: state.setLoading,
+    }),
+    shallow
+  );
 
-  const handleChangeQuality = (quality: number, imageSelector: string) => {
+  const handleChangeQuality = async (quality: number, imageSelector: string) => {
     setDownloadQuality(quality);
     setLoading({ qualityValue: true });
-    saveDocumentSize({
+
+    const size = await calculateDocumentSize({
       id: imageSelector,
       quality: !allowSelectQuality ? 3 : Number(quality),
-    }).then((data) => {
-      setImageSize(data);
-      setLoading({ qualityValue: false });
-    });
+    })
+
+    setImageSize(size);
+    setLoading({ qualityValue: false });
   };
 
   return (
@@ -53,13 +68,13 @@ const QualitySelector = ({
 
       <DownloadButton
         name={`Guardar (${imageSize})`}
-        isLoading={loadingState.qualityValue}
+        isLoading={loadingQualityContent}
         loadingText="Loading"
         w="100%"
         saveConfig={{
           id: imageSelector,
-          name: cardState.name!,
-          quality: cardState.downloadQuality,
+          name: cardName!,
+          quality: downloadQuality,
         }}
       />
     </Flex>

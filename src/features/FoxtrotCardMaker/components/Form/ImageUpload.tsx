@@ -2,9 +2,17 @@ import { PlusSquareIcon } from "@chakra-ui/icons";
 import { Box, Image as ChakraImage, Flex, Input, Text } from "@chakra-ui/react";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
 import { Notify } from "notiflix";
+import shallow from "zustand/shallow";
 
 const ImageUpload = () => {
-  const { cardState, setImage } = useCardStore();
+
+  const { cardImage, setImage } = useCardStore(
+    (state) => ({
+      cardImage: state.cardState.selectedImage,
+      setImage: state.setImage
+    }),
+    shallow
+  );
 
   const imageHandler = (
     event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
@@ -50,9 +58,9 @@ const ImageUpload = () => {
             <Text whiteSpace="nowrap">Subir imagen</Text>
           </Box>
 
-          {cardState.selectedImage ? (
+          {cardImage ? (
             <ChakraImage
-              src={cardState.selectedImage}
+              src={cardImage}
               w="32px"
               h="32px"
               minW="32px"

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { Box, Flex } from "@chakra-ui/react";
-import DropdownMenu from "components/DropdownMenu";
+import DropdownMenu from "common/components/DropdownMenu";
 import {
   CardGeneratorForm,
   CardView,
@@ -58,4 +58,4 @@ const CardPage = () => {
   );
 };
 
-export default CardPage;
+export default React.memo(CardPage);

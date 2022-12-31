@@ -1,15 +1,23 @@
 import { useState } from "react";
 
 import { Box, Flex, Text } from "@chakra-ui/react";
-import SliderOpacity from "components/SliderOpacity";
+import SliderOpacity from "common/components/SliderOpacity";
 import { CardView, DownloadButton } from "features/FoxtrotCardMaker/components";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
 import { rarityColorByRarityState } from "features/FoxtrotCardMaker/utils/cardHelper";
+import shallow from "zustand/shallow";
 
 const InstagramCardVariant = () => {
   const [sliderValue, setSliderValue] = useState(35);
 
-  const { cardState } = useCardStore();
+  const { cardName, selectedImage, cardRarity } = useCardStore(
+    (state) => ({
+      cardName: state.cardState.name,
+      cardRarity: state.cardState.rarity,
+      selectedImage: state.cardState.selectedImage,
+    }),
+    shallow
+  );
 
   return (
     <Flex
@@ -74,7 +82,7 @@ const InstagramCardVariant = () => {
 
             <Box
               as="img"
-              src={cardState.selectedImage}
+              src={selectedImage}
               position="absolute"
               objectFit="cover"
               h="100%"
@@ -108,7 +116,7 @@ const InstagramCardVariant = () => {
               top={-14}
               py="95px"
               filter={`drop-shadow(0px 5px 15px rgba(${rarityColorByRarityState(
-                cardState.rarity
+                cardRarity
               )}, ${sliderValue / 100}))`}
               transition="all .5s ease-in-out"
               zIndex={2}
@@ -123,7 +131,7 @@ const InstagramCardVariant = () => {
         w="100%"
         saveConfig={{
           id: "instagram_stories",
-          name: `${cardState.name}_storie`,
+          name: `${cardName}_storie`,
           quality: 3,
         }}
         key="instagram_stories"
