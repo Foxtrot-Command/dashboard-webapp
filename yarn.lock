@@ -7427,6 +7427,11 @@ multicast-dns@^7.2.5:
     dns-packet "^5.2.2"
     thunky "^1.0.2"
 
+mutative@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/mutative/-/mutative-0.2.2.tgz#16e412d0e11095b7e7de04369599f91561e0ba8b"
+  integrity sha512-47/hXxP7paHrzyDh8Sd8SI4/gwIWKKQhZtCuQ6IQdnKRWgk8dDUyUGWI51xmYUA2uc4ggCbfg++MZ5C7oML8wg==
+
 nanoid@^3.3.4:
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.4.tgz#730b67e3cd09e2deacf03c027c81c9d9dbc5e8ab"

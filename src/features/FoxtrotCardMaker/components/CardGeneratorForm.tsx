@@ -84,4 +84,4 @@ const CardGeneratorForm = () => {
   );
 };
 
-export default React.memo(CardGeneratorForm);
+export default CardGeneratorForm;

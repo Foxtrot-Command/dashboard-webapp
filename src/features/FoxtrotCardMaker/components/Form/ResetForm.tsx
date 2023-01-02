@@ -22,11 +22,9 @@ const ResetForm = (props: Props) => {
     shallow
   );
 
-  useEffect(() => {
+  /* useEffect(() => {
     setStateStatus(shallowEqual(cardState, initialCardState));
-
-  }, [cardState])
-
+  }, [cardState]) */
 
   return (
     <Box

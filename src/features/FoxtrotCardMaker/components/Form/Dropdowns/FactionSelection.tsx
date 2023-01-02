@@ -1,23 +1,16 @@
-import { Box, Flex, HStack, Radio, RadioGroup } from "@chakra-ui/react";
-import { capitalize } from "common/utils";
+import { Flex, HStack, Radio, RadioGroup } from "@chakra-ui/react";
 import { factionCheckbox } from "features/FoxtrotCardMaker/constants/cards";
-import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
 import { TCardFaction } from "features/FoxtrotCardMaker/types/cards";
-import shallow from "zustand/shallow";
+import useSelector from "./useSelector";
 
 const FactionSelection = () => {
-  const { cardFaction, setFaction } = useCardStore(
-    (state) => ({
-      cardFaction: state.cardState.faction,
-      setFaction: state.setFaction,
-    }),
-    shallow
-  );
+
+  const {state: cardFaction, actions: {onSelectorChange}} = useSelector("faction");
 
   return (
     <Flex direction="column" gap={4} w="100%" position="relative">
       <RadioGroup
-        onChange={(value) => setFaction(value as TCardFaction)}
+        onChange={(value) => onSelectorChange(value as TCardFaction)}
         value={cardFaction}
         textTransform="capitalize"
       >

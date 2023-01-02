@@ -12,6 +12,8 @@ import InstagramStoriesCardVariant from "features/FoxtrotCardMaker/components/In
 const CardPage = () => {
   const [isFrameVisible, setFrameVisibility] = useState<boolean>(true);
 
+  const view = <CardView/>;
+
   return (
     <>
       <Flex
@@ -45,13 +47,13 @@ const CardPage = () => {
               setActive={setFrameVisibility}
               title="Marco de la carta"
             />
-            <CardView showFrame={isFrameVisible} />
+            {view}
           </Box>
         </Flex>
 
         <Flex flexDirection={{ base: "column", lg: "row" }} w="100%" gap={6}>
-          <InstagramPostCardVariant />
-          <InstagramStoriesCardVariant />
+          <InstagramPostCardVariant/>
+          <InstagramStoriesCardVariant/>
         </Flex>
       </Flex>
     </>

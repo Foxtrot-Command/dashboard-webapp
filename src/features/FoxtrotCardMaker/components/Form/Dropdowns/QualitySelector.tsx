@@ -4,7 +4,7 @@ import { WRAPPER_ID } from "features/FoxtrotCardMaker/constants/cards";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
 import shallow from "zustand/shallow";
 
-import DownloadButton from "./DownloadButton";
+import DownloadButton from "features/FoxtrotCardMaker/components/Form/DownloadButton";
 
 type Props = {
   imageSelector?: string;
@@ -14,6 +14,7 @@ const QualitySelector = ({
   imageSelector = WRAPPER_ID,
   allowSelectQuality = true,
 }: Props) => {
+
   const {
     imageSize,
     cardName,

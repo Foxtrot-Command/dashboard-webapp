@@ -69,9 +69,9 @@ const ImportCard = () => {
           attack: stats.attack,
           health: stats.health,
         },
-        faction: faction as TCardFaction,
-        rarity: rarity as TCardRarity,
-        type: type as TCardType,
+        faction: faction.toLowerCase() as TCardFaction,
+        rarity: rarity.toLowerCase() as TCardRarity,
+        type: type?.toLowerCase() as TCardType,
         downloadQuality: downloadQuality,
         selectedImage: image,
       });

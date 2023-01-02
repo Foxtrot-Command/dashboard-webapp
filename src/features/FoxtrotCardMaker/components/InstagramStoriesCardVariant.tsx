@@ -6,10 +6,11 @@ import { CardView, DownloadButton } from "features/FoxtrotCardMaker/components";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
 import { rarityColorByRarityState } from "features/FoxtrotCardMaker/utils/cardHelper";
 import shallow from "zustand/shallow";
+import { RARITY_RGBA_COLORS } from "../constants/cards";
 
 const InstagramCardVariant = () => {
   const [sliderValue, setSliderValue] = useState(35);
-  const [rarityRGBA, setRarityRGBA] = useState<string>("255, 255, 255");
+  const [rarityRGBA, setRarityRGBA] = useState([255, 255, 255]);
 
   const { cardName, selectedImage, cardRarity } = useCardStore(
     (state) => ({
@@ -21,9 +22,10 @@ const InstagramCardVariant = () => {
   );
 
   useEffect(() => {
-    setRarityRGBA(rarityColorByRarityState(
-      cardRarity
-    ))
+    if(cardRarity) {
+      console.log(cardRarity);
+      setRarityRGBA(RARITY_RGBA_COLORS[cardRarity].join(","));
+    }
   }, [cardRarity])
 
   return (

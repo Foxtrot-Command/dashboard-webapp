@@ -20,6 +20,7 @@ import { rarityColorByRarityState } from "features/FoxtrotCardMaker/utils/cardHe
 import Draggable from "react-draggable";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import shallow from "zustand/shallow";
+import { RARITY_RGBA_COLORS } from "../constants/cards";
 
 const buttonArguments = {
   "+": 10,
@@ -41,11 +42,10 @@ const InstagramPostCardVariant = () => {
   );
 
   const [sliderValue, setSliderValue] = useState(60);
+  const [rarityRGBA, setRarityRGBA] = useState([255, 255, 255]);
 
-  // Todo: search type for this useRef
   const [imageSize, setImageSize] = useState<Array<number>>([540, 540]);
   const [showLogo, setShowLogo] = useState<boolean>(true);
-  const [rarityRGBA, setRarityRGBA] = useState<string>("255, 255, 255");
   const nodeRef = useRef(null);
 
   const handleResize = (type: "+" | "++" | "+++" | "-" | "--" | "---") => {
@@ -56,15 +56,15 @@ const InstagramPostCardVariant = () => {
     ]);
   };
 
+  useEffect(() => {
+    if(cardRarity) {
+      setRarityRGBA(RARITY_RGBA_COLORS[cardRarity].join(","));
+    }
+  }, [cardRarity])
+
   const ToggleShowLogo = () => {
     setShowLogo((prevState) => !prevState);
   };
-
-  useEffect(() => {
-    setRarityRGBA(rarityColorByRarityState(
-      cardRarity
-    ))
-  }, [cardRarity])
 
   return (
     <Tabs

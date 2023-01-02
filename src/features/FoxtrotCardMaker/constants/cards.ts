@@ -43,6 +43,17 @@ export const RARITY_COLORS = {
   [CardRarity.LEGENDARY]: "#FFB908",
 };
 
+type TIterable = {
+  [key: string]: any;
+}
+export const RARITY_RGBA_COLORS: TIterable = {
+  [CardRarity.COMMON]: [255, 255, 255],
+  [CardRarity.UNCOMMON]: [117, 210, 75],
+  [CardRarity.RARE]: [7,85,255],
+  [CardRarity.EPIC]: [248,64,255],
+  [CardRarity.LEGENDARY]: [255,185,8],
+};
+
 export const FACTION_COLORS = {
   [CardFaction.BUSHIDO]: "#502828",
   [CardFaction.GANNICUS]: "#000",

@@ -1,18 +1,11 @@
-// @ts-nocheck
 import { Box, Select } from "@chakra-ui/react";
-import { CardType } from "features/FoxtrotCardMaker/constants/cards";
-import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
+import { CARD_TYPE_VALUES } from "features/FoxtrotCardMaker/constants/cards";
 import { TCardType } from "features/FoxtrotCardMaker/types/cards";
-import shallow from "zustand/shallow";
+import useSelector from "./useSelector";
 
 const TypeSelector = () => {
-  const { cardType, setType } = useCardStore(
-    (state) => ({
-      cardType: state.cardState.type,
-      setType: state.setType,
-    }),
-    shallow
-  );
+
+  const {state: cardType, actions: {onSelectorChange}} = useSelector("type");
 
   return (
     <Select
@@ -23,10 +16,10 @@ const TypeSelector = () => {
       onChange={(
         event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
       ) => {
-        setType(event.target.value as TCardType);
+        onSelectorChange(event.target.value as TCardType);
       }}
     >
-      {Object.values(CardType).map((value: string, index: number) => (
+      {Object.values(CARD_TYPE_VALUES).map((value: string, index: number) => (
         <Box as="option" key={index} value={value}>
           {value}
         </Box>

@@ -12,6 +12,7 @@ import { CardRarity, rarityCheckbox } from "features/FoxtrotCardMaker/constants/
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
 import { TCardRarity } from "features/FoxtrotCardMaker/types/cards";
 import shallow from "zustand/shallow";
+import useSelector from "./useSelector";
 
 type RadioCardType = {
   label?: string;
@@ -50,18 +51,14 @@ function RadioCard({ label, color, children, ...props }: RadioCardType) {
 }
 
 const RaritySelector = () => {
-  const { cardRarity, setRarity } = useCardStore(
-    (state) => ({
-      cardRarity: state.cardState.rarity,
-      setRarity: state.setRarity,
-    }),
-    shallow
-  );
+
+  const {state: cardRarity, actions: {onSelectorChange}} = useSelector("rarity");
 
   const { getRadioProps, getRootProps } = useRadioGroup({
     name: "rarities",
     defaultValue: cardRarity,
-    onChange: (rarity) => setRarity(rarity as TCardRarity),
+    value: cardRarity,
+    onChange: (rarity) => onSelectorChange(rarity as TCardRarity),
   });
 
   return (

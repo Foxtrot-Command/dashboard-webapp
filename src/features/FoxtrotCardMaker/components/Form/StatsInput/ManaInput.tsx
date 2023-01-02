@@ -2,22 +2,18 @@ import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
 import shallow from "zustand/shallow";
 
 import StatInputComponent from "./StatInputComponent";
+import useStatInput from "./useStatInput";
 
 const ManaInput = () => {
-  const { cardMana, setStats } = useCardStore(
-    (state) => ({
-      cardMana: state.cardState.stats.mana,
-      setStats: state.setStats,
-    }),
-    shallow
-  );
+
+  const {state:{stat}, actions: {onInputChange}} = useStatInput('mana');
 
   return (
     <StatInputComponent
-      value={cardMana}
+      value={Number(stat)}
       label="Mana"
       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-        setStats({ mana: event })
+        onInputChange(event)
       }
     />
   );

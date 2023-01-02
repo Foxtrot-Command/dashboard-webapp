@@ -3,6 +3,7 @@ import produce from "immer";
 import { WritableDraft } from "immer/dist/internal";
 import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
+import { create as mutativeCreate } from 'mutative';
 
 import { CardFaction, CardRarity } from "../constants/cards";
 import { TCardFaction, TCardRarity, TCardType } from "../types/cards";
@@ -26,12 +27,13 @@ interface LoadingState {
   qualityValue?: boolean;
 }
 
-interface CardStore {
+export interface CardStore {
   cardState: CardState;
   loadingState: LoadingState;
   editorState: any;
   imageSize: any;
   resetState: () => void;
+  updateCardStateKey: (key: any, value: any) => void;
   setEditorState: (editor: EditorState) => void;
   setImageSize: (size: string) => void;
   setName: (name: string) => void;
@@ -66,8 +68,8 @@ const initialLoadingStatus: LoadingState = {
 
 const defaultImageSize = "0 MB";
 
-export const immer = (config) => (set, get) =>
-  config((fn) => set(produce(fn)), get);
+export const mutative = (config) => (set, get) =>
+  config((fn) => set(mutativeCreate(fn)), get);
 
 type StoreSet = (fn: (draft: WritableDraft<CardStore>) => void) => void;
 
@@ -88,6 +90,11 @@ const store = (set: StoreSet) => ({
       state.editorState = editorContentState;
     });
   },
+  updateCardStateKey: (key: keyof CardState, value: never) => {
+    set((state) => {
+      state.cardState[key] = value
+    });
+  },
   setCardState: (content: CardState) => {
     set((state) => {
       state.cardState.name = content.name;
@@ -102,7 +109,7 @@ const store = (set: StoreSet) => ({
       state.cardState.name = name;
     });
   },
-  setType: (type: typeof initialCardState.type) => {
+  setType: (type: keyof typeof initialCardState.type) => {
     set((state) => {
       state.cardState.type = type;
     });
@@ -145,4 +152,4 @@ const store = (set: StoreSet) => ({
     });
   },
 });
-export const useCardStore = create<CardStore>()(devtools(immer(store)));
+export const useCardStore = create<CardStore>()(devtools(mutative(store)));
