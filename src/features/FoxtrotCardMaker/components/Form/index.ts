@@ -10,4 +10,3 @@ export { default as HealthInput } from './StatsInput/HealthInput';
 export { default as ManaInput } from './StatsInput/ManaInput';
 export { default as StatInputComponent } from './StatsInput/StatInputComponent';
 export { default as useStatInput } from './StatsInput/useStatInput';
-export * from './index';

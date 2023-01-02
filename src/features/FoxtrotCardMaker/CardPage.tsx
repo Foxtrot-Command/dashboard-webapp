@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { Box, Flex } from "@chakra-ui/react";
 import DropdownMenu from "common/components/DropdownMenu";
@@ -12,7 +12,7 @@ import InstagramStoriesCardVariant from "features/FoxtrotCardMaker/components/In
 const CardPage = () => {
   const [isFrameVisible, setFrameVisibility] = useState<boolean>(true);
 
-  const view = useRef(<CardView/>);
+  const view = useRef(<CardView showFrame={isFrameVisible}/>);
 
   return (
     <>

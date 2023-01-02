@@ -59,7 +59,7 @@ const DropdownMenu = ({
                 justifyContent="space-between"
                 fontWeight="normal"
                 fontSize="sm"
-                onClick={() => setActive((prev: any) => !prev)}
+                onClick={() => setActive((prev: boolean) => !prev)}
               >
                 {title}
               </Button>

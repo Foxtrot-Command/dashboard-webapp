@@ -22,7 +22,6 @@ const InstagramCardVariant = ({card}: {card: React.MutableRefObject<JSX.Element>
 
   useEffect(() => {
     if(cardRarity) {
-      console.log(cardRarity);
       setRarityRGBA(RARITY_RGBA_COLORS[cardRarity].join(","));
     }
   }, [cardRarity])
