@@ -31,7 +31,7 @@ const buttonArguments = {
   "---": -100,
 };
 
-const InstagramPostCardVariant = () => {
+const InstagramPostCardVariant = ({card}: {card: React.MutableRefObject<JSX.Element>}) => {
   const { cardName, selectedImage, cardRarity } = useCardStore(
     (state) => ({
       cardName: state.cardState.name,
@@ -158,7 +158,7 @@ const InstagramPostCardVariant = () => {
                   transition="all .5s ease-in-out"
                   zIndex={2}
                 >
-                  <CardView />
+                  {card.current}
                 </Box>
               </Box>
             </Flex>

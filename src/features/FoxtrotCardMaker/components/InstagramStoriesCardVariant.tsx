@@ -2,13 +2,12 @@ import { useEffect, useState } from "react";
 
 import { Box, Flex, Text } from "@chakra-ui/react";
 import SliderOpacity from "common/components/SliderOpacity";
-import { CardView, DownloadButton } from "features/FoxtrotCardMaker/components";
+import { DownloadButton } from "features/FoxtrotCardMaker/components";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
-import { rarityColorByRarityState } from "features/FoxtrotCardMaker/utils/cardHelper";
 import shallow from "zustand/shallow";
 import { RARITY_RGBA_COLORS } from "../constants/cards";
 
-const InstagramCardVariant = () => {
+const InstagramCardVariant = ({card}: {card: React.MutableRefObject<JSX.Element>}) => {
   const [sliderValue, setSliderValue] = useState(35);
   const [rarityRGBA, setRarityRGBA] = useState([255, 255, 255]);
 
@@ -128,7 +127,7 @@ const InstagramCardVariant = () => {
               transition="all .5s ease-in-out"
               zIndex={2}
             >
-              <CardView />
+              {card.current}
             </Box>
           </Box>
         </Box>
