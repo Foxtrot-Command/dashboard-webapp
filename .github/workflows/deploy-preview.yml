@@ -1,0 +1,32 @@
+name: Deploy Preview
+
+on:
+  push:
+    branches-ignore:
+      - master
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: GitHub Refs
+        uses: rlespinasse/github-slug-action@v2.x
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - run: yarn install --frozen-lockfile
+
+      - run: yarn lint
+
+      - name: Serverless Deploy
+        id: serverless_deploy
+        run: npx serverless deploy --stage $GITHUB_REF_SLUG_URL
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
