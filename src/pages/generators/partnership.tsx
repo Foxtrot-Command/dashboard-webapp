@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import { PlusSquareIcon } from "@chakra-ui/icons";
-import { Box, Button, Flex, Heading, Input, Switch } from "@chakra-ui/react";
-import useImageHandler from "hooks/useImageHandler";
+import { Box, Button, Flex, Input, Switch } from "@chakra-ui/react";
+import useImageHandler from "common/hooks/useImageHandler";
+import { captureHtmlAndSavePng } from "common/utils";
 import Draggable, { DraggableProps } from "react-draggable";
 import { AiOutlineClose } from "react-icons/ai";
-import { onCapture } from "utils";
 
 interface ExtraBounds {
   bounds: {
@@ -28,6 +28,7 @@ const partnership = () => {
   const [showBox, setShowBox] = useState(false);
 
   const { selectedImage, imageHandler } = useImageHandler();
+  const nodeRef = useRef(null);
 
   return (
     <Flex
@@ -91,7 +92,10 @@ const partnership = () => {
             ml={4}
             h="auto"
             onClick={() =>
-              onCapture({ id: "partnership_identifier", name: "partner" })
+              captureHtmlAndSavePng({
+                id: "partnership_identifier",
+                name: "partner",
+              })
             }
           >
             Guardar partnership
@@ -163,10 +167,11 @@ const partnership = () => {
             />
 
             <DraggableBox
+            nodeRef={nodeRef}
               bounds={{ top: -70, left: -50, right: 50, bottom: 60 }}
               grid={[10, 10]}
             >
-              <g>
+              <g ref={nodeRef}>
                 {!selectedImage ? (
                   <svg height="140" width="500" x="550" y="170">
                     <rect

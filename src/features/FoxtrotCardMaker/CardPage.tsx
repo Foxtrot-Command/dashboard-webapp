@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-import { Box, Flex } from "@chakra-ui/react";
-import DropdownMenu from "components/DropdownMenu";
+import { Box, Flex, Input, Select } from "@chakra-ui/react";
+import DropdownMenu from "common/components/DropdownMenu";
 import {
   CardGeneratorForm,
   CardView,
@@ -11,6 +11,8 @@ import InstagramStoriesCardVariant from "features/FoxtrotCardMaker/components/In
 
 const CardPage = () => {
   const [isFrameVisible, setFrameVisibility] = useState<boolean>(true);
+
+  const cardViewRef = useRef(<CardView showFrame={isFrameVisible} />);
 
   return (
     <>
@@ -45,17 +47,17 @@ const CardPage = () => {
               setActive={setFrameVisibility}
               title="Marco de la carta"
             />
-            <CardView showFrame={isFrameVisible} />
+            <CardView showFrame={isFrameVisible}/>
           </Box>
         </Flex>
 
         <Flex flexDirection={{ base: "column", lg: "row" }} w="100%" gap={6}>
-          <InstagramPostCardVariant />
-          <InstagramStoriesCardVariant />
+          <InstagramPostCardVariant card={cardViewRef} />
+          <InstagramStoriesCardVariant card={cardViewRef} />
         </Flex>
       </Flex>
     </>
   );
 };
 
-export default CardPage;
+export default React.memo(CardPage);

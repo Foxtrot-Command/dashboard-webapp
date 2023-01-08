@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import {
   Box,
@@ -12,13 +12,15 @@ import {
   Tabs,
   Text,
 } from "@chakra-ui/react";
-import SliderOpacity from "components/SliderOpacity";
+import SliderOpacity from "common/components/SliderOpacity";
 import CardView from "features/FoxtrotCardMaker/components/CardView";
 import DownloadButton from "features/FoxtrotCardMaker/components/Form/DownloadButton";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
 import { rarityColorByRarityState } from "features/FoxtrotCardMaker/utils/cardHelper";
 import Draggable from "react-draggable";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import shallow from "zustand/shallow";
+import { RARITY_RGBA_COLORS } from "../constants/cards";
 
 const buttonArguments = {
   "+": 10,
@@ -29,14 +31,22 @@ const buttonArguments = {
   "---": -100,
 };
 
-const InstagramPostCardVariant = () => {
-  const { cardState } = useCardStore();
+const InstagramPostCardVariant = ({card}: {card: React.MutableRefObject<JSX.Element>}) => {
+  const { cardName, selectedImage, cardRarity } = useCardStore(
+    (state) => ({
+      cardName: state.cardState.name,
+      cardRarity: state.cardState.rarity,
+      selectedImage: state.cardState.selectedImage,
+    }),
+    shallow
+  );
 
   const [sliderValue, setSliderValue] = useState(60);
+  const [rarityRGBA, setRarityRGBA] = useState([255, 255, 255]);
 
-  // Todo: search type for this useRef
   const [imageSize, setImageSize] = useState<Array<number>>([540, 540]);
   const [showLogo, setShowLogo] = useState<boolean>(true);
+  const nodeRef = useRef(null);
 
   const handleResize = (type: "+" | "++" | "+++" | "-" | "--" | "---") => {
     const [width, height] = imageSize;
@@ -45,6 +55,12 @@ const InstagramPostCardVariant = () => {
       height + buttonArguments[type],
     ]);
   };
+
+  useEffect(() => {
+    if(cardRarity) {
+      setRarityRGBA(RARITY_RGBA_COLORS[cardRarity].join(","));
+    }
+  }, [cardRarity])
 
   const ToggleShowLogo = () => {
     setShowLogo((prevState) => !prevState);
@@ -127,7 +143,7 @@ const InstagramPostCardVariant = () => {
                   bottom={0}
                   w="100%"
                   as="img"
-                  src={cardState.selectedImage}
+                  src={selectedImage}
                   position="absolute"
                   opacity={0.07}
                   objectFit="contain"
@@ -138,13 +154,11 @@ const InstagramPostCardVariant = () => {
                   h="100%"
                   mx="auto"
                   p="40px"
-                  filter={`drop-shadow(0px 5px 27px rgba(${rarityColorByRarityState(
-                    cardState.rarity
-                  )}, ${sliderValue / 100}))`}
+                  filter={`drop-shadow(0px 5px 27px rgba(${rarityRGBA}, ${sliderValue / 100}))`}
                   transition="all .5s ease-in-out"
                   zIndex={2}
                 >
-                  <CardView />
+                  {card.current}
                 </Box>
               </Box>
             </Flex>
@@ -153,7 +167,7 @@ const InstagramPostCardVariant = () => {
               w="100%"
               saveConfig={{
                 id: "instagram_post",
-                name: `${cardState.name}_post`,
+                name: `${cardName}_post`,
                 quality: 3,
               }}
               key="instagram_post"
@@ -199,8 +213,9 @@ const InstagramPostCardVariant = () => {
                 id="instagram_post_illustration"
                 overflow="hidden"
               >
-                <Draggable>
+                <Draggable nodeRef={nodeRef}>
                   <Box
+                  ref={nodeRef}
                     my="auto"
                     top={0}
                     bottom={0}
@@ -209,7 +224,7 @@ const InstagramPostCardVariant = () => {
                     h={imageSize[0]}
                     w={imageSize[1]}
                     as="img"
-                    src={cardState.selectedImage}
+                    src={selectedImage}
                     position="absolute"
                     objectFit="cover"
                     cursor="move"
@@ -257,7 +272,7 @@ const InstagramPostCardVariant = () => {
               w="100%"
               saveConfig={{
                 id: "instagram_post_illustration",
-                name: `${cardState.name}_post_illustration`,
+                name: `${cardName}_post_illustration`,
                 quality: 3,
               }}
               key="instagram_post_illustration"

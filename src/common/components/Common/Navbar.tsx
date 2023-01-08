@@ -64,9 +64,7 @@ export default function Navbar() {
             color={useColorModeValue("gray.800", "white")}
           >
             <Link href="/">
-              <a>
-                <Image style={{ width: "128px" }} src="/images/fxd_logo.svg" />
-              </a>
+              <Image style={{ width: "128px" }} src="/images/fxd_logo.svg" />
             </Link>
           </Text>
 
@@ -175,16 +173,14 @@ const DesktopSubNav = ({ label, href = "", subLabel }: NavItem) => {
       <Stack direction={"row"} align={"center"}>
         <Box cursor="pointer">
           <Link href={href}>
-            <Box as="a">
-              <Text
-                transition={"all .3s ease"}
-                _groupHover={{ color: "neutrals.700" }}
-                fontWeight={500}
-              >
-                {label}
-              </Text>
-              <Text fontSize={"sm"}>{subLabel}</Text>
-            </Box>
+            <Text
+              transition={"all .3s ease"}
+              _groupHover={{ color: "neutrals.700" }}
+              fontWeight={500}
+            >
+              {label}
+            </Text>
+            <Text fontSize={"sm"}>{subLabel}</Text>
           </Link>
         </Box>
         <Flex

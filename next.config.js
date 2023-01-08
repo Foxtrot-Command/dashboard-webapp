@@ -41,5 +41,5 @@ module.exports = {
       localeDetection: true,
     }, */
     trailingSlash: true,
-    reactStrictMode: false,
+    reactStrictMode: true,
   };

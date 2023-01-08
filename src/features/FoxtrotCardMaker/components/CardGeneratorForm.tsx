@@ -1,19 +1,29 @@
-import { Box, Divider, Flex } from "@chakra-ui/react";
+import React, { Suspense } from "react";
 
+import { Box, Divider, Flex } from "@chakra-ui/react";
 import {
+  AttackInput,
   DescriptionEditor,
   FactionSelection,
+  HealthInput,
   ImageUpload,
+  ManaInput,
   NameInput,
   QualitySelector,
   RaritySelector,
-  StatsInput,
   TypeSelector,
-} from ".";
+} from "features/FoxtrotCardMaker/components/Form";
+
+import ResetForm from "./Form/ResetForm";
 
 const CardGeneratorForm = () => {
   return (
-    <Flex direction="column" w={{ base: "100%", md: "auto" }}>
+    <Flex
+      direction="column"
+      w={{ base: "100%", md: "auto" }}
+      position="relative"
+    >
+      <ResetForm />
       <Box
         mt="0"
         height="100%"
@@ -26,7 +36,11 @@ const CardGeneratorForm = () => {
           <Box>
             <Flex direction={{ base: "column", lg: "row" }} gap={2}>
               <NameInput />
-              <StatsInput />
+              <Flex gap={3}>
+                <ManaInput />
+                <AttackInput />
+                <HealthInput />
+              </Flex>
             </Flex>
 
             <Flex

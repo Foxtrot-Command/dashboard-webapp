@@ -1,7 +1,7 @@
 type Props = {
   children: React.ReactNode;
   opacity: number;
-  id: string;
+  id?: string;
 };
 export const Wrapper = ({ children, opacity = 1, id = "card-svg" }: Props) => (
   <svg

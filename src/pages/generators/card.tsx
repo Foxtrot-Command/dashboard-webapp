@@ -1,5 +1,5 @@
-import CardView from "features/FoxtrotCardMaker/CardPage";
+import CardPage from "features/FoxtrotCardMaker/CardPage";
 
-export const card = () => <CardView />;
+export const card = () => <CardPage />
 
 export default card;

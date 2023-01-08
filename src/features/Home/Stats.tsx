@@ -1,5 +1,6 @@
-import { Badge, Box, Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+
+import { Badge, Box, Flex } from "@chakra-ui/react";
 import {
   FaDiscord,
   FaInstagram,
@@ -10,22 +11,19 @@ import {
 
 import { Section, StatElement, StatsCardBox } from "./components";
 
-
 const Stats = () => {
-
-  const [discordCounter, setDiscordCounter] = useState(0)
-  const [twitterCounter, setTwitterCounter] = useState(0)
+  const [discordCounter, setDiscordCounter] = useState(0);
+  const [twitterCounter, setTwitterCounter] = useState(0);
 
   useEffect(() => {
-
-    fetch('https://discordapp.com/api/guilds/893919170532634644/widget.json')
+    fetch("https://discordapp.com/api/guilds/893919170532634644/widget.json")
       .then((response) => {
-        return response.json()
-      }).then((response) => {
-        setDiscordCounter(response.presence_count)
+        return response.json();
       })
-
-  }, [])
+      .then((response) => {
+        setDiscordCounter(response.presence_count);
+      });
+  }, []);
 
   return (
     <Section title="Nuestra Comunidad">

@@ -2,6 +2,8 @@ import { EditorState } from "draft-js";
 import produce from "immer";
 import { WritableDraft } from "immer/dist/internal";
 import create from "zustand";
+import { devtools, persist } from "zustand/middleware";
+import { create as mutativeCreate } from 'mutative';
 
 import { CardFaction, CardRarity } from "../constants/cards";
 import { TCardFaction, TCardRarity, TCardType } from "../types/cards";
@@ -25,11 +27,13 @@ interface LoadingState {
   qualityValue?: boolean;
 }
 
-interface CardStore {
+export interface CardStore {
   cardState: CardState;
   loadingState: LoadingState;
   editorState: any;
   imageSize: any;
+  resetState: () => void;
+  updateCardStateKey: (key: any, value: any) => void;
   setEditorState: (editor: EditorState) => void;
   setImageSize: (size: string) => void;
   setName: (name: string) => void;
@@ -37,14 +41,14 @@ interface CardStore {
   setType: (type: TCardType) => void;
   setRarity: (rarity: TCardRarity) => void;
   setFaction: (faction: TCardFaction) => void;
-  setImage: (image: any) => void;
+  setImage: (image: string | ArrayBuffer | null | undefined) => void;
   setCardState: (cardState: CardState) => void;
   setDownloadQuality: (quality: number) => void;
   setLoading: (loading: LoadingState) => void;
 }
 
-const initialCardState: CardState = {
-  name: undefined,
+export const initialCardState: CardState = {
+  name: "",
   faction: CardFaction.BUSHIDO,
   rarity: CardRarity.COMMON,
   stats: {
@@ -62,8 +66,10 @@ const initialLoadingStatus: LoadingState = {
   qualityValue: false,
 };
 
-export const immer = (config) => (set, get) =>
-  config((fn) => set(produce(fn)), get);
+const defaultImageSize = "0 MB";
+
+export const mutative = (config) => (set, get) =>
+  config((fn) => set(mutativeCreate(fn)), get);
 
 type StoreSet = (fn: (draft: WritableDraft<CardStore>) => void) => void;
 
@@ -71,10 +77,22 @@ const store = (set: StoreSet) => ({
   cardState: initialCardState,
   loadingState: initialLoadingStatus,
   editorState: EditorState.createEmpty(),
-  imageSize: "0 MB",
+  imageSize: defaultImageSize,
+  resetState: () => {
+    set((state) => {
+      state.cardState = initialCardState;
+      state.editorState = EditorState.createEmpty();
+      state.imageSize = defaultImageSize;
+    });
+  },
   setEditorState: (editorContentState: EditorState) => {
     set((state) => {
       state.editorState = editorContentState;
+    });
+  },
+  updateCardStateKey: (key: keyof CardState, value: never) => {
+    set((state) => {
+      state.cardState[key] = value
     });
   },
   setCardState: (content: CardState) => {
@@ -91,7 +109,7 @@ const store = (set: StoreSet) => ({
       state.cardState.name = name;
     });
   },
-  setType: (type: typeof initialCardState.type) => {
+  setType: (type: keyof typeof initialCardState.type) => {
     set((state) => {
       state.cardState.type = type;
     });
@@ -134,4 +152,4 @@ const store = (set: StoreSet) => ({
     });
   },
 });
-export const useCardStore = create<CardStore>(immer(store));
+export const useCardStore = create<CardStore>()(devtools(mutative(store)));

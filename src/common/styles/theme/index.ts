@@ -1,4 +1,4 @@
-import { extendTheme, Menu } from "@chakra-ui/react";
+import { Menu, extendTheme } from "@chakra-ui/react";
 
 import colors from "./colors";
 import { Button, Input, Modal, Tabs } from "./components/";
@@ -17,16 +17,16 @@ const fxdTheme = extendTheme({
     Tabs,
   },
   breakpoints: {
-    sm: '30em',
-    md: '46em',
-    lg: '62em',
-    xl: '80em',
-    '2xl': '96em',
+    sm: "30em",
+    md: "46em",
+    lg: "62em",
+    xl: "80em",
+    "2xl": "96em",
   },
   styles: {
     global: {
       "html, body, #root": {
-        backgroundColor: 'neutrals.1000',
+        backgroundColor: "neutrals.1000",
       },
     },
   },

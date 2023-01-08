@@ -17,6 +17,15 @@ export const enum CardType {
   EQUIPMENT = "equipment",
 }
 
+export const CARD_TYPE_VALUES = {
+  [CardType.UNIT]: "unit",
+  [CardType.VEHICLE]: "vehicle",
+  [CardType.STRUCTURE]: "structure",
+  [CardType.TACTIC]: "tactic",
+  [CardType.SOLDIER]: "soldier",
+  [CardType.EQUIPMENT]: "equipment",
+};
+
 export const enum CardFaction {
   GLOBAL = "global",
   BUSHIDO = "bushido",
@@ -32,6 +41,17 @@ export const RARITY_COLORS = {
   [CardRarity.RARE]: "#0755FF",
   [CardRarity.EPIC]: "#F840FF",
   [CardRarity.LEGENDARY]: "#FFB908",
+};
+
+type TIterable = {
+  [key: string]: any;
+}
+export const RARITY_RGBA_COLORS: TIterable = {
+  [CardRarity.COMMON]: [255, 255, 255],
+  [CardRarity.UNCOMMON]: [117, 210, 75],
+  [CardRarity.RARE]: [7,85,255],
+  [CardRarity.EPIC]: [248,64,255],
+  [CardRarity.LEGENDARY]: [255,185,8],
 };
 
 export const FACTION_COLORS = {

@@ -1,5 +1,5 @@
 import { Button, ButtonProps } from "@chakra-ui/react";
-import { onCapture } from "utils";
+import { captureHtmlAndSavePng } from "common/utils";
 
 type SaveImage = {
   id: string;
@@ -17,7 +17,7 @@ const DownloadButton = ({ name = "Guardar", saveConfig, ...props }: Props) => {
     <Button
       {...props}
       onClick={() =>
-        onCapture({
+        captureHtmlAndSavePng({
           id: saveConfig.id,
           name: saveConfig.name,
           quality: saveConfig.quality,

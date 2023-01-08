@@ -1,5 +1,7 @@
+import React from "react";
+
+import { generatePath } from "common/utils/svg";
 import { Parser } from "html-to-react";
-import { generatePath } from "utils/Svg";
 
 const parser = new Parser();
 
@@ -71,4 +73,4 @@ export const Description = ({ children, rich }: Props) => {
   );
 };
 
-export default Description;
+export default React.memo(Description);

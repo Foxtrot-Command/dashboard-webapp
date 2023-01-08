@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import { PlusSquareIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, Input } from "@chakra-ui/react";
-import { DropdownMenu } from "components";
-import useImageHandler from "hooks/useImageHandler";
+import { DropdownMenu } from "common/components";
+import useImageHandler from "common/hooks/useImageHandler";
+import { captureHtmlAndSavePng } from "common/utils";
 import Draggable, { DraggableProps } from "react-draggable";
 import { AiOutlineClose } from "react-icons/ai";
-import { onCapture } from "utils";
 
 interface ExtraBounds {
   bounds: {
@@ -34,6 +34,7 @@ const UploadLogoButton = ({
   selectedImage,
   imageHandler,
 }: UploadLogoButtonType) => {
+
   return (
     <Box
       as="label"
@@ -76,6 +77,7 @@ const TwitterSpace = () => {
   const [time, setTime] = useState("00:00");
   const [month, setMonth] = useState("Septiembre");
   const [day, setDay] = useState("20");
+  const nodeRef = useRef(null);
 
   const handleDateSelection = (e) => {
     if (!e.target.value) return;
@@ -136,7 +138,7 @@ const TwitterSpace = () => {
             w="100%"
             h="40px"
             onClick={() =>
-              onCapture({
+              captureHtmlAndSavePng({
                 id: "TwitterSpace_identifier",
                 name: "twitter_space",
               })
@@ -183,10 +185,11 @@ const TwitterSpace = () => {
             />
 
             <DraggableBox
+            nodeRef={nodeRef}
               bounds={{ top: 0, left: -10, right: 10, bottom: 0 }}
               grid={[10, 10]}
             >
-              <g>
+              <g ref={nodeRef}>
                 {!selectedImage ? (
                   <Box
                     cursor="move"

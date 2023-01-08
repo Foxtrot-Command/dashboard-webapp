@@ -1,15 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Box, Flex, Text } from "@chakra-ui/react";
-import SliderOpacity from "components/SliderOpacity";
-import { CardView, DownloadButton } from "features/FoxtrotCardMaker/components";
+import SliderOpacity from "common/components/SliderOpacity";
+import { DownloadButton } from "features/FoxtrotCardMaker/components";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
-import { rarityColorByRarityState } from "features/FoxtrotCardMaker/utils/cardHelper";
+import shallow from "zustand/shallow";
+import { RARITY_RGBA_COLORS } from "../constants/cards";
 
-const InstagramCardVariant = () => {
+const InstagramCardVariant = ({card}: {card: React.MutableRefObject<JSX.Element>}) => {
   const [sliderValue, setSliderValue] = useState(35);
+  const [rarityRGBA, setRarityRGBA] = useState([255, 255, 255]);
 
-  const { cardState } = useCardStore();
+  const { cardName, selectedImage, cardRarity } = useCardStore(
+    (state) => ({
+      cardName: state.cardState.name,
+      cardRarity: state.cardState.rarity,
+      selectedImage: state.cardState.selectedImage,
+    }),
+    shallow
+  );
+
+  useEffect(() => {
+    if(cardRarity) {
+      setRarityRGBA(RARITY_RGBA_COLORS[cardRarity].join(","));
+    }
+  }, [cardRarity])
 
   return (
     <Flex
@@ -74,7 +89,7 @@ const InstagramCardVariant = () => {
 
             <Box
               as="img"
-              src={cardState.selectedImage}
+              src={selectedImage}
               position="absolute"
               objectFit="cover"
               h="100%"
@@ -107,13 +122,11 @@ const InstagramCardVariant = () => {
               mx="auto"
               top={-14}
               py="95px"
-              filter={`drop-shadow(0px 5px 15px rgba(${rarityColorByRarityState(
-                cardState.rarity
-              )}, ${sliderValue / 100}))`}
+              filter={`drop-shadow(0px 5px 15px rgba(${rarityRGBA}, ${sliderValue / 100}))`}
               transition="all .5s ease-in-out"
               zIndex={2}
             >
-              <CardView />
+              {card.current}
             </Box>
           </Box>
         </Box>
@@ -123,7 +136,7 @@ const InstagramCardVariant = () => {
         w="100%"
         saveConfig={{
           id: "instagram_stories",
-          name: `${cardState.name}_storie`,
+          name: `${cardName}_storie`,
           quality: 3,
         }}
         key="instagram_stories"
