@@ -25,7 +25,7 @@ import {
   TCardRarity,
   TCardType,
 } from "features/FoxtrotCardMaker/types/cards";
-import { cardData } from "features/FoxtrotCardMaker/utils/RawData";
+import { cardData } from "features/FoxtrotCardMaker/utils/cardData";
 import shallow from "zustand/shallow";
 
 let htmlToDraft: any = null;

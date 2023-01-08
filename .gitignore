@@ -33,3 +33,5 @@ out
 
 #intellij
 .idea/**
+
+package-lock.json
