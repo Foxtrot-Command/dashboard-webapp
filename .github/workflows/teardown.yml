@@ -20,7 +20,7 @@ jobs:
       - run: yarn install --frozen-lockfile
 
       - name: Serverless Remove
-        run: serverless remove --stage $GITHUB_EVENT_REF_SLUG_URL
+        run: npx serverless@2.72.2 remove --stage $GITHUB_EVENT_REF_SLUG_URL
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
