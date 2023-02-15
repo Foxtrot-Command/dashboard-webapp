@@ -7,11 +7,8 @@ import {
   useRadio,
   useRadioGroup,
 } from "@chakra-ui/react";
-import { capitalize } from "common/utils";
-import { CardRarity, rarityCheckbox } from "features/FoxtrotCardMaker/constants/cards";
-import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
+import { rarityCheckbox } from "features/FoxtrotCardMaker/constants/cards";
 import { TCardRarity } from "features/FoxtrotCardMaker/types/cards";
-import shallow from "zustand/shallow";
 import useSelector from "./useSelector";
 
 type RadioCardType = {
@@ -21,7 +18,7 @@ type RadioCardType = {
   isDisabled: boolean;
 };
 function RadioCard({ label, color, children, ...props }: RadioCardType) {
-  const { state, getInputProps, getCheckboxProps, getLabelProps } = useRadio(props);
+  const { getInputProps, getCheckboxProps, getLabelProps } = useRadio(props);
 
   return (
     <Box as="label">
