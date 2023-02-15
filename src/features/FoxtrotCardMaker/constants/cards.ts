@@ -91,6 +91,7 @@ export const rarityCheckbox = [
 ];
 
 export const factionCheckbox = [
+  { name: CardFaction.GLOBAL, isDisabled: false },
   { name: CardFaction.BUSHIDO, isDisabled: false },
   { name: CardFaction.GANNICUS, isDisabled: true },
   { name: CardFaction.THE_FORGOTTENS, isDisabled: false },
