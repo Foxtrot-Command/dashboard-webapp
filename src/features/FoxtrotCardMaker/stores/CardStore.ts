@@ -17,6 +17,7 @@ interface CardState {
     attack: number;
     health: number;
   };
+  isFirstEdition?: boolean;
   type?: TCardType;
   downloadQuality: number;
   selectedImage?: string | undefined;
@@ -45,6 +46,7 @@ export interface CardStore {
   setCardState: (cardState: CardState) => void;
   setDownloadQuality: (quality: number) => void;
   setLoading: (loading: LoadingState) => void;
+  setFirstEdition: (value: boolean) => void;
 }
 
 export const initialCardState: CardState = {
@@ -56,6 +58,7 @@ export const initialCardState: CardState = {
     attack: 1,
     health: 1,
   },
+  isFirstEdition: false,
   type: undefined,
   downloadQuality: 1,
   selectedImage: undefined,
@@ -149,6 +152,11 @@ const store = (set: StoreSet) => ({
   setImageSize: (size: boolean) => {
     set((state) => {
       state.imageSize = size;
+    });
+  },
+  setFirstEdition: (value: boolean) => {
+    set((state) => {
+      state.cardState.isFirstEdition = value;
     });
   },
 });

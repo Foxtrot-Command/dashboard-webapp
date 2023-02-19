@@ -74,6 +74,7 @@ const ImportCard = () => {
         type: type?.toLowerCase() as TCardType,
         downloadQuality: downloadQuality,
         selectedImage: image,
+        isFirstEdition: false,
       });
 
       setLoading({ qualityValue: true });
