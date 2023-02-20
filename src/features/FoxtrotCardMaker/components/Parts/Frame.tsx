@@ -8,10 +8,10 @@ export const Frame = ({
   <image
     id="mNeutral"
     type="MSBitmapLayer"
-    x={5}
-    y={29}
-    width={763}
-    height={1050}
+    x={0}
+    y={0}
+    width={764}
+    height={1100}
     href={image}
   />
 );
