@@ -57,7 +57,7 @@ const CardView = ({ showFrame = true }: Props) => {
   );
 
   const frameFirstEditionPath = `${isFirstEdition ? '/firstEdition/' : '/'}`;
-  
+
   return (
     <>
       {loadingCardContent && <LoadingContent />}
@@ -74,7 +74,7 @@ const CardView = ({ showFrame = true }: Props) => {
         {showFrame && (
           <>
             <Frame
-              image={`/images/parts/frames/${cardRarity}${frameFirstEditionPath}${cardFaction}.png`.toLowerCase()}
+              image={`/images/parts/frames/${cardRarity?.toLowerCase()}${frameFirstEditionPath}${cardFaction?.toLowerCase()}.png`}
             />
             <Mana value={cardMana} />
 
