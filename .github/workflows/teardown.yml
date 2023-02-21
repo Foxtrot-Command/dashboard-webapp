@@ -1,0 +1,26 @@
+name: Teardown
+
+on: delete
+
+jobs:
+  teardown:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: GitHub Refs
+        uses: rlespinasse/github-slug-action@v2.x
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - run: yarn install --frozen-lockfile
+
+      - name: Serverless Remove
+        run: npx serverless@2.72.2 remove --stage $GITHUB_EVENT_REF_SLUG_URL
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

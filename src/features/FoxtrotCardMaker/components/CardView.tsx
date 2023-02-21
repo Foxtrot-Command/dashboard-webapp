@@ -57,7 +57,7 @@ const CardView = ({ showFrame = true }: Props) => {
   );
 
   const frameFirstEditionPath = `${isFirstEdition ? '/firstEdition/' : '/'}`;
-
+  
   return (
     <>
       {loadingCardContent && <LoadingContent />}
