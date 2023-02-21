@@ -38,6 +38,7 @@ const CardView = ({ showFrame = true }: Props) => {
     selectedImage,
     loadingCardContent,
     editorState,
+    isFirstEdition,
   } = useCardStore(
     (state) => ({
       loadingCardContent: state.loadingState.cardContent,
@@ -48,12 +49,15 @@ const CardView = ({ showFrame = true }: Props) => {
       cardHealth: state.cardState.stats.health,
       cardMana: state.cardState.stats.mana,
       cardType: state.cardState.type,
+      isFirstEdition: state.cardState.isFirstEdition,
       selectedImage: state.cardState.selectedImage,
       editorState: state.editorState,
     }),
     shallow
   );
 
+  const frameFirstEditionPath = `${isFirstEdition ? '/firstEdition/' : '/'}`;
+  
   return (
     <>
       {loadingCardContent && <LoadingContent />}
@@ -70,7 +74,7 @@ const CardView = ({ showFrame = true }: Props) => {
         {showFrame && (
           <>
             <Frame
-              image={`/images/parts/frames/${cardRarity}/${cardFaction}.png`.toLowerCase()}
+              image={`/images/parts/frames/${cardRarity}${frameFirstEditionPath}${cardFaction}.png`.toLowerCase()}
             />
             <Mana value={cardMana} />
 
