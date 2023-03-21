@@ -21,6 +21,7 @@ import {
 } from "features/FoxtrotCardMaker/constants/cards";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
 import shallow from "zustand/shallow";
+import FirstEdition from "./Parts/FirstEdition";
 
 type Props = BoxProps & {
   showFrame?: boolean;
@@ -76,9 +77,11 @@ const CardView = ({ showFrame = true }: Props) => {
             <Frame
               image={`/images/parts/frames/${cardRarity?.toLowerCase()}${frameFirstEditionPath}${cardFaction?.toLowerCase()}.png`}
             />
+
+            {isFirstEdition && <FirstEdition/>}
             <Mana value={cardMana} />
 
-            {cardType?.toLowerCase() !== CardType.TACTIC && (
+            {cardType?.toLowerCase() !== CardType.TACTIC && cardType?.toLowerCase() !== CardType.EQUIPMENT && (
               <>
                 <Health value={cardHealth} />
                 <Attack value={cardAttack} />

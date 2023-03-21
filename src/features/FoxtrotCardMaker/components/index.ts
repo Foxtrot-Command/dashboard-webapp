@@ -13,4 +13,3 @@ export { default as Attack } from './Parts/Stats/Attack';
 export { default as Health } from './Parts/Stats/Health';
 export { default as Mana } from './Parts/Stats/Mana';
 export * from './Parts';
-export * from './index';

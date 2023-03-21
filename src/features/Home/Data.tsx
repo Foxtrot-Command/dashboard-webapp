@@ -8,6 +8,7 @@ const Data = () => {
         title="Datos de cartas"
         color="red"
         text="WIP"
+        link="/backoffice/cards"
       />
     </Section>
   );
