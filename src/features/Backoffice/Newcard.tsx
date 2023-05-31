@@ -280,12 +280,12 @@ export default function CardCRUD() {
               </Tr>
             </Thead>
             <Tbody>
-              {cards.map((card, id) => {
+              {cards.map((card: any, id) => {
                 return (
                   <Tr key={id}>
                     <Td borderColor={borderColor}>
                       <Tooltip variant="unestyled" label={
-                        <Image src={card.art.imageRoute} height="200px" />
+                        <Image src={card?.art?.imageRoute} height="200px" />
                       }>
 
                         <Image src={card.art.imageRoute} height="40px" />
