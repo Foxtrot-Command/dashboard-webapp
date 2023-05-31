@@ -48,15 +48,12 @@ export default function CardCRUD() {
   /* const { users, getUsers, deleteUser, totalCount } = useUsers(); */
 
   const toast = useToast();
-
   const [page, setPage] = useState(1);
-
   const [user, setUser] = useState(null);
-
   const [valueSearch, setValueSearch] = useState('');
-
   const [isOpenFormModal, setIsOpenFormModal] = useState(false);
 
+  const [cards, setCards] = useState([]);
 
   const isLgVerison = useBreakpointValue({
     base: false,
@@ -110,6 +107,67 @@ export default function CardCRUD() {
       getUsers(1);
     }
   } */
+
+  const fetchData = async () => {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const graphql = JSON.stringify({
+      query: `
+      query Cards {
+        cards {
+          name
+          description
+          descriptionPretty
+          settings {
+            rarity {
+              name
+            }
+            type {
+              name
+            }
+            stats {
+              health
+              attack
+              mana
+            }
+            faction {
+              name
+            }
+            skills {
+              name
+            }
+          }
+          art {
+            imageRoute
+          }
+          createdAt
+          updatedAt
+        }
+      }`,
+      variables: {}
+    });
+
+    const requestOptions: RequestInit = {
+      method: 'POST',
+      headers: myHeaders,
+      body: graphql,
+      redirect: 'follow'
+    };
+
+    try {
+      const response = await fetch("http://localhost:3000/graphql", requestOptions);
+      const result = await response.text();
+      setCards(JSON.parse(result).data.cards);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
+  // Call the fetchData function within your useEffect hook
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <Flex
@@ -222,25 +280,25 @@ export default function CardCRUD() {
               </Tr>
             </Thead>
             <Tbody>
-              {cardData.map((card, id) => {
+              {cards.map((card: any, id) => {
                 return (
                   <Tr key={id}>
                     <Td borderColor={borderColor}>
                       <Tooltip variant="unestyled" label={
-                         <Image src={card.image} height="200px" />
+                        <Image src={card?.art?.imageRoute} height="200px" />
                       }>
 
-                        <Image src={card.image} height="40px" />
+                        <Image src={card.art.imageRoute} height="40px" />
                       </Tooltip>
                     </Td>
                     <Td borderColor={borderColor}>{id}</Td>
-                    {isMdVerison && <Td borderColor={borderColor}>{card.name}</Td>}
-                    {isLgVerison && <Td borderColor={borderColor}>{card.stats.attack}</Td>}
-                    {isLgVerison && <Td borderColor={borderColor}>{card.stats.mana}</Td>}
-                    {isLgVerison && <Td borderColor={borderColor}>{card.stats.health}</Td>}
-                    {isLgVerison && <Td borderColor={borderColor}>{card.faction}</Td>}
-                    {isLgVerison && <Td borderColor={borderColor}>{card.description.substring(0, 10)}...</Td>}
-                    {isLgVerison && <Td borderColor={borderColor}>{card.description.substring(0, 10)}...</Td>}
+                    {isMdVerison && <Td borderColor={borderColor}>{card?.name}</Td>}
+                    {isLgVerison && <Td borderColor={borderColor}>{card?.settings?.stats?.attack}</Td>}
+                    {isLgVerison && <Td borderColor={borderColor}>{card?.settings?.stats?.mana}</Td>}
+                    {isLgVerison && <Td borderColor={borderColor}>{card?.settings?.stats?.health}</Td>}
+                    {isLgVerison && <Td borderColor={borderColor}>{card?.settings?.faction?.name}</Td>}
+                    {isLgVerison && <Td borderColor={borderColor}>{card?.description.substring(0, 10)}...</Td>}
+                    {isLgVerison && <Td borderColor={borderColor}>{card?.description.substring(0, 10)}...</Td>}
                     <Td borderColor={borderColor}>
                       <Button
                         onClick={() => handleUpdateUser(card)}
