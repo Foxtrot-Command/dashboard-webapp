@@ -36,6 +36,13 @@ const Tools = () => {
           color="red"
           text="WIP"
         />
+        <CardBoxElement
+          identifier="Generadores"
+          link="/generators/watermark"
+          title="Marca de agua"
+          color="purple"
+          text="Beta"
+        />
       </Flex>
     </Section>
   );
