@@ -2,11 +2,11 @@ import { ReactNode } from "react";
 
 import { Container } from "@chakra-ui/react";
 
-import Navbar from "./Navbar";
+import Navbar from "../components/Common/Navbar";
 
-type LayoutProps = { children: ReactNode };
+type BaseLayoutProps = { children: ReactNode };
 
-const Layout = ({ children }: LayoutProps) => {
+const BaseLayout = ({ children }: BaseLayoutProps) => {
   return (
     <>
       <Navbar />
@@ -17,4 +17,4 @@ const Layout = ({ children }: LayoutProps) => {
   );
 };
 
-export default Layout;
+export default BaseLayout;

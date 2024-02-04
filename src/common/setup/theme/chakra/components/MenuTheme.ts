@@ -9,14 +9,16 @@ const baseStyle = definePartsStyle({
     ...theme?.components?.Menu?.variants?.enclosed,
     zIndex: 20,
     borderRadius: "4px",
-    bg: "neutrals.900",
-    borderColor: "neutrals.1000",
+    bg: 'dust.950',
+    borderColor: 'alto.950',
   },
   item: {
-    bg: "neutrals.900",
+    layerStyle: "s",
+    bg: 'dust.950',
     _hover: {
-      bg: "neutrals.1000",
+      bg: 'dust.900'
     },
+
   },
 });
 

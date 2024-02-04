@@ -1,20 +1,50 @@
-import { Menu, extendTheme } from "@chakra-ui/react";
+import { extendTheme } from "@chakra-ui/react";
+import {
+  fonts,
+  colors,
+  Modal,
+  Button,
+  MenuTheme,
+  Input,
+  Tabs,
+  layerStyles,
+  Link,
+  Tooltip,
+  Switch,
+  Drawer,
+} from "common/setup/theme/chakra";
+import Alert from "./chakra/components/Alert";
 
-import colors from "./colors";
-import { Button, Input, Modal, Tabs } from "./components/";
-import { MenuTheme } from "./components/MenuTheme";
-import fonts from "./fonts";
-import layerStyles from "./layerStyles";
+const borderRadius = {
+  radii: {
+    none: "0",
+    sm: "0.125rem",
+    base: "0.25rem",
+    md: "0.375rem",
+    lg: "0.5rem",
+    xl: "0.75rem",
+    "2xl": "1rem",
+    "3xl": "1.5rem",
+    full: "9999px",
+  },
+};
 
-const fxdTheme = extendTheme({
+const FXDTheme = extendTheme({
+  ...borderRadius,
+
   fonts,
   colors,
   components: {
     Modal,
     Button,
     Input,
+    Alert,
     Menu: MenuTheme,
     Tabs,
+    Link,
+    Tooltip,
+    Switch,
+    Drawer
   },
   breakpoints: {
     sm: "30em",
@@ -47,4 +77,4 @@ const fxdTheme = extendTheme({
   },
 });
 
-export default fxdTheme;
+export default FXDTheme;

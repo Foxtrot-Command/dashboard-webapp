@@ -99,6 +99,59 @@ const ImportCard = () => {
     }, 200);
   };
 
+  const getCardsData = async () => {
+
+    const query = `
+    query Decks {
+      cards {
+        id,
+        name,
+        descriptionPretty,
+        season,
+        art {
+            imageRoute,
+            modelRoute
+        },
+        settings {
+          type {
+              name,
+              description
+          },
+          skills {
+                description,
+                name
+          }
+          stats {
+              mana,
+              attack,
+              health
+          },
+           rarity {
+               name,
+               color
+           },
+           faction {
+               name,
+               description,
+               color
+           }
+        }
+      }
+  }`;
+
+    const response = await fetch("https://graphql.foxtrotcommand.com/graphql", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        query,
+      }),
+    })
+    return response.json();
+  }
+
   const filteredCardData = cardData.filter((content: any) => {
     return (
       content.name.toLowerCase().includes(searchValue.toLowerCase()) ||

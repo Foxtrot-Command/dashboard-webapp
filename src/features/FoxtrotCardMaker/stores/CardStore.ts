@@ -1,7 +1,6 @@
 import { EditorState } from "draft-js";
-import produce from "immer";
-import { WritableDraft } from "immer/dist/internal";
 import create from "zustand";
+import WritableDraft from "immer";
 import { devtools, persist } from "zustand/middleware";
 import { create as mutativeCreate } from 'mutative';
 
@@ -74,7 +73,7 @@ const defaultImageSize = "0 MB";
 export const mutative = (config) => (set, get) =>
   config((fn) => set(mutativeCreate(fn)), get);
 
-type StoreSet = (fn: (draft: WritableDraft<CardStore>) => void) => void;
+type StoreSet = (fn: (draft: typeof WritableDraft<CardStore>) => void) => void;
 
 const store = (set: StoreSet) => ({
   cardState: initialCardState,
@@ -160,4 +159,4 @@ const store = (set: StoreSet) => ({
     });
   },
 });
-export const useCardStore = create<CardStore>()(devtools(mutative(store)));
+export const useCardStore = create<CardStore>()(mutative(store));

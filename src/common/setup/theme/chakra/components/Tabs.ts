@@ -7,6 +7,7 @@ const Tabs: DeepPartial<ChakraTheme["components"]["Tabs"]> = {
       tab: {
         border: "2px solid",
         borderColor: "transparent",
+        // use colorScheme to change background color with dark and light mode options
         backgroundColor: "rgba(62, 71, 81, 0.2)",
         borderBottom: "none",
         borderTopRadius: "4px",

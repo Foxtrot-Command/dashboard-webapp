@@ -3,9 +3,9 @@ import Head from "next/head";
 
 import { ChakraProvider } from "@chakra-ui/react";
 import "@fontsource/montserrat/latin.css";
-import Layout from "common/components/Common/Layout";
-import "common/styles/globals.css";
-import fxdTheme from "common/styles/theme";
+import Layout from "common/layout/BaseLayout";
+import "common/styles/theme/globals.css";
+import fxdTheme from "common/styles/theme/FXDTheme";
 
 function App({ Component, pageProps }: AppProps) {
   return (
