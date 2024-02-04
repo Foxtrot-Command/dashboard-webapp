@@ -20,13 +20,19 @@
     "jsx": "preserve",
     "baseUrl": "src",
     "incremental": true,
-    "preserveConstEnums": true
+    "preserveConstEnums": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "src",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
