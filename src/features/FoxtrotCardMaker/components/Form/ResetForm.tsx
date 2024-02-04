@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { Box, BoxProps, IconButton } from "@chakra-ui/react";
-import { shallowEqual } from "common/utils";
+import { shallowEqual } from "common/helper";
 import {
   initialCardState,
   useCardStore,

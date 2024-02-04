@@ -1,5 +1,5 @@
 import { Button, ButtonProps } from "@chakra-ui/react";
-import { captureHtmlAndSavePng } from "common/utils";
+import { captureHtmlAndSavePng } from "common/helper";
 
 type SaveImage = {
   id: string;

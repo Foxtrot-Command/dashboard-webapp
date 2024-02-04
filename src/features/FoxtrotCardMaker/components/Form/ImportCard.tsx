@@ -16,7 +16,7 @@ import {
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import { calculateDocumentSize } from "common/utils";
+import { calculateDocumentSize } from "common/helper";
 import { ContentState, EditorState } from "draft-js";
 import { WRAPPER_ID } from "features/FoxtrotCardMaker/constants/cards";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";

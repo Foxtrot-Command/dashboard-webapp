@@ -13,32 +13,27 @@ import {
 
 import { Section, StatElement, StatsCardBox } from "./components";
 
-const Stats = () => {
-  const [discordCounter, setDiscordCounter] = useState(0);
-  const [twitterCounter, setTwitterCounter] = useState(0);
+type StatsProps = {
+  discordCounter?: number;
+  telegramAnnouncesCounter?: number;
+  telegramGlobalCounter?: number;
+  telegramSpainCounter?: number;
+};
 
-  useEffect(() => {
-    fetch("https://discordapp.com/api/guilds/893919170532634644/widget.json")
-      .then((response) => {
-        return response.json();
-      })
-      .then((response) => {
-        setDiscordCounter(response.presence_count);
-      });
-  }, []);
+const Stats = (props: StatsProps) => {
+
+  const {
+    discordCounter = 0,
+    telegramAnnouncesCounter = 0,
+    telegramGlobalCounter = 0,
+    telegramSpainCounter = 0
+  } = props;
 
   return (
     <Section title="Nuestra Comunidad">
       <Box position="relative">
-        <Box position="absolute" right={4} top={3}>
-          <Badge variant="subtle" colorScheme="purple" px={2} py={1}>
-            BETA - NOT REAL DATA
-          </Badge>
-        </Box>
-
         <Box
           bg="whiteAlpha.100"
-          mt={6}
           borderRadius={6}
           p={4}
           boxShadow="brand.shadow.md"
@@ -51,20 +46,20 @@ const Stats = () => {
             position="relative"
             justifyContent="center"
             gap={4}
-            pt={8}
+            pt={2}
           >
             <StatsCardBox title="Telegram" icon={FaTelegramPlane}>
-              <StatElement label="Canal Global" followers={1156} />
-              <StatElement label="Canal Spain" followers={1671} />
-              <StatElement label="Announces" followers={1113} />
+              <StatElement label="Canal Global" followers={telegramGlobalCounter} />
+              <StatElement label="Canal Spain" followers={telegramSpainCounter} />
+              <StatElement label="Announces" followers={telegramAnnouncesCounter} />
             </StatsCardBox>
 
             <StatsCardBox title="Twitter" icon={FaTwitter}>
-              <StatElement label="@FoxtrotCommand" followers={twitterCounter} />
+              <StatElement label="@FoxtrotCommand" followers={0} />
             </StatsCardBox>
 
             <StatsCardBox title="Instagram" icon={FaInstagram}>
-              <StatElement label="@FoxtrotCommand" followers={1370} />
+              <StatElement label="@FoxtrotCommand" followers={0} />
             </StatsCardBox>
 
             <StatsCardBox title="Discord" icon={FaDiscord}>
@@ -72,7 +67,7 @@ const Stats = () => {
             </StatsCardBox>
 
             <StatsCardBox title="Youtube" icon={FaYoutube}>
-              <StatElement label="Canal Principal" followers={21} />
+              <StatElement label="Canal Principal" followers={0} />
             </StatsCardBox>
           </Flex>
         </Box>

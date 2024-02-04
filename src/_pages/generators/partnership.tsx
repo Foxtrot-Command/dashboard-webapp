@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 
 import { Box, Button, Flex, Input, Switch } from "@chakra-ui/react";
 import useImageHandler from "common/hooks/useImageHandler";
-import { captureHtmlAndSavePng } from "common/utils";
+import { captureHtmlAndSavePng } from "common/helper";
 import Draggable, { DraggableProps } from "react-draggable";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaRegSquarePlus } from "react-icons/fa6";

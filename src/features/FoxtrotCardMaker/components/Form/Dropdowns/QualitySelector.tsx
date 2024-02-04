@@ -1,5 +1,5 @@
 import { Flex, Select } from "@chakra-ui/react";
-import { calculateDocumentSize } from "common/utils";
+import { calculateDocumentSize } from "common/helper";
 import DownloadButton from "features/FoxtrotCardMaker/components/Form/DownloadButton";
 import { WRAPPER_ID } from "features/FoxtrotCardMaker/constants/cards";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
