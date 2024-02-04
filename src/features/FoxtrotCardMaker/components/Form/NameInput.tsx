@@ -10,7 +10,7 @@ const NameInput = () => {
       cardName: state.cardState.name,
       setName: state.setName,
     }),
-    shallow
+    shallow,
   );
 
   return (

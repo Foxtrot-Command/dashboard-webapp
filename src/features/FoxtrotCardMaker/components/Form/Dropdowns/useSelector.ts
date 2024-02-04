@@ -1,10 +1,10 @@
-import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
 import { useEffect, useRef, useState } from "react";
+
+import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
 
 type SelectorProp = "rarity" | "type" | "faction";
 
 function useSelector(selector: SelectorProp) {
-
   const changesReference = useRef(useCardStore.getState());
   const { updateCardStateKey } = changesReference.current;
 
@@ -12,11 +12,11 @@ function useSelector(selector: SelectorProp) {
 
   const onSelectorChange = (event) => {
     setSelection(event);
-    updateCardStateKey(selector, event)
-  }
+    updateCardStateKey(selector, event);
+  };
 
   useEffect(() => {
-    const unsubChange = useCardStore.subscribe(state => {
+    const unsubChange = useCardStore.subscribe((state) => {
       changesReference.current.cardState = state.cardState;
       setSelection(state.cardState[selector]);
     });
@@ -28,9 +28,8 @@ function useSelector(selector: SelectorProp) {
 
   return {
     state: selection,
-    actions: { onSelectorChange }
-  }
+    actions: { onSelectorChange },
+  };
 }
 
 export default useSelector;
-

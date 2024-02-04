@@ -6,15 +6,14 @@ const Modal: DeepPartial<ChakraTheme["components"]["Modal"]> = {
       background: "neutrals.950",
       borderRadius: "lg",
       border: "2px",
-      borderColor: 'neutrals.900',
+      borderColor: "neutrals.900",
       position: "relative",
       mx: "auto",
       marginLeft: 7,
       marginRight: 7,
     },
-    dialogContainer: {
-    }
-  }
+    dialogContainer: {},
+  },
 };
 
 export default Modal;

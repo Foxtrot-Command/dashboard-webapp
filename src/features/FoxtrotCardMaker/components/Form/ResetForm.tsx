@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Box, BoxProps, IconButton } from "@chakra-ui/react";
 import { shallowEqual } from "common/utils";
@@ -12,19 +12,18 @@ import shallow from "zustand/shallow";
 type Props = BoxProps;
 
 const ResetForm = (props: Props) => {
-
   const [handleStateStatus, setStateStatus] = useState<boolean>(false);
   const { cardState, resetState } = useCardStore(
     (state) => ({
       cardState: state.cardState,
       resetState: state.resetState,
     }),
-    shallow
+    shallow,
   );
 
   useEffect(() => {
     setStateStatus(shallowEqual(cardState, initialCardState));
-  }, [cardState])
+  }, [cardState]);
 
   return (
     <Box

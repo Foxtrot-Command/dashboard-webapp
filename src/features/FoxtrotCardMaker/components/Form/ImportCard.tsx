@@ -51,7 +51,7 @@ const ImportCard = () => {
       setImageSize: state.setImageSize,
       setEditorState: state.setEditorState,
     }),
-    shallow
+    shallow,
   );
 
   const handleImportSelection = (index: number) => {
@@ -100,7 +100,6 @@ const ImportCard = () => {
   };
 
   const getCardsData = async () => {
-
     const query = `
     query Decks {
       cards {
@@ -148,9 +147,9 @@ const ImportCard = () => {
       body: JSON.stringify({
         query,
       }),
-    })
+    });
     return response.json();
-  }
+  };
 
   const filteredCardData = cardData.filter((content: any) => {
     return (

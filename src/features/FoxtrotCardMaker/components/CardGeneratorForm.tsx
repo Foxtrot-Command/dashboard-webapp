@@ -1,6 +1,8 @@
-import React, { Suspense } from "react";
+"use client";
 
-import { Box, Checkbox, Divider, Flex } from "@chakra-ui/react";
+import React from "react";
+
+import { Box, Divider, Flex } from "@chakra-ui/react";
 import {
   AttackInput,
   DescriptionEditor,
@@ -14,8 +16,8 @@ import {
   TypeSelector,
 } from "features/FoxtrotCardMaker/components/Form";
 
-import ResetForm from "./Form/ResetForm";
 import FirstEditionCheckbox from "./Form/FirstEditionCheckbox";
+import ResetForm from "./Form/ResetForm";
 
 const CardGeneratorForm = () => {
   return (
@@ -73,7 +75,7 @@ const CardGeneratorForm = () => {
             >
               <FactionSelection />
               <RaritySelector />
-              <FirstEditionCheckbox/>
+              <FirstEditionCheckbox />
             </Flex>
           </Box>
           <Flex justify="flex-end" flexDirection="column">

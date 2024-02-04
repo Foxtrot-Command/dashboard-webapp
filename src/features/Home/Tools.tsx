@@ -1,3 +1,5 @@
+"use client";
+
 import { Flex } from "@chakra-ui/react";
 
 import { CardBoxElement, Section } from "./components";

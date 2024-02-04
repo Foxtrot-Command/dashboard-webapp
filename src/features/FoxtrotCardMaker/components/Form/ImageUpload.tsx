@@ -1,7 +1,14 @@
-import { PlusSquareIcon } from "@chakra-ui/icons";
-import { Box, Image as ChakraImage, Flex, Input, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Image as ChakraImage,
+  Flex,
+  Icon,
+  Input,
+  Text,
+} from "@chakra-ui/react";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
 import { Notify } from "notiflix";
+import { FaRegSquarePlus } from "react-icons/fa6";
 import shallow from "zustand/shallow";
 
 const ImageUpload = () => {
@@ -10,11 +17,11 @@ const ImageUpload = () => {
       cardImage: state.cardState.selectedImage,
       setImage: state.setImage,
     }),
-    shallow
+    shallow,
   );
 
   const imageHandler = (
-    event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+    event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
   ) => {
     if (event.target instanceof HTMLInputElement && event.target.files) {
       if (!event.target.files[0].type.match("image.*")) {
@@ -53,7 +60,7 @@ const ImageUpload = () => {
           justifyContent="space-between"
         >
           <Box as={Flex} gap={2} my="auto">
-            <PlusSquareIcon my="auto" />
+            <Icon as={FaRegSquarePlus} my="auto" />
             <Text whiteSpace="nowrap">Subir imagen</Text>
           </Box>
 

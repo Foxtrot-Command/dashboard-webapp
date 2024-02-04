@@ -1,3 +1,5 @@
+"use client";
+
 import { CardBoxElement, Section } from "./components";
 
 const Data = () => {

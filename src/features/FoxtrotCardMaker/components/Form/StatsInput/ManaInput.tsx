@@ -1,12 +1,11 @@
-import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
-import shallow from "zustand/shallow";
-
 import StatInputComponent from "./StatInputComponent";
 import useStatInput from "./useStatInput";
 
 const ManaInput = () => {
-
-  const {state:{stat}, actions: {onInputChange}} = useStatInput('mana');
+  const {
+    state: { stat },
+    actions: { onInputChange },
+  } = useStatInput("mana");
 
   return (
     <StatInputComponent

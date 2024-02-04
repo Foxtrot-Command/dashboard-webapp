@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 
-import { PlusSquareIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, Input, Switch } from "@chakra-ui/react";
 import useImageHandler from "common/hooks/useImageHandler";
 import { captureHtmlAndSavePng } from "common/utils";
 import Draggable, { DraggableProps } from "react-draggable";
 import { AiOutlineClose } from "react-icons/ai";
+import { FaRegSquarePlus } from "react-icons/fa6";
 
 interface ExtraBounds {
   bounds: {
@@ -67,7 +67,7 @@ const partnership = () => {
                   bg: "whiteAlpha.300",
                 }}
               >
-                <PlusSquareIcon /> Subir Logo del partner
+                <FaRegSquarePlus /> Subir Logo del partner
                 <Input
                   id="image-importer"
                   type="file"
@@ -167,7 +167,7 @@ const partnership = () => {
             />
 
             <DraggableBox
-            nodeRef={nodeRef}
+              nodeRef={nodeRef}
               bounds={{ top: -70, left: -50, right: 50, bottom: 60 }}
               grid={[10, 10]}
             >

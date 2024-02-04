@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 
 import { Box, Flex, Text } from "@chakra-ui/react";
@@ -5,9 +7,14 @@ import SliderOpacity from "common/components/SliderOpacity";
 import { DownloadButton } from "features/FoxtrotCardMaker/components";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
 import shallow from "zustand/shallow";
+
 import { RARITY_RGBA_COLORS } from "../constants/cards";
 
-const InstagramCardVariant = ({card}: {card: React.MutableRefObject<JSX.Element>}) => {
+const InstagramCardVariant = ({
+  card,
+}: {
+  card: React.MutableRefObject<JSX.Element>;
+}) => {
   const [sliderValue, setSliderValue] = useState(35);
   const [rarityRGBA, setRarityRGBA] = useState([255, 255, 255]);
 
@@ -17,14 +24,14 @@ const InstagramCardVariant = ({card}: {card: React.MutableRefObject<JSX.Element>
       cardRarity: state.cardState.rarity,
       selectedImage: state.cardState.selectedImage,
     }),
-    shallow
+    shallow,
   );
 
   useEffect(() => {
-    if(cardRarity) {
+    if (cardRarity) {
       setRarityRGBA(RARITY_RGBA_COLORS[cardRarity].join(","));
     }
-  }, [cardRarity])
+  }, [cardRarity]);
 
   return (
     <Flex

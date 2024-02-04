@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
 
 import {
@@ -13,13 +15,12 @@ import {
   Text,
 } from "@chakra-ui/react";
 import SliderOpacity from "common/components/SliderOpacity";
-import CardView from "features/FoxtrotCardMaker/components/CardView";
 import DownloadButton from "features/FoxtrotCardMaker/components/Form/DownloadButton";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
-import { rarityColorByRarityState } from "features/FoxtrotCardMaker/utils/cardHelper";
 import Draggable from "react-draggable";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import shallow from "zustand/shallow";
+
 import { RARITY_RGBA_COLORS } from "../constants/cards";
 
 const buttonArguments = {
@@ -31,14 +32,18 @@ const buttonArguments = {
   "---": -100,
 };
 
-const InstagramPostCardVariant = ({card}: {card: React.MutableRefObject<JSX.Element>}) => {
+const InstagramPostCardVariant = ({
+  card,
+}: {
+  card: React.MutableRefObject<JSX.Element>;
+}) => {
   const { cardName, selectedImage, cardRarity } = useCardStore(
     (state) => ({
       cardName: state.cardState.name,
       cardRarity: state.cardState.rarity,
       selectedImage: state.cardState.selectedImage,
     }),
-    shallow
+    shallow,
   );
 
   const [sliderValue, setSliderValue] = useState(60);
@@ -57,10 +62,10 @@ const InstagramPostCardVariant = ({card}: {card: React.MutableRefObject<JSX.Elem
   };
 
   useEffect(() => {
-    if(cardRarity) {
+    if (cardRarity) {
       setRarityRGBA(RARITY_RGBA_COLORS[cardRarity].join(","));
     }
-  }, [cardRarity])
+  }, [cardRarity]);
 
   const ToggleShowLogo = () => {
     setShowLogo((prevState) => !prevState);
@@ -215,7 +220,7 @@ const InstagramPostCardVariant = ({card}: {card: React.MutableRefObject<JSX.Elem
               >
                 <Draggable nodeRef={nodeRef}>
                   <Box
-                  ref={nodeRef}
+                    ref={nodeRef}
                     my="auto"
                     top={0}
                     bottom={0}

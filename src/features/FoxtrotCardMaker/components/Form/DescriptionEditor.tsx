@@ -10,7 +10,7 @@ import shallow from "zustand/shallow";
 
 const Editor = dynamic<EditorProps>(
   () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
-  { ssr: false }
+  { ssr: false },
 );
 
 const DescriptionEditor = () => {
@@ -19,7 +19,7 @@ const DescriptionEditor = () => {
       editorState: state.editorState,
       setEditorState: state.setEditorState,
     }),
-    shallow
+    shallow,
   );
 
   return (

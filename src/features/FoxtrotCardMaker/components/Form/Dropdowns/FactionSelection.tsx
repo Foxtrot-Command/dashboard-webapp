@@ -1,11 +1,14 @@
 import { Flex, HStack, Radio, RadioGroup } from "@chakra-ui/react";
 import { factionCheckbox } from "features/FoxtrotCardMaker/constants/cards";
 import { TCardFaction } from "features/FoxtrotCardMaker/types/cards";
+
 import useSelector from "./useSelector";
 
 const FactionSelection = () => {
-
-  const {state: cardFaction, actions: {onSelectorChange}} = useSelector("faction");
+  const {
+    state: cardFaction,
+    actions: { onSelectorChange },
+  } = useSelector("faction");
 
   return (
     <Flex direction="column" gap={4} w="100%" position="relative">

@@ -5,7 +5,7 @@ export const arcParameter = (
   largeArcFlag,
   sweepFlag,
   x,
-  y
+  y,
 ) => {
   return [
     rx,
@@ -54,7 +54,7 @@ export function generatePath({
 
   if (tr > 0) {
     data.push(
-      "A" + arcParameter(tr, tr, 0, 0, 1, x + width, (y as number) + tr)
+      "A" + arcParameter(tr, tr, 0, 0, 1, x + width, (y as number) + tr),
     );
   }
 

@@ -1,10 +1,9 @@
 import { Flex, Select } from "@chakra-ui/react";
 import { calculateDocumentSize } from "common/utils";
+import DownloadButton from "features/FoxtrotCardMaker/components/Form/DownloadButton";
 import { WRAPPER_ID } from "features/FoxtrotCardMaker/constants/cards";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
 import shallow from "zustand/shallow";
-
-import DownloadButton from "features/FoxtrotCardMaker/components/Form/DownloadButton";
 
 type Props = {
   imageSelector?: string;
@@ -14,7 +13,6 @@ const QualitySelector = ({
   imageSelector = WRAPPER_ID,
   allowSelectQuality = true,
 }: Props) => {
-
   const {
     imageSize,
     cardName,
@@ -33,12 +31,12 @@ const QualitySelector = ({
       setImageSize: state.setImageSize,
       setLoading: state.setLoading,
     }),
-    shallow
+    shallow,
   );
 
   const handleChangeQuality = async (
     quality: number,
-    imageSelector: string
+    imageSelector: string,
   ) => {
     setDownloadQuality(quality);
     setLoading({ qualityValue: true });
@@ -57,7 +55,7 @@ const QualitySelector = ({
       {allowSelectQuality && (
         <Select
           onChange={(
-            event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+            event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
           ) => handleChangeQuality(Number(event.target.value), imageSelector)}
         >
           <option defaultChecked={true} value="1">

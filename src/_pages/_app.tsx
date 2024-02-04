@@ -4,8 +4,8 @@ import Head from "next/head";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import "@fontsource/montserrat/latin.css";
 import Layout from "common/layout/BaseLayout";
+import fxdTheme from "common/setup/theme/FoxtrotTheme";
 import "common/setup/theme/globals.css";
-import fxdTheme from "common/setup/theme/FXDTheme";
 
 function App({ Component, pageProps }: AppProps) {
   return (

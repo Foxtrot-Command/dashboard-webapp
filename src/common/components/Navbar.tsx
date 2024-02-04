@@ -1,11 +1,7 @@
+"use client";
+
 import Link from "next/link";
 
-import {
-  ChevronDownIcon,
-  ChevronRightIcon,
-  CloseIcon,
-  HamburgerIcon,
-} from "@chakra-ui/icons";
 import {
   Avatar,
   AvatarBadge,
@@ -24,6 +20,7 @@ import {
   useBreakpointValue,
   useDisclosure,
 } from "@chakra-ui/react";
+import { FaAngleDown, FaAngleRight, FaBars, FaGears } from "react-icons/fa6";
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
@@ -50,7 +47,11 @@ export default function Navbar() {
           <IconButton
             onClick={onToggle}
             icon={
-              isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
+              isOpen ? (
+                <Icon as={FaGears} w={3} h={3} />
+              ) : (
+                <Icon as={FaBars} w={5} h={5} />
+              )
             }
             variant={"ghost"}
             aria-label={"Toggle Navigation"}
@@ -111,7 +112,6 @@ export default function Navbar() {
 }
 
 const DesktopNav = () => {
-
   return (
     <Stack direction={"row"} spacing={4}>
       {NAV_ITEMS.map((navItem) => (
@@ -188,7 +188,7 @@ const DesktopSubNav = ({ label, href = "", subLabel }: NavItem) => {
           align={"center"}
           flex={1}
         >
-          <Icon color={"neutrals.700"} w={5} h={5} as={ChevronRightIcon} />
+          <Icon color={"neutrals.700"} w={5} h={5} as={FaAngleRight} />
         </Flex>
       </Stack>
     </Box>
@@ -197,11 +197,7 @@ const DesktopSubNav = ({ label, href = "", subLabel }: NavItem) => {
 
 const MobileNav = () => {
   return (
-    <Stack
-      bg={"neutrals.500"}
-      p={4}
-      display={{ md: "none" }}
-    >
+    <Stack bg={"neutrals.500"} p={4} display={{ md: "none" }}>
       {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}
@@ -224,15 +220,12 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
           textDecoration: "none",
         }}
       >
-        <Text
-          fontWeight={600}
-          color="neutrals.200"
-        >
+        <Text fontWeight={600} color="neutrals.200">
           {label}
         </Text>
         {children && (
           <Icon
-            as={ChevronDownIcon}
+            as={FaAngleDown}
             transition={"all .25s ease-in-out"}
             transform={isOpen ? "rotate(180deg)" : ""}
             w={6}

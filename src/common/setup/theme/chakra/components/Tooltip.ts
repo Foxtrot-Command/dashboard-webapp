@@ -1,4 +1,4 @@
-import { ChakraTheme, cssVar, DeepPartial, theme } from "@chakra-ui/react";
+import { ChakraTheme, DeepPartial, cssVar } from "@chakra-ui/react";
 
 const $arrowBg = cssVar("popper-arrow-bg");
 const Tooltip: DeepPartial<ChakraTheme["components"]["Tooltip"]> = {
@@ -7,7 +7,7 @@ const Tooltip: DeepPartial<ChakraTheme["components"]["Tooltip"]> = {
     paddingX: "2",
     paddingY: "1",
     borderRadius: "4px",
-    [$arrowBg.variable]: "white"
+    [$arrowBg.variable]: "white",
   },
 };
 

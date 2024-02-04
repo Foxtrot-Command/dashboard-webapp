@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { rarityCheckbox } from "features/FoxtrotCardMaker/constants/cards";
 import { TCardRarity } from "features/FoxtrotCardMaker/types/cards";
+
 import useSelector from "./useSelector";
 
 type RadioCardType = {
@@ -23,7 +24,12 @@ function RadioCard({ label, color, children, ...props }: RadioCardType) {
   return (
     <Box as="label">
       <input {...getInputProps({})} hidden />
-      <Tooltip textTransform="capitalize" label={label} bg="neutrals.700" color="white">
+      <Tooltip
+        textTransform="capitalize"
+        label={label}
+        bg="neutrals.700"
+        color="white"
+      >
         <Box
           {...getCheckboxProps()}
           backgroundColor={color}
@@ -48,8 +54,10 @@ function RadioCard({ label, color, children, ...props }: RadioCardType) {
 }
 
 const RaritySelector = () => {
-
-  const {state: cardRarity, actions: {onSelectorChange}} = useSelector("rarity");
+  const {
+    state: cardRarity,
+    actions: { onSelectorChange },
+  } = useSelector("rarity");
 
   const { getRadioProps, getRootProps } = useRadioGroup({
     name: "rarities",

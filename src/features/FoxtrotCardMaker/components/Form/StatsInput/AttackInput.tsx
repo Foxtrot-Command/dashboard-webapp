@@ -2,7 +2,10 @@ import StatInputComponent from "./StatInputComponent";
 import useStatInput from "./useStatInput";
 
 const AttackInput = () => {
-  const {state:{stat}, actions: {onInputChange}} = useStatInput('attack');
+  const {
+    state: { stat },
+    actions: { onInputChange },
+  } = useStatInput("attack");
 
   return (
     <StatInputComponent

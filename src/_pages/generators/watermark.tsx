@@ -1,12 +1,12 @@
-import { PlusSquareIcon } from '@chakra-ui/icons';
-import { Box, Button, Flex, Image, Input } from '@chakra-ui/react';
-import useImageHandler from 'common/hooks/useImageHandler';
-import { captureHtmlAndSavePng } from 'common/utils';
-import React, { useState } from 'react';
-import { AiOutlineClose } from 'react-icons/ai';
+import React, { useState } from "react";
+
+import { Box, Button, Flex, Image, Input } from "@chakra-ui/react";
+import useImageHandler from "common/hooks/useImageHandler";
+import { captureHtmlAndSavePng } from "common/utils";
+import { AiOutlineClose } from "react-icons/ai";
+import { FaRegSquarePlus } from "react-icons/fa6";
 
 const WatermarkComponent: React.FC = () => {
-
   const { selectedImage, fileName, imageHandler } = useImageHandler();
 
   return (
@@ -45,10 +45,10 @@ const WatermarkComponent: React.FC = () => {
                   bg: "whiteAlpha.300",
                 }}
               >
-                <PlusSquareIcon /> Subir imagen
+                <FaRegSquarePlus /> Subir imagen
                 <Input
                   id="image-importer"
-                  key={selectedImage ? fileName : 'input'}
+                  key={selectedImage ? fileName : "input"}
                   type="file"
                   onChange={(e: any) => {
                     imageHandler(e);
@@ -75,10 +75,9 @@ const WatermarkComponent: React.FC = () => {
               captureHtmlAndSavePng({
                 id: "watermark_image",
                 name: fileName,
-                quality: 5
-              })
-            }
-            }
+                quality: 5,
+              });
+            }}
           >
             Guardar imagen
           </Button>
@@ -93,10 +92,8 @@ const WatermarkComponent: React.FC = () => {
           gap={3}
           p={5}
           backgroundImage="/images/generators/partnership/partnership_background.png"
-
         >
           <Box mx="auto" height="100%" width="auto">
-
             <svg
               style={{
                 width: "100%",
@@ -107,7 +104,7 @@ const WatermarkComponent: React.FC = () => {
               id="watermark_image"
               viewBox="60 0 649 1120"
             >
-              {selectedImage ?
+              {selectedImage ? (
                 <>
                   <g>
                     <image
@@ -122,7 +119,7 @@ const WatermarkComponent: React.FC = () => {
                   <g>
                     <image
                       type="MSBitmapLayer"
-                      alignmentBaseline='middle'
+                      alignmentBaseline="middle"
                       x={490}
                       y={520}
                       width={200}
@@ -132,12 +129,11 @@ const WatermarkComponent: React.FC = () => {
                     />
                   </g>
                 </>
-                : null}
+              ) : null}
             </svg>
           </Box>
         </Box>
       </Box>
-
     </Flex>
   );
 };

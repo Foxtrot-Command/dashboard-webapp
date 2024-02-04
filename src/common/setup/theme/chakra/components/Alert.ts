@@ -1,4 +1,4 @@
-import { ChakraTheme, DeepPartial, theme } from "@chakra-ui/react";
+import { ChakraTheme, DeepPartial } from "@chakra-ui/react";
 
 const Alert: DeepPartial<ChakraTheme["components"]["Alert"]> = {
   baseStyle: {
@@ -6,7 +6,7 @@ const Alert: DeepPartial<ChakraTheme["components"]["Alert"]> = {
       background: "neutrals.950",
       borderRadius: 4,
       border: "2px",
-      borderColor: 'neutrals.900',
+      borderColor: "neutrals.900",
       position: "relative",
       mx: "auto",
       marginRight: 3,
@@ -14,7 +14,7 @@ const Alert: DeepPartial<ChakraTheme["components"]["Alert"]> = {
     },
     icon: {
       color: "primary.500",
-    }
+    },
   },
   variants: {
     elegant: () => {
@@ -23,7 +23,7 @@ const Alert: DeepPartial<ChakraTheme["components"]["Alert"]> = {
           background: "neutrals.1000",
           borderRadius: 4,
           border: "2px",
-          borderColor: 'neutrals.900',
+          borderColor: "neutrals.900",
           position: "relative",
           mx: "auto",
           marginLeft: "6",
@@ -31,10 +31,10 @@ const Alert: DeepPartial<ChakraTheme["components"]["Alert"]> = {
         },
         icon: {
           color: "primary.500",
-        }
-      }
-    }
-  }
+        },
+      };
+    },
+  },
 };
 
 export default Alert;

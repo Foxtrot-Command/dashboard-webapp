@@ -1,18 +1,19 @@
 import { extendTheme } from "@chakra-ui/react";
 import {
-  fonts,
-  colors,
-  Modal,
   Button,
-  MenuTheme,
-  Input,
-  Tabs,
-  layerStyles,
-  Link,
-  Tooltip,
-  Switch,
   Drawer,
+  Input,
+  Link,
+  MenuTheme,
+  Modal,
+  Switch,
+  Tabs,
+  Tooltip,
+  colors,
+  fonts,
+  layerStyles,
 } from "common/setup/theme/chakra";
+
 import Alert from "./chakra/components/Alert";
 
 const borderRadius = {
@@ -29,7 +30,7 @@ const borderRadius = {
   },
 };
 
-const FXDTheme = extendTheme({
+const FoxtrotTheme = extendTheme({
   ...borderRadius,
 
   fonts,
@@ -44,7 +45,7 @@ const FXDTheme = extendTheme({
     Link,
     Tooltip,
     Switch,
-    Drawer
+    Drawer,
   },
   breakpoints: {
     sm: "30em",
@@ -77,4 +78,4 @@ const FXDTheme = extendTheme({
   },
 });
 
-export default FXDTheme;
+export default FoxtrotTheme;

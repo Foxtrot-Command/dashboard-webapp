@@ -1,40 +1,37 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from "react";
 
 import {
-  Flex,
   Box,
-  Heading,
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  Icon,
-  Text,
-  Input,
   Button,
+  Flex,
+  Heading,
+  Icon,
   IconButton,
-  useToast,
+  Image,
+  Input,
+  Table,
+  Tbody,
+  Td,
+  Text,
+  Tfoot,
+  Th,
+  Thead,
+  Tooltip,
+  Tr,
+  useBreakpointValue,
   useColorMode,
   useColorModeValue,
-  useBreakpointValue,
-  Image,
-  Tooltip,
-} from '@chakra-ui/react';
+  useToast,
+} from "@chakra-ui/react";
+import { CardFaction } from "features/FoxtrotCardMaker/constants/cards";
+import { cardData } from "features/FoxtrotCardMaker/utils/cardData";
+import { debounce } from "lodash";
+import { FaEdit, FaPlus, FaSearch, FaTrash } from "react-icons/fa";
 
-import { debounce } from 'lodash';
-
-import { FaEdit, FaTrash, FaPlus, FaSearch } from 'react-icons/fa';
-
-
-import { FormModal } from './components/FormModal';
-import { CardFaction } from 'features/FoxtrotCardMaker/constants/cards';
-import { cardData } from 'features/FoxtrotCardMaker/utils/cardData';
+import { FormModal } from "./components/FormModal";
 
 interface IUser {
-  id?: string
+  id?: string;
   name: string;
   email: string;
   createdAt?: string;
@@ -50,7 +47,7 @@ export default function CardCRUD() {
   const toast = useToast();
   const [page, setPage] = useState(1);
   const [user, setUser] = useState(null);
-  const [valueSearch, setValueSearch] = useState('');
+  const [valueSearch, setValueSearch] = useState("");
   const [isOpenFormModal, setIsOpenFormModal] = useState(false);
 
   const [cards, setCards] = useState([]);
@@ -65,7 +62,7 @@ export default function CardCRUD() {
     md: true,
   });
 
-  const asButton = useBreakpointValue({ base: IconButton, md: Button })
+  const asButton = useBreakpointValue({ base: IconButton, md: Button });
 
   /* useEffect(() => { getUsers(page) }, [page]) */
 
@@ -145,22 +142,25 @@ export default function CardCRUD() {
           updatedAt
         }
       }`,
-      variables: {}
+      variables: {},
     });
 
     const requestOptions: RequestInit = {
-      method: 'POST',
+      method: "POST",
       headers: myHeaders,
       body: graphql,
-      redirect: 'follow'
+      redirect: "follow",
     };
 
     try {
-      const response = await fetch("http://localhost:3000/graphql", requestOptions);
+      const response = await fetch(
+        "http://localhost:3000/graphql",
+        requestOptions,
+      );
       const result = await response.text();
       setCards(JSON.parse(result).data.cards);
     } catch (error) {
-      console.log('error', error);
+      console.log("error", error);
     }
   };
 
@@ -170,14 +170,7 @@ export default function CardCRUD() {
   }, []);
 
   return (
-    <Flex
-      w="100%"
-      maxWidth={1220}
-      mx="auto"
-      px="6"
-      my="6"
-      direction="column"
-    >
+    <Flex w="100%" maxWidth={1220} mx="auto" px="6" my="6" direction="column">
       <Button
         maxWidth={120}
         my="4"
@@ -203,11 +196,7 @@ export default function CardCRUD() {
           Gestión de cartas
         </Heading>
 
-        <Flex
-          justify="space-between"
-          align="center"
-          py="2"
-        >
+        <Flex justify="space-between" align="center" py="2">
           <Flex
             flex="1"
             direction="row"
@@ -221,7 +210,7 @@ export default function CardCRUD() {
               borderRadius="0"
               aria-label="search-card"
               icon={<Icon as={FaSearch} fontSize="16" />}
-            /* onClick={() =>  handleSearchUser(valueSearch)} */
+              /* onClick={() =>  handleSearchUser(valueSearch)} */
             />
 
             <Input
@@ -230,9 +219,9 @@ export default function CardCRUD() {
               focusBorderColor="green.500"
               placeholder="Buscar..."
               value={valueSearch}
-              onChange={e => {
+              onChange={(e) => {
                 /*  handleSearchUser(e.target.value) */
-                setValueSearch(e.target.value)
+                setValueSearch(e.target.value);
               }}
             />
           </Flex>
@@ -245,7 +234,7 @@ export default function CardCRUD() {
             fontSize="sm"
             colorScheme="green"
             leftIcon={<Icon as={FaPlus} fontSize="16" />}
-            icon={<Icon as={FaPlus} fontSize="16" />}
+            /* icon={<Icon as={FaPlus} fontSize="16" />} */
             title="Cadastrar Usuário"
           >
             {isMdVerison && <Text>Nueva carta</Text>}
@@ -258,11 +247,7 @@ export default function CardCRUD() {
           />
         </Flex>
 
-        <Box
-          border="1px"
-          borderRadius="sm"
-          borderColor={borderColor}
-        >
+        <Box border="1px" borderRadius="sm" borderColor={borderColor}>
           <Table size="sm">
             <Thead bg={colorMode === "light" ? "gray.200" : "gray.600"}>
               <Tr>
@@ -284,21 +269,49 @@ export default function CardCRUD() {
                 return (
                   <Tr key={id}>
                     <Td borderColor={borderColor}>
-                      <Tooltip variant="unestyled" label={
-                        <Image src={card?.art?.imageRoute} height="200px" />
-                      }>
-
+                      <Tooltip
+                        variant="unestyled"
+                        label={
+                          <Image src={card?.art?.imageRoute} height="200px" />
+                        }
+                      >
                         <Image src={card.art.imageRoute} height="40px" />
                       </Tooltip>
                     </Td>
                     <Td borderColor={borderColor}>{id}</Td>
-                    {isMdVerison && <Td borderColor={borderColor}>{card?.name}</Td>}
-                    {isLgVerison && <Td borderColor={borderColor}>{card?.settings?.stats?.attack}</Td>}
-                    {isLgVerison && <Td borderColor={borderColor}>{card?.settings?.stats?.mana}</Td>}
-                    {isLgVerison && <Td borderColor={borderColor}>{card?.settings?.stats?.health}</Td>}
-                    {isLgVerison && <Td borderColor={borderColor}>{card?.settings?.faction?.name}</Td>}
-                    {isLgVerison && <Td borderColor={borderColor}>{card?.description.substring(0, 10)}...</Td>}
-                    {isLgVerison && <Td borderColor={borderColor}>{card?.description.substring(0, 10)}...</Td>}
+                    {isMdVerison && (
+                      <Td borderColor={borderColor}>{card?.name}</Td>
+                    )}
+                    {isLgVerison && (
+                      <Td borderColor={borderColor}>
+                        {card?.settings?.stats?.attack}
+                      </Td>
+                    )}
+                    {isLgVerison && (
+                      <Td borderColor={borderColor}>
+                        {card?.settings?.stats?.mana}
+                      </Td>
+                    )}
+                    {isLgVerison && (
+                      <Td borderColor={borderColor}>
+                        {card?.settings?.stats?.health}
+                      </Td>
+                    )}
+                    {isLgVerison && (
+                      <Td borderColor={borderColor}>
+                        {card?.settings?.faction?.name}
+                      </Td>
+                    )}
+                    {isLgVerison && (
+                      <Td borderColor={borderColor}>
+                        {card?.description.substring(0, 10)}...
+                      </Td>
+                    )}
+                    {isLgVerison && (
+                      <Td borderColor={borderColor}>
+                        {card?.description.substring(0, 10)}...
+                      </Td>
+                    )}
                     <Td borderColor={borderColor}>
                       <Button
                         onClick={() => handleUpdateUser(card)}
@@ -307,7 +320,7 @@ export default function CardCRUD() {
                         size="sm"
                         fontSize="sm"
                         leftIcon={<Icon as={FaEdit} fontSize="16" />}
-                        icon={<Icon as={FaEdit} fontSize="16" />}
+                        /* icon={<Icon as={FaEdit} fontSize="16" />} */
                         title="Editar Usuário"
                       >
                         {isMdVerison && <Text>Editar</Text>}
@@ -320,15 +333,15 @@ export default function CardCRUD() {
                         size="sm"
                         fontSize="sm"
                         leftIcon={<Icon as={FaTrash} fontSize="16" />}
-                        icon={<Icon as={FaTrash} fontSize="16" />}
+                        /* icon={<Icon as={FaTrash} fontSize="16" />} */
                         title="Borrar carta"
-                      /* onClick={() => handleDeleteUser(user)} */
+                        /* onClick={() => handleDeleteUser(user)} */
                       >
                         {isMdVerison && <Text>Borrar</Text>}
                       </Button>
                     </Td>
                   </Tr>
-                )
+                );
               })}
             </Tbody>
 
@@ -345,5 +358,5 @@ export default function CardCRUD() {
         </Box>
       </Box>
     </Flex>
-  )
+  );
 }

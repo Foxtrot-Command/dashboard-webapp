@@ -5,11 +5,10 @@ const Drawer: DeepPartial<ChakraTheme["components"]["Drawer"]> = {
     dialog: {
       background: "white",
       border: "2px",
-      borderColor: 'primary.100',
+      borderColor: "primary.100",
       position: "relative",
     },
-
-  }
+  },
 };
 
 export default Drawer;

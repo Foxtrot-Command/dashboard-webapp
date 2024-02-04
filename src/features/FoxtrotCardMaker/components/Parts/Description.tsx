@@ -3,7 +3,7 @@ import React from "react";
 import { generatePath } from "common/utils/svg";
 import { Parser } from "html-to-react";
 
-const parser = new Parser();
+const parser = Parser();
 
 type Props = {
   children: React.ReactNode;
@@ -59,7 +59,7 @@ export const Description = ({ children, rich }: Props) => {
             {parser.parse(
               `<div class="text" style="vertical-align: middle; height: 100%; font-family: Montserrat">
             ${children}
-            </div>`
+            </div>`,
             )}
           </div>
         </foreignObject>

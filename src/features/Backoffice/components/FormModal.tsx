@@ -1,28 +1,24 @@
-import { useCallback, useEffect, useRef } from "react";
-
 import {
+  Box,
   Button,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
   ModalBody,
+  ModalCloseButton,
+  ModalContent,
   ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   useToast,
-  Box,
 } from "@chakra-ui/react";
 
-import { SubmitHandler, useForm } from 'react-hook-form';
-
-import { Input } from './Input';
+import { Input } from "./Input";
 
 type User = {
-  id: string,
+  id: string;
   name: string;
   email: string;
   createdAt: string;
-}
+};
 
 interface FormModalProps {
   user?: User | undefined | null;
@@ -30,45 +26,10 @@ interface FormModalProps {
   onClose: () => void;
 }
 
-let isLoading = false;
+const isLoading = false;
 
-
-
-export function FormModal({user = null, isOpen, onClose }: FormModalProps) {
-
-
-
+export function FormModal({ user = null, isOpen, onClose }: FormModalProps) {
   const toast = useToast();
-
-  const initialRef = useRef();
-  const finalRef = useRef();
-
-  const handleCreateUser: SubmitHandler<User> = useCallback(async (values) => {
-    isLoading = true;
-    let msg = undefined;
-
-    /* if(user) {
-      await updateUser({id:user.id, ...values})
-      msg = `Usuário ${values.name} alterado com sucesso.`;
-    } else {
-      await createUser(values);
-      msg = `Usuário ${values.name} salvo com sucesso.`;
-    } */
-
-    if(msg) {
-      toast({
-        description:msg,
-        status: "success",
-        position: "top",
-        duration: 4000,
-        isClosable: true,
-      });
-    }
-
-    onClose();
-
-    isLoading = false;
-  }, [toast, onClose]);
 
   return (
     <Modal
@@ -104,7 +65,7 @@ export function FormModal({user = null, isOpen, onClose }: FormModalProps) {
               isLoading={isLoading}
               colorScheme="green"
               type="submit"
-          >
+            >
               Guardar
             </Button>
 
@@ -113,5 +74,5 @@ export function FormModal({user = null, isOpen, onClose }: FormModalProps) {
         </Box>
       </ModalContent>
     </Modal>
-  )
+  );
 }

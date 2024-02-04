@@ -1,8 +1,7 @@
 import { EditorState } from "draft-js";
-import create from "zustand";
 import WritableDraft from "immer";
-import { devtools, persist } from "zustand/middleware";
-import { create as mutativeCreate } from 'mutative';
+import { create as mutativeCreate } from "mutative";
+import create from "zustand";
 
 import { CardFaction, CardRarity } from "../constants/cards";
 import { TCardFaction, TCardRarity, TCardType } from "../types/cards";
@@ -94,7 +93,7 @@ const store = (set: StoreSet) => ({
   },
   updateCardStateKey: (key: keyof CardState, value: never) => {
     set((state) => {
-      state.cardState[key] = value
+      state.cardState[key] = value;
     });
   },
   setCardState: (content: CardState) => {
@@ -137,7 +136,7 @@ const store = (set: StoreSet) => ({
     });
   },
   setDownloadQuality: (
-    downloadQuality: typeof initialCardState.downloadQuality
+    downloadQuality: typeof initialCardState.downloadQuality,
   ) => {
     set((state) => {
       state.cardState.downloadQuality = downloadQuality;

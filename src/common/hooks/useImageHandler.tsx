@@ -19,7 +19,10 @@ const useImageHandler = () => {
         setSelectedImage(e.target.result);
       };
 
-      const fileNameWithoutExtension = file.name.split('.').slice(0, -1).join('.');
+      const fileNameWithoutExtension = file.name
+        .split(".")
+        .slice(0, -1)
+        .join(".");
       setFileName(fileNameWithoutExtension);
 
       if (event.target instanceof HTMLInputElement && event.target.files) {

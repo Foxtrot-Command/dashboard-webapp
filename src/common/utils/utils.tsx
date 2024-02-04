@@ -52,23 +52,25 @@ export const captureHtmlAndSavePng = ({
   name: string;
   quality?: number;
 }) => {
-  htmlToImage.toPng(document.getElementById(id)!, {
-    quality: 1,
-    pixelRatio: quality,
-  }).then((dataUrl) => {
-    downloadURL(dataUrl, `${name.toLowerCase()}.png`);
-  })
+  htmlToImage
+    .toPng(document.getElementById(id)!, {
+      quality: 1,
+      pixelRatio: quality,
+    })
+    .then((dataUrl) => {
+      downloadURL(dataUrl, `${name.toLowerCase()}.png`);
+    });
 };
 
 export const hexToRgb = (hex) => {
-  if(!hex) return null;
+  if (!hex) return null;
 
   if (hex.length !== 7) return null;
 
   return hex
     .replace(
       /^#?([a-f\d])([a-f\d])([a-f\d])$/i,
-      (m: any, r: string, g: string, b: string) => "#" + r + r + g + g + b + b
+      (m: any, r: string, g: string, b: string) => "#" + r + r + g + g + b + b,
     )
     .substring(1)
     .match(/.{2}/g)
@@ -76,7 +78,7 @@ export const hexToRgb = (hex) => {
 };
 
 export const capitalize = (word: string) => {
-  return word.replace(/(^\w|\s\w)/g, m => m.toUpperCase());
+  return word.replace(/(^\w|\s\w)/g, (m) => m.toUpperCase());
 };
 
 type TObj = {

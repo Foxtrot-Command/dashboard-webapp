@@ -1,4 +1,4 @@
-import React from "react";
+"use client";
 
 import { BoxProps } from "@chakra-ui/react";
 import LoadingContent from "common/components/LoadingContent";
@@ -21,6 +21,7 @@ import {
 } from "features/FoxtrotCardMaker/constants/cards";
 import { useCardStore } from "features/FoxtrotCardMaker/stores/CardStore";
 import shallow from "zustand/shallow";
+
 import FirstEdition from "./Parts/FirstEdition";
 
 type Props = BoxProps & {
@@ -54,10 +55,10 @@ const CardView = ({ showFrame = true }: Props) => {
       selectedImage: state.cardState.selectedImage,
       editorState: state.editorState,
     }),
-    shallow
+    shallow,
   );
 
-  const frameFirstEditionPath = `${isFirstEdition ? '/firstEdition/' : '/'}`;
+  const frameFirstEditionPath = `${isFirstEdition ? "/firstEdition/" : "/"}`;
 
   return (
     <>
@@ -78,15 +79,16 @@ const CardView = ({ showFrame = true }: Props) => {
               image={`/images/parts/frames/${cardRarity?.toLowerCase()}${frameFirstEditionPath}${cardFaction?.toLowerCase()}.png`}
             />
 
-            {isFirstEdition && <FirstEdition/>}
+            {isFirstEdition && <FirstEdition />}
             <Mana value={cardMana} />
 
-            {cardType?.toLowerCase() !== CardType.TACTIC && cardType?.toLowerCase() !== CardType.EQUIPMENT && (
-              <>
-                <Health value={cardHealth} />
-                <Attack value={cardAttack} />
-              </>
-            )}
+            {cardType?.toLowerCase() !== CardType.TACTIC &&
+              cardType?.toLowerCase() !== CardType.EQUIPMENT && (
+                <>
+                  <Health value={cardHealth} />
+                  <Attack value={cardAttack} />
+                </>
+              )}
           </>
         )}
         <Type value={cardType} />

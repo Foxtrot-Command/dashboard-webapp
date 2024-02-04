@@ -1,4 +1,3 @@
-
 export const FirstEdtion = () => {
   const handleAmountPosition = (amount: number) => {
     if (Number(amount) === 11) return 50;

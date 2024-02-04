@@ -1,4 +1,4 @@
-import { ChakraTheme, DeepPartial, textDecoration } from "@chakra-ui/react";
+import { ChakraTheme, DeepPartial } from "@chakra-ui/react";
 
 const Link: DeepPartial<ChakraTheme["components"]["Link"]> = {
   baseStyle: {
@@ -6,8 +6,8 @@ const Link: DeepPartial<ChakraTheme["components"]["Link"]> = {
     textDecoration: "underline",
     _hover: {
       color: "primary.500",
-    }
-  }
+    },
+  },
 };
 
 export default Link;
