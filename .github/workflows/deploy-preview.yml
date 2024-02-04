@@ -20,9 +20,9 @@ jobs:
         with:
           node-version: 14.x
 
-      - run: yarn install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile
 
-      - run: yarn lint
+      - run: pnpm lint
       - name: Serverless Deploy
         id: serverless_deploy
         run: npx serverless@2.72.2 deploy --stage $GITHUB_REF_SLUG_URL

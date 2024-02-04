@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 14.x
 
-      - run: yarn install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile
 
       - name: Serverless Remove
         run: npx serverless@2.72.2 remove --stage $GITHUB_EVENT_REF_SLUG_URL
