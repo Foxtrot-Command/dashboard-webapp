@@ -22,7 +22,6 @@ import {
   Stack,
   Text,
   useBreakpointValue,
-  useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 
@@ -61,7 +60,7 @@ export default function Navbar() {
           <Text
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
             fontFamily={"heading"}
-            color={useColorModeValue("gray.800", "white")}
+            color="white"
           >
             <Link href="/">
               <Image style={{ width: "128px" }} src="/images/fxd_logo.svg" />
@@ -112,9 +111,6 @@ export default function Navbar() {
 }
 
 const DesktopNav = () => {
-  const linkColor = useColorModeValue("gray.600", "gray.200");
-  const linkHoverColor = useColorModeValue("gray.800", "white");
-  const popoverContentBgColor = useColorModeValue("white", "gray.800");
 
   return (
     <Stack direction={"row"} spacing={4}>
@@ -128,10 +124,10 @@ const DesktopNav = () => {
                 href={navItem.href ?? "#"}
                 fontSize={"sm"}
                 fontWeight={500}
-                color={linkColor}
+                color="dust.600"
                 _hover={{
                   textDecoration: "none",
-                  color: linkHoverColor,
+                  color: "dust.800",
                 }}
               >
                 {navItem.label}
@@ -142,7 +138,7 @@ const DesktopNav = () => {
               <PopoverContent
                 border={0}
                 boxShadow={"xl"}
-                bg={popoverContentBgColor}
+                bg="neutrals.500"
                 p={4}
                 rounded={"xl"}
                 minW={"sm"}
@@ -168,7 +164,7 @@ const DesktopSubNav = ({ label, href = "", subLabel }: NavItem) => {
       display={"block"}
       p={2}
       rounded={"md"}
-      _hover={{ bg: useColorModeValue("neutrals.100", "gray.900") }}
+      _hover={{ bg: "neutrals.900" }}
     >
       <Stack direction={"row"} align={"center"}>
         <Box cursor="pointer">
@@ -202,7 +198,7 @@ const DesktopSubNav = ({ label, href = "", subLabel }: NavItem) => {
 const MobileNav = () => {
   return (
     <Stack
-      bg={useColorModeValue("white", "gray.800")}
+      bg={"neutrals.500"}
       p={4}
       display={{ md: "none" }}
     >
@@ -230,7 +226,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
       >
         <Text
           fontWeight={600}
-          color={useColorModeValue("gray.600", "gray.200")}
+          color="neutrals.200"
         >
           {label}
         </Text>
@@ -251,7 +247,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
           pl={4}
           borderLeft={1}
           borderStyle={"solid"}
-          borderColor={useColorModeValue("gray.200", "gray.700")}
+          borderColor="neutrals.700"
           align={"start"}
         >
           {children &&

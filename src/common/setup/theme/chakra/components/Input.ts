@@ -33,7 +33,6 @@ const Input: DeepPartial<ChakraTheme["components"]["Input"]> = {
     md: {
       field: {
         borderRadius: '4px',
-        height: 12,
         fontSize: 'md',
       },
     },

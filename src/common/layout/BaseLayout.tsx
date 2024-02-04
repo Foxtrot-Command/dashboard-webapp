@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 import { Container } from "@chakra-ui/react";
 
-import Navbar from "../components/Common/Navbar";
+import Navbar from "../components/Navbar";
 
 type BaseLayoutProps = { children: ReactNode };
 

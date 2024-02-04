@@ -1,11 +1,11 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
 
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import "@fontsource/montserrat/latin.css";
 import Layout from "common/layout/BaseLayout";
-import "common/styles/theme/globals.css";
-import fxdTheme from "common/styles/theme/FXDTheme";
+import "common/setup/theme/globals.css";
+import fxdTheme from "common/setup/theme/FXDTheme";
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -21,6 +21,7 @@ function App({ Component, pageProps }: AppProps) {
           crossOrigin=""
         />
       </Head>
+      <ColorModeScript initialColorMode={fxdTheme.config.initialColorMode} />
       <ChakraProvider resetCSS theme={fxdTheme}>
         <Layout>
           <Component {...pageProps} />
