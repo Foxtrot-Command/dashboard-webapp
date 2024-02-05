@@ -37,6 +37,10 @@ export default function Navbar(props: NavbarProps) {
   const { isOpen, onToggle } = useDisclosure();
   const { session } = props;
 
+  if (!session) {
+    return null;
+  }
+
   return (
     <Box>
       <Flex
