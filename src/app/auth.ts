@@ -1,4 +1,4 @@
-import {  authConfig } from "../../auth.config";
+import { authConfig } from "../../auth.config";
 import AuthService from "common/services/graphql/AuthService";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -29,6 +29,18 @@ export const {
           return Promise.reject(new Error(responseData.errors[0].message));
 
         if (responseData.data) {
+
+          const payloadFromAccessToken = atob(responseData.data.loginWithEmail.accessToken?.split('.')[1]);
+
+          const allowedRoles = ['Admin', 'CardManager'];
+          const userRoles = JSON.parse(payloadFromAccessToken).roles;
+          if (
+            !allowedRoles
+              .some(role => userRoles.includes(role))
+          ) {
+            return Promise.reject('Wrong connection.');
+          }
+
           const user = {
             id: responseData.data.loginWithEmail.profile.uuid,
             email: payload.email,

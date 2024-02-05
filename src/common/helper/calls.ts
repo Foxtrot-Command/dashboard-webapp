@@ -1,6 +1,13 @@
+interface FetchOption {
+  timeout?: number;
+  next?: {
+    revalidate: number;
+  };
+}
+
 export const fetchWithTimeout = async (
   resource: string | URL | Request,
-  options: { timeout?: number } = {}
+  options: FetchOption = {}
 ) => {
   const { timeout = 8000 } = options;
 

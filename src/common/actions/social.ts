@@ -10,7 +10,7 @@ export async function telegramRequest(
 
   const parsedParams = new URLSearchParams(params);
   const url = `https://api.telegram.org/bot${token}/${method}?${parsedParams}`;
-  return fetchWithTimeout(url)
+  return fetchWithTimeout(url, { next: { revalidate: 60 * 5 } })
 }
 
 export async function getSocialPresence() {
@@ -22,7 +22,7 @@ export async function getSocialPresence() {
   ];
 
   try {
-    const discordResponse = fetchWithTimeout(discordUrl);
+    const discordResponse = fetchWithTimeout(discordUrl, { next: { revalidate: 60 * 5 } });
     const telegramResponses = telegramUrls.map(chat_id => telegramRequest("getChatMembersCount", {
       chat_id: chat_id,
     }));

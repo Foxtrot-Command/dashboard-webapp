@@ -1,6 +1,8 @@
 "use client";
 
+import { ROLES } from "common/constants/authentication";
 import { CardBoxElement, Section } from "./components";
+import { RELEASE_STATUS } from "./constants/tools";
 
 const Data = () => {
   return (
@@ -8,9 +10,9 @@ const Data = () => {
       <CardBoxElement
         identifier="DDBB"
         title="Datos de cartas"
-        color="red"
-        text="WIP"
+        text={RELEASE_STATUS.WIP}
         link="/backoffice/cards"
+        allowedRolesList={[ROLES.ADMIN, ROLES.CARD_MANAGER]}
       />
     </Section>
   );

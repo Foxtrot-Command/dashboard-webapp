@@ -26,17 +26,17 @@ export type UserAddress = {
   }
 }
 
-class UtilityService {
+class AssetsService {
 
   static context: any;
   static bearerToken: string;
 
   public async setContext(context: any) {
-    UtilityService.context = context;
+    AssetsService.context = context;
   }
 
   public async setBearerToken(bearerToken: string) {
-    UtilityService.bearerToken = bearerToken;
+    AssetsService.bearerToken = bearerToken;
   }
 
   public async getUserAddresses(): Promise<UserAddress> {
@@ -49,7 +49,7 @@ class UtilityService {
 
   public async getCards(): Promise<CardQuery> {
     const request = await RequestService.call<CardQueryFromGraphql>({
-      context: UtilityService.context,
+      context: AssetsService.context,
       authorization: false,
       body: {
         query: Cards,
@@ -61,8 +61,8 @@ class UtilityService {
 
   public async getUserCards(): Promise<UserCardsQuery> {
     const request = await RequestService.call<UserCardQueryFromGraphql>({
-      context: UtilityService.context,
-      bearerToken: UtilityService.bearerToken,
+      context: AssetsService.context,
+      bearerToken: AssetsService.bearerToken,
       authorization: true,
       body: {
         query: UserCards,
@@ -74,8 +74,8 @@ class UtilityService {
 
   public async SynUserNFTs(): Promise<Omit<Success, 'data'>> {
     const request = await RequestService.call<Success>({
-      context: UtilityService.context,
-      bearerToken: UtilityService.bearerToken,
+      context: AssetsService.context,
+      bearerToken: AssetsService.bearerToken,
       authorization: true,
       body: {
         query: `
@@ -90,4 +90,4 @@ class UtilityService {
   }
 }
 
-export default new UtilityService();
+export default new AssetsService();

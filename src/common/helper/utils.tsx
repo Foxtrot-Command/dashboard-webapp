@@ -17,13 +17,25 @@ export const calculateDocumentSize = async ({
   id: string;
   quality: number;
 }) => {
-  const dataUrl = await htmlToImage.toPng(document.getElementById(id)!, {
-    quality: 1,
-    pixelRatio: quality,
-  });
-  const base64str = dataUrl.substring(dataUrl.indexOf(",") + 1);
-  const decoded = Buffer.from(base64str, "base64");
-  return (decoded.length / 1000000).toFixed(2) + " MB";
+  try {
+    const element = document.getElementById(id);
+    if (!element) {
+      throw new Error(`Element with id ${id} not found.`);
+    }
+
+    const dataUrl = await htmlToImage.toPng(element, {
+      quality: 1,
+      pixelRatio: quality,
+    });
+
+    const base64str = dataUrl.substring(dataUrl.indexOf(",") + 1);
+    const decoded = Buffer.from(base64str, "base64");
+
+    return (decoded.length / 1000000).toFixed(2) + " MB";
+  } catch (error) {
+    console.error("Error calculating document size:", error);
+    return null;
+  }
 };
 
 const showImageInBlobFormat = (blob: Blob, title: string) => {

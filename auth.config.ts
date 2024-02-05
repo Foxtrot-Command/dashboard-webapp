@@ -54,7 +54,7 @@ export const authConfig = {
     }
   },
   pages: {
-    signIn: "/auth/login",
+    signIn: "/login",
     error: "/404",
   },
   debug: false/* process.env.NODE_ENV !== "production" */,

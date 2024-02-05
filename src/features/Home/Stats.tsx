@@ -63,7 +63,7 @@ const Stats = (props: StatsProps) => {
             </StatsCardBox>
 
             <StatsCardBox title="Discord" icon={FaDiscord}>
-              <StatElement label="Presencia total" followers={discordCounter} />
+              <StatElement label="Presencia actual" followers={discordCounter} />
             </StatsCardBox>
 
             <StatsCardBox title="Youtube" icon={FaYoutube}>

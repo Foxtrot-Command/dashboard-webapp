@@ -1,5 +1,5 @@
-import CardPage from "features/FoxtrotCardMaker/CardPage";
+import PartnershipPage from "features/Partnership/PartnershipPage";
 
 export default function Card() {
-  return <CardPage />;
+  return <PartnershipPage />;
 }

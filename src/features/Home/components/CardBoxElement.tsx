@@ -2,23 +2,30 @@
 
 import Link from "next/link";
 
-import { Badge, Box, Text } from "@chakra-ui/react";
+import { Badge, Box, Text, } from "@chakra-ui/react";
+import { tagReleaseColor } from "../constants/tools";
+import CardIdentifier from "./CardIdentifier";
 
-type Props = {
+type CardBoxElementProps = {
   identifier: string;
   title: string;
   link?: string | URL;
   text: string;
-  color: string;
+  color?: string;
+  allowedRolesList?: string | Array<string>;
 };
 
-const CardBoxElement = ({
-  identifier,
-  title,
-  link = "/",
-  text = "",
-  color = "purple",
-}: Props) => {
+const CardBoxElement = (props: CardBoxElementProps) => {
+
+  const {
+    identifier,
+    title,
+    link = "/",
+    text = "",
+    color,
+    allowedRolesList = "",
+  } = props;
+
   return (
     <Link href={link}>
       <Box
@@ -40,14 +47,10 @@ const CardBoxElement = ({
       >
         <Text fontWeight="bold">{title}</Text>
 
-        <Box position="absolute" left={4} top={2}>
-          <Text fontSize="13px" fontWeight="light">
-            {identifier}
-          </Text>
-        </Box>
+        <CardIdentifier identifier={identifier} allowedRolesList={allowedRolesList}/>
 
         <Box position="absolute" right={4} bottom={2}>
-          <Badge variant="subtle" colorScheme={color}>
+          <Badge variant="subtle" colorScheme={color ?? tagReleaseColor[text]}>
             {text}
           </Badge>
         </Box>

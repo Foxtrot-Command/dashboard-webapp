@@ -1,10 +1,11 @@
 import { EditorState } from "draft-js";
-import WritableDraft from "immer";
+import {Draft } from "immer";
 import { create as mutativeCreate } from "mutative";
-import create from "zustand";
+import { create } from 'zustand'
 
 import { CardFaction, CardRarity } from "../constants/cards";
 import { TCardFaction, TCardRarity, TCardType } from "../types/cards";
+import AssetsService from "common/services/graphql/AssetsService";
 
 interface CardState {
   name?: string;
@@ -27,6 +28,7 @@ interface LoadingState {
 }
 
 export interface CardStore {
+  cardList: Card[];
   cardState: CardState;
   loadingState: LoadingState;
   editorState: any;
@@ -36,7 +38,7 @@ export interface CardStore {
   setEditorState: (editor: EditorState) => void;
   setImageSize: (size: string) => void;
   setName: (name: string) => void;
-  setStats: (stat: any) => void;
+  setStats: (stat: string) => void;
   setType: (type: TCardType) => void;
   setRarity: (rarity: TCardRarity) => void;
   setFaction: (faction: TCardFaction) => void;
@@ -45,6 +47,7 @@ export interface CardStore {
   setDownloadQuality: (quality: number) => void;
   setLoading: (loading: LoadingState) => void;
   setFirstEdition: (value: boolean) => void;
+  getCardsList: () => void;
 }
 
 export const initialCardState: CardState = {
@@ -72,13 +75,25 @@ const defaultImageSize = "0 MB";
 export const mutative = (config) => (set, get) =>
   config((fn) => set(mutativeCreate(fn)), get);
 
-type StoreSet = (fn: (draft: typeof WritableDraft<CardStore>) => void) => void;
+type StoreSet = (fn: (draft: Draft<CardStore>) => void) => void;
 
-const store = (set: StoreSet) => ({
+const store = (set: StoreSet, get) => ({
+  cardList: [],
   cardState: initialCardState,
   loadingState: initialLoadingStatus,
   editorState: EditorState.createEmpty(),
   imageSize: defaultImageSize,
+  getCardsList: async () => {
+    let cardsData: { cards: Card[] } = { cards: [] };
+    if (get().cardList.length === 0) {
+      cardsData = await AssetsService.getCards();
+    }
+    set((state) => {
+      if (state.cardList.length === 0) {
+        state.cardList = cardsData.cards;
+      }
+    });
+  },
   resetState: () => {
     set((state) => {
       state.cardState = initialCardState;

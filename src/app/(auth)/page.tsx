@@ -3,9 +3,10 @@ import { Metadata } from "next";
 import { Box, Container } from "@chakra-ui/react";
 import { Data, Stats, Tools } from "features/Home";
 import { getSocialPresence } from "common/actions/social";
+import { auth } from "app/auth";
 
 export const metadata: Metadata = {
-  title: "Trading Card Game",
+  title: "Internal Dashboard",
 };
 
 export default async function HomePage() {

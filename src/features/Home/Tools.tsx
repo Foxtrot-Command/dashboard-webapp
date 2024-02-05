@@ -3,6 +3,7 @@
 import { Flex } from "@chakra-ui/react";
 
 import { CardBoxElement, Section } from "./components";
+import { RELEASE_STATUS } from "./constants/tools";
 
 const Tools = () => {
   return (
@@ -12,38 +13,33 @@ const Tools = () => {
           identifier="Generadores"
           title="Cartas + Redes sociales"
           link="/generators/card"
-          color="blue"
-          text="ESTABLE"
+          text={RELEASE_STATUS.STABLE}
         />
 
         <CardBoxElement
           identifier="Generadores"
           title="Partnership"
           link="/generators/partnership"
-          color="purple"
-          text="Beta"
+          text={RELEASE_STATUS.STABLE}
         />
 
         <CardBoxElement
           identifier="Generadores"
           title="Twitter Space"
           link="/generators/twitter_space"
-          color="purple"
-          text="Beta"
+          text={RELEASE_STATUS.BETA}
         />
 
         <CardBoxElement
           identifier="Generadores"
           title="Documento NDA"
-          color="red"
-          text="WIP"
+          text={RELEASE_STATUS.WIP}
         />
         <CardBoxElement
           identifier="Generadores"
           link="/generators/watermark"
           title="Marca de agua"
-          color="purple"
-          text="Beta"
+          text={RELEASE_STATUS.BETA}
         />
       </Flex>
     </Section>

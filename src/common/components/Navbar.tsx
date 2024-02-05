@@ -12,6 +12,10 @@ import {
   Icon,
   IconButton,
   Image,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -21,9 +25,17 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { FaAngleDown, FaAngleRight, FaBars, FaGears } from "react-icons/fa6";
+import { logout } from "common/actions/logout";
+import { Session } from "next-auth";
 
-export default function Navbar() {
+type NavbarProps = {
+  session: Session;
+}
+
+export default function Navbar(props: NavbarProps) {
+
   const { isOpen, onToggle } = useDisclosure();
+  const { session } = props;
 
   return (
     <Box>
@@ -79,28 +91,53 @@ export default function Navbar() {
           direction={"row"}
           spacing={6}
         >
-          {/* <Button
-                        as={'a'}
-                        fontSize={'sm'}
-                        fontWeight={400}
-                        variant={'link'}
-                        href={'#'}>
-                        Sign In
-                    </Button>
-                    <Button
-                        display={{ base: 'none', md: 'inline-flex' }}
-                        fontSize={'sm'}
-                        fontWeight={600}
-                        color={'white'}
-                        bg={'neutrals.700'}
-                        _hover={{
-                            bg: 'neutrals.300',
-                        }}>
-                        Sign Up
-                    </Button> */}
-          <Avatar size="sm">
-            <AvatarBadge boxSize="1.25em" bg="green.500" />
-          </Avatar>
+          <Menu>
+            <MenuButton p="0px">
+              <Avatar
+                _hover={{ cursor: 'pointer' }}
+                color="white"
+                name={session.account.user.alias}
+                size="sm"
+                w="40px"
+                h="40px"
+              />
+            </MenuButton>
+            <MenuList boxShadow="14px 17px 40px 4px rgba(112, 144, 176, 0.18)" p="0px" mt="10px" borderRadius="md" bg="white" border="none">
+              <Flex w="100%" mb="0px">
+                <Text
+                  ps="20px"
+                  pt="16px"
+                  pb="10px"
+                  w="100%"
+                  borderBottom="1px solid"
+                  borderColor="rgba(135, 140, 189, 0.3)"
+                  fontSize="sm"
+                  fontWeight="700"
+                  color="black">
+                  👋&nbsp; Hey, {session.account.user.alias}
+                </Text>
+              </Flex>
+              <Flex flexDirection="column" p="10px" color="neutrals.1000">
+                <MenuItem _hover={{ bg: 'none', color:"black" }} _focus={{ bg: 'none' }} borderRadius="8px" px="14px" backgroundColor="transparent">
+                  <Text fontSize="sm">Profile Settings</Text>
+                </MenuItem>
+                <MenuItem  _hover={{ bg: 'none', color:"black" }} _focus={{ bg: 'none' }} borderRadius="8px" px="14px"  backgroundColor="transparent">
+                  <Text fontSize="sm">Newsletter Settings</Text>
+                </MenuItem>
+                <MenuItem
+                  _hover={{ bg: 'none', color:"red.200" }}
+                  _focus={{ bg: 'none' }}
+                  color="red.400"
+                  borderRadius="8px"
+                  px="14px"
+                  backgroundColor="transparent"
+                  onClick={() => logout()}
+                >
+                  <Text fontSize="sm">Log out</Text>
+                </MenuItem>
+              </Flex>
+            </MenuList>
+          </Menu>
         </Stack>
       </Flex>
 

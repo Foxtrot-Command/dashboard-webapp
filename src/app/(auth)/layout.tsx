@@ -16,7 +16,7 @@ export default async function RootLayout({
 
   return (
     <React.Fragment>
-      <Navbar />
+      <Navbar session={session}/>
       {children}
     </React.Fragment>
   )

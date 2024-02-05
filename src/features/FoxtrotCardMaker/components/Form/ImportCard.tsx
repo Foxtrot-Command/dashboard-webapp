@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Badge,
@@ -27,6 +27,7 @@ import {
 } from "features/FoxtrotCardMaker/types/cards";
 import { cardData } from "features/FoxtrotCardMaker/utils/cardData";
 import shallow from "zustand/shallow";
+import AssetsService from "common/services/graphql/AssetsService";
 
 let htmlToDraft: any = null;
 if (typeof window === "object") {
@@ -38,18 +39,22 @@ const ImportCard = () => {
   const [searchValue, setSearchValue] = useState("");
 
   const {
+    cardList,
     downloadQuality,
     setCardState,
     setLoading,
     setImageSize,
     setEditorState,
+    getCardsList
   } = useCardStore(
     (state) => ({
+      cardList: state.cardList,
       downloadQuality: state.cardState.downloadQuality,
       setCardState: state.setCardState,
       setLoading: state.setLoading,
       setImageSize: state.setImageSize,
       setEditorState: state.setEditorState,
+      getCardsList: state.getCardsList
     }),
     shallow,
   );
@@ -59,21 +64,24 @@ const ImportCard = () => {
 
     setTimeout(() => {
       setLoading({ cardContent: true });
-      const { name, type, description, stats, faction, rarity, image } =
-        cardData[index];
+      const { name, descriptionPretty, settings, art } = cardList[index];
+
+      if(!settings) return;
+
+      const { faction, rarity, type, stats} = settings;
 
       setCardState({
         name: name,
         stats: {
-          mana: Number(stats.mana),
-          attack: stats.attack,
-          health: stats.health,
+          mana: Number(stats?.mana),
+          attack: Number(stats?.attack),
+          health: Number(stats?.health),
         },
-        faction: faction.toLowerCase() as TCardFaction,
-        rarity: rarity.toLowerCase() as TCardRarity,
-        type: type?.toLowerCase() as TCardType,
+        faction: faction?.name?.toLowerCase().replace('the ', '') as TCardFaction,
+        rarity: rarity?.name?.toLowerCase() as TCardRarity,
+        type: type?.[0]?.name?.toLowerCase() as TCardType,
         downloadQuality: downloadQuality,
-        selectedImage: image,
+        selectedImage: art?.imageRoute,
         isFirstEdition: false,
       });
 
@@ -82,11 +90,11 @@ const ImportCard = () => {
         id: WRAPPER_ID,
         quality: downloadQuality,
       }).then((data) => {
-        setImageSize(data);
+        setImageSize("0mb");
         setLoading({ qualityValue: false });
       });
 
-      const contentBlock = htmlToDraft(description);
+      const contentBlock = htmlToDraft(descriptionPretty);
       if (contentBlock) {
         const contentState = ContentState.createFromBlockArray(contentBlock);
         const editorState = EditorState.createWithContent(contentState);
@@ -99,59 +107,14 @@ const ImportCard = () => {
     }, 200);
   };
 
-  const getCardsData = async () => {
-    const query = `
-    query Decks {
-      cards {
-        id,
-        name,
-        descriptionPretty,
-        season,
-        art {
-            imageRoute,
-            modelRoute
-        },
-        settings {
-          type {
-              name,
-              description
-          },
-          skills {
-                description,
-                name
-          }
-          stats {
-              mana,
-              attack,
-              health
-          },
-           rarity {
-               name,
-               color
-           },
-           faction {
-               name,
-               description,
-               color
-           }
-        }
-      }
-  }`;
+  useEffect(() => {
+    if (cardList.length === 0) {
+      getCardsList();
+    }
 
-    const response = await fetch("https://graphql.foxtrotcommand.com/graphql", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        query,
-      }),
-    });
-    return response.json();
-  };
+  }, [])
 
-  const filteredCardData = cardData.filter((content: any) => {
+  const filteredCardData = cardList.filter((content: any) => {
     return (
       content.name.toLowerCase().includes(searchValue.toLowerCase()) ||
       content.faction.toLowerCase().includes(searchValue.toLowerCase())
@@ -160,7 +123,7 @@ const ImportCard = () => {
 
   return (
     <>
-      <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+      <Modal blockScrollOnMount={true} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay id="import-modal" />
         <ModalContent>
           <ModalHeader>Lista de Cartas</ModalHeader>
@@ -175,8 +138,8 @@ const ImportCard = () => {
                 setSearchValue(event.target.value)
               }
             ></Input>
-            <Flex direction="column" gap={2} mt={4}>
-              {filteredCardData.map(({ name, faction }, index: number) => (
+            <Flex direction="column" gap={2} mt={4} overflowY="auto" maxHeight="500px">
+              {filteredCardData.map(({ name, settings }, index: number) => (
                 <Box
                   key={index}
                   background="whiteAlpha.200"
@@ -196,7 +159,7 @@ const ImportCard = () => {
                         EN
                       </Badge>
                       <Badge variant="outline" colorScheme="success">
-                        {faction}
+                        {settings?.faction?.name}
                       </Badge>
                     </Box>
                   </Flex>
