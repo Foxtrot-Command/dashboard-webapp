@@ -1,3 +1,5 @@
+'use server'
+
 interface FetchOption {
   timeout?: number;
   next?: {
