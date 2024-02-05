@@ -100,7 +100,7 @@ export default function Navbar(props: NavbarProps) {
               <Avatar
                 _hover={{ cursor: 'pointer' }}
                 color="white"
-                name={session.account.user.alias}
+                name={session?.account?.user?.alias}
                 size="sm"
                 w="40px"
                 h="40px"
@@ -118,7 +118,7 @@ export default function Navbar(props: NavbarProps) {
                   fontSize="sm"
                   fontWeight="700"
                   color="black">
-                  👋&nbsp; Hey, {session.account.user.alias}
+                  👋&nbsp; Hey, {session?.account?.user?.alias}
                 </Text>
               </Flex>
               <Flex flexDirection="column" p="10px" color="neutrals.1000">
