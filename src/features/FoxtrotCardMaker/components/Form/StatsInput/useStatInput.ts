@@ -13,7 +13,7 @@ function useStatInput(selector: SelectorProp) {
 
   const onInputChange = (event) => {
     setActualStat(event);
-    setStats({ [selector]: event });
+    setStats({ [selector]: event } as any);
   };
 
   useEffect(() => {

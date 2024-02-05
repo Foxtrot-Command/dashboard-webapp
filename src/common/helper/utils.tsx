@@ -34,7 +34,7 @@ export const calculateDocumentSize = async ({
     return (decoded.length / 1000000).toFixed(2) + " MB";
   } catch (error) {
     console.error("Error calculating document size:", error);
-    return null;
+    return "0 mb";
   }
 };
 
